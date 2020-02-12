@@ -1,0 +1,21 @@
+env:
+  browser: true
+  commonjs: true
+  es6: true
+extends:
+  - 'airbnb'
+  - 'prettier'
+  - 'plugin:node/recommended'
+plugins:
+  - 'prettier'
+rules:
+  prettier/prettier: warn
+  no-unused-vars: warn
+  no-console: 'off'
+  func-names: 'off'
+  object-shorthand: warn
+  class-methods-use-this: 'off'
+  spaced-comment: warn
+  consistent-return: 'off'
+  no-process-exit: warn
+  prefer-destructuring: warn
