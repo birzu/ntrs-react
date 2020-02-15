@@ -50,8 +50,7 @@ exports.getOne = (Model, config) => {
 
     if (!doc)
       return next(
-        new AppError(400),
-        `${config.resourceName} with ${id} does not exist`
+        new AppError(404, `${config.resourceName} with id ${id} not found`)
       );
     res.status(200).json({
       status: 'success',
@@ -77,7 +76,7 @@ exports.updateOne = (Model, config) => {
 
     if (!updatedDoc)
       return next(
-        new AppError(400, `${config.resourceName} with ${id} does not exist`)
+        new AppError(404, `${config.resourceName} with id ${id} not found`)
       );
 
     res.status(200).json({
@@ -100,7 +99,7 @@ exports.deleteOne = (Model, config) => {
 
     if (!doc)
       return next(
-        new AppError(400, `${config.resourceName} with ${id} does not exist`)
+        new AppError(404, `${config.resourceName} with id ${id} not found`)
       );
     res.status(204).json({
       status: 'success',

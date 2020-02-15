@@ -35,7 +35,7 @@ module.exports = (err, req, res, next) => {
   const error = handleDatabaseError(err);
   switch (process.env.NODE_ENV) {
     case 'development':
-      handleErrorDev(error, res);
+      handleErrorDev(err, res);
       break;
     case 'production':
       handleErrorProd(error, res);
