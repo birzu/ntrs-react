@@ -92,7 +92,6 @@ const validateRefreshToken = async (user, req, res) => {
     // but refreshToken is of a previous version
     // create a new refresh token and store as cookie
     await createRefreshTokenAndSendCookie(user, res);
-    console.log('I RAN');
   } catch (error) {
     // TODO: handle error
     return console.log(error);
@@ -135,7 +134,6 @@ const sendOnSuccessfulLogin = (accessToken, user, res) => {
 
 // revoke token refreshToken
 const revokeRefreshTokens = async userId => {
-  console.log('i ran');
   await User.findByIdAndUpdate(userId, { $inc: { tokenVersion: 1 } });
 };
 
