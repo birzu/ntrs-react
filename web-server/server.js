@@ -1,11 +1,6 @@
 const path = require('path');
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const app = require('./app');
-// const { shutdown } = require('./utils/utils.server');
-
-// development env config
-dotenv.config({ path: path.join(__dirname, 'config.env') });
 
 // CONSTANTS
 const PORT = process.env.PORT || 4000;
@@ -74,6 +69,7 @@ process.on('uncaughtException', err => {
 
 // respond to unhandledRejection
 process.on('unhandledRejection', err => {
+  console.log(err);
   console.log(
     `[${new Date().toISOString()}]: [unhandledRejection] [ERROR] ${err.name}, ${
       err.message
@@ -97,5 +93,3 @@ process.on('SIGINT', () => {
   );
   shutdown();
 });
-
-module.exports = server;

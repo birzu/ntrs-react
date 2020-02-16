@@ -67,7 +67,13 @@ const userSchema = new mongoose.Schema({
   },
   isActive: {
     type: Boolean,
-    default: true
+    default: true,
+    select: false
+  },
+  tokenVersion: {
+    type: Number,
+    default: 0,
+    select: false
   }
 });
 
@@ -75,6 +81,12 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.compareHash = function(candidate, hash) {
   return bcrypt.compare(candidate, hash);
 };
+
+// userSchema.methods.incrementTokenVersion = async function(userId) {
+//   await this.model('User').findByIdAndUpdate(userId, {
+//     $inc: { tokenVersion: 1 }
+//   });
+// };
 
 // DOCUMENT MIDDLEWARES
 
@@ -101,6 +113,13 @@ userSchema.pre('save', function(next) {
   if (!this.isModified('password') || this.isNew) return next();
   // update the passwordChangedAt field
   this.passwordChangedAt = Date.now() - 1500;
+  next();
+});
+
+// QUERY MIDDLEWARES
+// pre-find hooks
+userSchema.pre(/find/, function(next) {
+  this.find({ isActive: { $ne: false } }).select('-__v');
   next();
 });
 
