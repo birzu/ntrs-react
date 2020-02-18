@@ -12,7 +12,7 @@ const createRefreshTokenAndSendCookie = async (user, res) => {
   });
   sendCookie(res, {
     cookie: refreshToken,
-    cookieName: 'llaid',
+    cookieName: 'rid',
     options: {
       maxAge: 30 * 86400 * 1000,
       httpOnly: true
@@ -25,7 +25,7 @@ const createAccessTokenAndSendCookie = async (user, res) => {
   const accessToken = await auth.createAccessToken({ id: user.id });
   sendCookie(res, {
     cookie: accessToken,
-    cookieName: 'slaid',
+    cookieName: 'access_token',
     options: {
       maxAge: 15 * 60 * 60 * 1000,
       httpOnly: true
@@ -34,23 +34,6 @@ const createAccessTokenAndSendCookie = async (user, res) => {
   });
   return accessToken;
 };
-// // create access token
-// const createToken = (payload, secret, options) => {
-//   if (options.tokenType === 'refresh') {
-//     return promisify(jwt.sign)(payload, process.env.REFRESH_TOKEN_SECRET, {
-//       expiresIn: options.expiresIn
-//     });
-//   }
-//   if (options.tokenType === 'access') {
-//     return promisify(jwt.sign)(payload, process.env.ACCESS_TOKEN_SECRET, {
-//       expiresIn: options.expiresIn
-//     });
-//   }
-// };
-
-// const verifyToken = (token, secret) => {
-//   return promisify(jwt.verify)(token, secret);
-// };
 
 // validate user is active and password not changed after token assignment on login
 const verifyUserExist = async (decoded, req, next) => {
@@ -79,10 +62,10 @@ const verifyUserExist = async (decoded, req, next) => {
 // TO RECIVE A REFRESH TOKEN AND TO REGENERATE A REFRESH TOKEN
 const validateRefreshToken = async (user, req, res) => {
   try {
-    const { llaid } = req.cookies;
-    if (!llaid) return;
+    const { rid } = req.cookies;
+    if (!rid) return;
     const decoded = await auth.verifyToken(
-      llaid,
+      rid,
       process.env.REFRESH_TOKEN_SECRET
     );
     if (!decoded) return;
@@ -112,7 +95,12 @@ const validateUserCredentialsAndRespond = async (
   );
 
   if (!validPassword)
-    return next(new AppError(400, 'Invalid email or password'));
+    return next(
+      new AppError(
+        401,
+        'Incorrect email or password while loging in, please try again'
+      )
+    );
 
   // on validation success send a new accessToken
   const accessToken = createAccessTokenAndSendCookie(user, res);
@@ -126,8 +114,13 @@ const sendOnSuccessfulLogin = (accessToken, user, res) => {
     message: 'login successful',
     accessToken,
     data: {
-      // eslint-disable-next-line no-underscore-dangle
-      user: { ...user._doc, password: undefined, __v: undefined }
+      user: {
+        // eslint-disable-next-line no-underscore-dangle
+        ...user._doc,
+        tokenVersion: undefined,
+        password: undefined,
+        __v: undefined
+      }
     }
   });
 };
@@ -139,14 +132,14 @@ const revokeRefreshTokens = async userId => {
 
 const restoreRefreshToken = async (user, req, res) => {
   // FOR 1ST TIME LOGIN OR IF THE REFRESH TOKEN DOES NOT EXIST CREATE A NEW REFRESH TOKEN
-  const { llaid } = req.cookies;
-  if (!llaid) {
+  const { rid } = req.cookies;
+  if (!rid) {
     // assign refresh token if 1st time login or cookie has expired
     await createRefreshTokenAndSendCookie(user, res);
-  } else if (llaid) {
+  } else if (rid) {
     // assign refresh token if cookie has expired
     try {
-      await auth.verifyToken(llaid, process.env.REFRESH_TOKEN_SECRET);
+      await auth.verifyToken(rid, process.env.REFRESH_TOKEN_SECRET);
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
         await createRefreshTokenAndSendCookie(user, res);
@@ -191,12 +184,27 @@ const signUserWith = async (loginType, credentials, req, res, next) => {
     sendOnSuccessfulLogin(accessToken, user, res);
   }
 };
+
+const sendNewAccessToken = async (res, config) => {
+  // check if refresh_token is valid
+  const decoded = await auth.verifyToken(
+    config.refreshToken,
+    process.env.REFRESH_TOKEN_SECRET
+  );
+
+  if (decoded) {
+    const id = config.userId || decoded.id;
+    const user = await User.findById(id).select('+tokenVersion');
+    // if user exist, refresh token is valid and tokenVersion matches
+    if (user && decoded && decoded.version === user.tokenVersion) {
+      await createAccessTokenAndSendCookie(user, res);
+    }
+  }
+};
+
 exports.auth = auth;
-exports.createAccessTokenAndSendCookie = createAccessTokenAndSendCookie;
-exports.createRefreshTokenAndSendCookie = createRefreshTokenAndSendCookie;
 exports.verifyUserExist = verifyUserExist;
-exports.validateRefreshToken = validateRefreshToken;
-exports.validateUserCredentialsAndRespond = validateUserCredentialsAndRespond;
+exports.sendNewAccessToken = sendNewAccessToken;
 exports.sendOnSuccessfulLogin = sendOnSuccessfulLogin;
 exports.revokeRefreshTokens = revokeRefreshTokens;
 exports.signUserWith = signUserWith;

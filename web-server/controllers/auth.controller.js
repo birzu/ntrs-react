@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
@@ -5,8 +6,8 @@ const { catchAsyncError } = require('../utils/utils.functions');
 const {
   verifyUserExist,
   auth,
-  createAccessTokenAndSendCookie,
-  signUserWith
+  signUserWith,
+  sendNewAccessToken
 } = require('../utils/utils.auth');
 
 exports.register = catchAsyncError(async (req, res, next) => {
@@ -38,33 +39,37 @@ exports.register = catchAsyncError(async (req, res, next) => {
 
 // middleware for signin endpoint
 exports.signin = catchAsyncError(async (req, res, next) => {
-  // get the required values from req.body
-  const { email, username, password } = req.body;
-  // perform a check where password must exist and either
-  // email or username is provided
-  if (!(email || username) || !password)
-    return next(
-      new AppError(
-        400,
-        'Please provide valid credentials(an username or email and password) for login'
-      )
-    );
-  // if email and username both specified on request return with next(err) call
-  if (email && username)
-    return next(
-      new AppError(
-        400,
-        'Please provide either username or email with password to login, but not both'
-      )
-    );
+  try {
+    // get the required values from req.body
+    const { email, username, password } = req.body;
+    // perform a check where password must exist and either
+    // email or username is provided
+    if (!(email || username) || !password)
+      return next(
+        new AppError(
+          400,
+          'Please provide valid credentials(an username or email and password) for login'
+        )
+      );
+    // if email and username both specified on request return with next(err) call
+    if (email && username)
+      return next(
+        new AppError(
+          400,
+          'Please provide either username or email with password to login, but not both'
+        )
+      );
 
-  // sign user with correct login type
-  // with username and password if provided
-  // of with email and password if provided
-  if (email && password) {
-    await signUserWith('email', { email, password }, req, res, next);
-  } else if (username && password) {
-    await signUserWith('username', { username, password }, req, res, next);
+    // sign user with correct login type
+    // with username and password if provided
+    // of with email and password if provided
+    if (email && password) {
+      await signUserWith('email', { email, password }, req, res, next);
+    } else if (username && password) {
+      await signUserWith('username', { username, password }, req, res, next);
+    }
+  } catch (error) {
+    console.log(error.name, error.message);
   }
 });
 
@@ -72,7 +77,7 @@ exports.signin = catchAsyncError(async (req, res, next) => {
 exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   // if token is not present in either cookie or Authorization header
   // return with next(err) call
-  if (!req.headers.authorization && !req.cookies.slaid)
+  if (!req.headers.authorization && !req.cookies.access_token)
     return next(
       new AppError(
         400,
@@ -83,23 +88,24 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
   let token;
   let decoded;
   // 1st check (cookie)
-  const { slaid } = req.cookies;
+  const { access_token } = req.cookies;
   // 2nd check (header)
   const { authorization } = req.headers;
   // if cookie doesn't exist  and authorization header is not in proper format
   // return with next(err) call
-  if (!slaid && !authorization.startsWith('Bearer ')) {
+  if (!access_token && !authorization.startsWith('Bearer ')) {
     return next(
       new AppError(400, 'Invalid credentials, please login and try again')
     );
   }
 
-  if (slaid) {
-    token = slaid;
+  if (access_token) {
+    token = access_token;
     decoded = await auth.verifyToken(token, process.env.ACCESS_TOKEN_SECRET);
     await verifyUserExist(decoded, req, next);
     next();
   } else if (authorization && authorization.startsWith('Bearer ')) {
+    // eslint-disable-next-line prefer-destructuring
     token = authorization.split(' ')[1];
     decoded = await auth.verifyToken(token, process.env.ACCESS_TOKEN_SECRET);
     await verifyUserExist(decoded, req, next);
@@ -113,38 +119,46 @@ exports.handleRefreshTokens = async (req, res, next) => {
    * CASES WHERE REFRESH TOKEN WILL GENERATE A NEW ACCESS TOKEN
    * -- refresh Token is valid and access token has expired
    */
-  const { llaid, slaid } = req.cookies;
-  if (!llaid || !slaid) return next();
-  try {
-    // try to verify the accessToken and see if it has expired
-    await auth.verifyToken(slaid, process.env.ACCESS_TOKEN_SECRET);
-  } catch (error) {
-    // issue an new accessToken if the token has expired but valid
-    if (error.name === 'TokenExpiredError') {
-      try {
-        const { id } = jwt.decode(slaid);
-        const decoded = await auth.verifyToken(
-          llaid,
-          process.env.REFRESH_TOKEN_SECRET
-        );
-        const user = await User.findById(id);
-        // if user exist, refresh token is valid and tokenVersion matches
-        if (
-          user &&
-          decoded &&
-          user.id === decoded.id &&
-          decoded.version === user.tokenVersion
-        ) {
-          console.log(user, decoded, decoded.version);
-          await createAccessTokenAndSendCookie(user, res);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      throw new Error(error);
+  console.log(req.originalUrl);
+  const { rid, access_token } = req.cookies;
+  if (!rid) return next();
+
+  // if refreshToken in rid is valid and request doesn't have a access_token as cookie
+  // send a new cookie with access_token
+  if (!access_token) {
+    try {
+      await sendNewAccessToken(res, { refreshToken: rid });
+      // after sending new access token rediret to original url
+      // so that the new cookie doesn't conflict with protectRoutes middlewares
+      return res.redirect(req.originalUrl);
+    } catch (error) {
+      console.log(error.name);
     }
-  } finally {
-    next();
+  } else if (access_token) {
+    // if refreshToken and access_token both exist
+    try {
+      // try to verify the accessToken and see if it has expired
+      await auth.verifyToken(access_token, process.env.ACCESS_TOKEN_SECRET);
+    } catch (error) {
+      // issue an new accessToken if the token has expired but valid
+      if (error.name === 'TokenExpiredError') {
+        try {
+          const { id } = jwt.decode(access_token);
+          console.log(id);
+          await sendNewAccessToken(res, { refreshToken: rid });
+          return res.redirect(req.originalUrl);
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        console.log('I rna');
+        throw new Error(error);
+      }
+    }
   }
+  // at this point next only gets called if their is any error
+  // like malformed jwt or invalid userId or user does not exist
+  // because on successful accessToken reassign the request gets redirected
+  // to the originalUrl
+  next();
 };

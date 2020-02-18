@@ -30,7 +30,10 @@ class Auth {
 
   // default access token creator
   createAccessToken(payload) {
-    return this.createToken(payload, { tokenType: 'access', expiresIn: '15m' });
+    return this.createToken(payload, {
+      tokenType: 'access',
+      expiresIn: '15m'
+    });
   }
 
   // default refresh token creator
