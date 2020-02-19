@@ -117,9 +117,11 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
 exports.handleRefreshTokens = async (req, res, next) => {
   /**
    * CASES WHERE REFRESH TOKEN WILL GENERATE A NEW ACCESS TOKEN
+   * -- cookie obj contains the refresh token(alias: rid)
+   * -- refresh Token is valid and there is no access token in cookies
    * -- refresh Token is valid and access token has expired
+   *
    */
-  console.log(req.originalUrl);
   const { rid, access_token } = req.cookies;
   if (!rid) return next();
 
@@ -151,7 +153,6 @@ exports.handleRefreshTokens = async (req, res, next) => {
           console.log(err);
         }
       } else {
-        console.log('I rna');
         throw new Error(error);
       }
     }

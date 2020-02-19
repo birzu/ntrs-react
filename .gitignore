@@ -8,3 +8,7 @@ npm_debug.log*
 # env files
 .env
 *.env
+# Runtime data
+pids
+*.pid
+*.seed

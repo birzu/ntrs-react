@@ -1,0 +1,20 @@
+.git
+node_modules
+# do not allow docker-compose*.yml 
+# Dockerfile and readme.md is optional
+*Dockerfile*
+*docker-compose*
+.npm
+# node_modules
+node_modules
+# log files
+logs
+*.log*
+npm_debug.log*
+# env files
+.env
+*.env
+# Runtime data
+pids
+*.pid
+*.seed
