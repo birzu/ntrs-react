@@ -74,6 +74,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
     select: false
+  },
+  resetToken: {
+    type: String,
+    select: false
+  },
+  resetTokenExpiresAt: {
+    type: Date,
+    select: false
   }
 });
 

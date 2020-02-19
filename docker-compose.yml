@@ -9,9 +9,12 @@ services:
       - '8080:8080' # dashboard
     command:
       # api settings
-      - --api.insecure=true
+      #- --api.insecure=true
+      - --api=true
       - --api.dashboard=true
       - --api.debug=true
+      # log setting
+      - --log.level=INFO
       # provider settings
       - --providers.docker
       - --providers.docker.exposedbydefault=false
@@ -23,11 +26,15 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - ntrs-react-web
-    #labels:
-    # define the rules of the traefik proxy for this container
-    # - 'traefik.enable=true'
-    # - 'traefik.http.routers.api.rule=Host(`traefik.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))'
-    # - 'traefik.http.routers.api.service=api@internal'
+    labels:
+      #define the rules of the traefik proxy for this container
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.api.rule=Host(`monitor.localhost`)'
+      - 'traefik.http.routers.api.service=api@internal'
+      - 'traefik.http.routers.api.middlewares=auth'
+      - 'traefik.http.services.api.loadbalancer.server.port=8080'
+      - 'traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$12$$clzXj8NS26OVISVxncGEOe5uyX21jU3/PwLChAFPdmAq6KP9T1LFC'
+
   web-server:
     build:
       context: ./web-server
@@ -45,8 +52,8 @@ services:
       - NODE_ENV
     env_file: ./web-server/config.env
     volumes:
-      - /opt/node_app/node_modules
-      - ./web-server/:/opt/node_app/
+      - ./web-server/:/opt/node/node_app/ # bind mounts the working dir
+      - /opt/node/node_app/node_modules # create a volume in the parent dir for node_modules
     labels:
       # define the rules of the traefik proxy for this container
       - 'traefik.enable=true'

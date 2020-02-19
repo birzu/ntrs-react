@@ -22,29 +22,31 @@ ARG PORT=4000
 ENV PORT $PORT
 EXPOSE $PORT 9229
 
-# create a directory for the application with owner node:node
-# user node is an unprevileged user provided by the node base image
-RUN mkdir /opt/node_app && chown node:node /opt/node_app
-
-# switch working directory to /opt/node_app
-WORKDIR /opt/node_app
-# switch to user node and install dependencies
-USER node
-COPY package*.json ./
-RUN npm install \
-  && npm cache clean --force
-# set /opt/node_app/node_modules/.bin to path
-ENV PATH /opt/node_app/node_modules/.bin:$PATH
 # set up tini
 # ENV TINI_VERSION v0.18.0
 # ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-# USER root
 # RUN chmod +x /tini
-# ENTRYPOINT ["/tini", "--"]
+##############################################
+# graceful shutdowns are handled through code directly
+
+# create a directory for the application with owner node:node
+# user node is an unprevileged user provided by the node base image
+RUN mkdir -p /opt/node/node_app && chown -R node:node /opt/node/
+
+# switch working directory to /opt/node_app
+WORKDIR /opt/node
+# switch to user node and install dependencies
 USER node
+COPY --chown=node:node package*.json ./
+# DO NOT USE --only=development as some dependencies of dependencies do not get installed properly
+RUN npm install \
+  && npm cache clean --force
+# set /opt/node/node_modules/.bin to path
+ENV PATH /opt/node/node_modules/.bin:$PATH
 
+WORKDIR /opt/node/node_app
 # TODO: add health checks
-
+# ENTRYPOINT ["/tini", "--"]
 # command
 CMD [ "node", "server.js" ]
 
@@ -58,9 +60,9 @@ CMD [ "npm", "run", "dev" ]
 # TESTS NOT READY YET
 # Stage: test
 FROM dev as test
-WORKDIR /opt/node_app
+WORKDIR /opt/node/node_app
 USER node
-COPY . .
+COPY --chown=node:node . .
 CMD [ "npm", "run", "test" ]
 
 # ____________________________________________________________________________________
@@ -71,15 +73,17 @@ RUN npm audit
 
 #  ____________________________________________________________________________________
 FROM audit as pre-prod
+WORKDIR /opt/node
+RUN rm -rf ./node_modules 
+WORKDIR /opt/node/node_app
 RUN rm -rf ./node_modules && rm -rf ./tests
 
 # ____________________________________________________________________________________
 FROM pre-prod as prod
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
-COPY --from=pre-prod /opt/node_app /opt/node_app
-RUN npm config list \
-  && npm ci \
+COPY --chown=node:node --from=pre-prod /opt/node/node_app /opt/node/node_app
+RUN npm ci \
   && npm cache clean --force
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl http://127.0.0.1/ || exit 1
 USER node

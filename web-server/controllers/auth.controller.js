@@ -2,12 +2,18 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
-const { catchAsyncError } = require('../utils/utils.functions');
+const {
+  catchAsyncError,
+  randomString,
+  hashToken,
+  resetCookies
+} = require('../utils/utils.functions');
 const {
   verifyUserExist,
   auth,
   signUserWith,
-  sendNewAccessToken
+  sendNewAccessToken,
+  revokeRefreshTokens
 } = require('../utils/utils.auth');
 
 exports.register = catchAsyncError(async (req, res, next) => {
@@ -163,3 +169,105 @@ exports.handleRefreshTokens = async (req, res, next) => {
   // to the originalUrl
   next();
 };
+
+// MIDDLWARE FOR THE ROUTE FOR A FORGOT PASSWORD REQUESTE
+exports.onForgotPassword = catchAsyncError(async (req, res, next) => {
+  // request has to contain a email and only a email
+  const { email } = req.body;
+  if (!email)
+    return next(
+      new AppError(400, 'Please provide your email to reset password ')
+    );
+  // if email exist try to verify that the user exist and active
+  const user = await User.findOne({ email });
+
+  if (!user) return next(new AppError(400, 'Invalid email or username'));
+
+  // on successful validation that the user exist create and send a resetToken
+  // Hash the token and store it in user's profile
+  const resetToken = randomString(64, 'hex');
+  const hash = hashToken(resetToken);
+  user.resetToken = hash;
+  user.resetTokenExpiresAt = Date.now() + 15 * 60 * 1000;
+  // validateBeforeSave options can be set to false because we are not taking any input and saving
+  await user.save({ validateBeforeSave: false });
+  // TEMP
+  res.status(200).json({
+    status: 'success',
+    message: `password reset token for email ${email}, make a request to the request url with the token to reset your password`,
+    resetUrl: `http://example.localhost/api/v1/me/resetpassword/${resetToken}`
+  });
+  // TODO : send token in email
+});
+
+// MIDDLWARE FOR THE ROUTE TO RESET THE USER'S PASSWORD
+// chain resetPassword middleware after onResetPassword middleware
+exports.onResetPassword = catchAsyncError(async (req, res, next) => {
+  // validate token
+  const { token } = req.params;
+  if (!token)
+    return next(
+      new AppError(400, 'Invalid resetToken or resetToken has already expired')
+    );
+  // hash the token
+  const hash = hashToken(token);
+  // find the correct user
+  const user = await User.findOne({
+    resetToken: hash,
+    resetTokenExpiresAt: { $gt: Date.now() }
+  });
+  if (!user)
+    return next(
+      new AppError(400, 'Invalid resetToken or resetToken has already expired')
+    );
+  // on success add the user to req and
+  req.userToUpdatedPassword = user;
+  next();
+});
+
+exports.resetPassword = catchAsyncError(async (req, res, next) => {
+  // request must containe newPassword, passwordConfirmation
+  const { newPassword, passwordConfirmation } = req.body;
+  const user = req.userToUpdatedPassword;
+
+  if (!newPassword || !passwordConfirmation)
+    return next(
+      new AppError(
+        400,
+        'newPassword and passwordConfirmation fields must not be empty'
+      )
+    );
+  // NO NEED FOR OTHER VALIDATION OR SANITIZATION
+  // VALIDATION AND SANITIZATION IS ALREADY DONE THROUGH SCHEMA
+  // #########################################################################
+  // on successful validation update the users password
+  user.password = newPassword;
+  user.passwordConfirmation = passwordConfirmation;
+  user.resetToken = undefined;
+  user.resetTokenExpiresAt = undefined;
+  try {
+    await user.save();
+    // revoke refreshToken on save
+    await revokeRefreshTokens(user.id);
+    // on successful save reset Cookies
+    resetCookies(res);
+    res.status(200).json({
+      status: 'success',
+      message:
+        'password updated successfully, please login with your new password'
+    });
+  } catch (error) {
+    throw Error(error);
+  }
+});
+
+// SIGNOUT ROUTE FOR USER
+// METHOD HAS TO BE GET
+// chain the middleware after protectRoutes
+exports.signOut = catchAsyncError(async (req, res, next) => {
+  resetCookies(res);
+  res.status(200).json({
+    status: 'success',
+    message: 'You have been logged out successfully'
+  });
+});

@@ -8,6 +8,17 @@ const {
 } = require('./_controller-wrappers');
 const { catchAsyncError } = require('../utils/utils.functions');
 
+// user requests
+
+// this middlewares runs if the user is logged in so user's profile is avaliable on req
+exports.getMyProfile = catchAsyncError(async (req, res, next) => {
+  // get the userId from req.userProfile
+  const userId = req.userProfile.id;
+  // userId is guranteed to exist
+  // redirect to route for getUserById
+  res.redirect(`/api/v1/users/${userId}`);
+});
+
 // ADMIN ONLY
 exports.createUser = createOne(User, { resourceName: 'user' });
 exports.getAllUsers = getAll(User, { resourceName: 'users' });
