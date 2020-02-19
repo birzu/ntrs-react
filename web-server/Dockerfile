@@ -71,7 +71,7 @@ RUN npm audit
 
 #  ____________________________________________________________________________________
 FROM audit as pre-prod
-RUN rm -rf ./node_modules && rm -rf ./TESTS
+RUN rm -rf ./node_modules && rm -rf ./tests
 
 # ____________________________________________________________________________________
 FROM pre-prod as prod
