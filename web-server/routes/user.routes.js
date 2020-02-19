@@ -14,7 +14,8 @@ const {
   protectRoutes,
   onForgotPassword,
   onResetPassword,
-  resetPassword
+  resetPassword,
+  restrictAccessTo
 } = require('../controllers/auth.controller');
 
 const router = express.Router();
@@ -29,10 +30,10 @@ router.route('/me/forgotpassword').post(onForgotPassword);
 router.route('/me/resetpassword/:token').post(onResetPassword, resetPassword);
 
 // ADMIN ONLY (authenticated)
-// TODO: CREATE MIDDLEWARES TO PROTECT AND RESTRICT THE ROUTES BASED ON USER ROLES
+router.use(protectRoutes, restrictAccessTo(['admin']));
 router
   .route('/')
-  .get(protectRoutes, getAllUsers)
+  .get(getAllUsers)
   .post(createUser);
 
 router

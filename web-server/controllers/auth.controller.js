@@ -271,3 +271,18 @@ exports.signOut = catchAsyncError(async (req, res, next) => {
     message: 'You have been logged out successfully'
   });
 });
+
+// AUTHORIZATION HANDLER
+// chain after protectRoutes to restrict access to user based on user roles
+// args array of roles, enum ['admin', 'user', 'guide', 'lead-guide']
+exports.restrictAccessTo = roles =>
+  catchAsyncError(async (req, res, next) => {
+    // query for the user based on the userId
+    const userId = req.userProfile.id;
+    const user = await User.findById(userId).select('+role');
+    // user is guranteed to exist
+    if (!roles.includes(user.role))
+      return next(new AppError(403, 'not authorized'));
+    // else call next
+    next();
+  });
