@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const reviewSchema = new mongoose.Schema({
   _user: {
     type: mongoose.Schema.ObjectId,
+    ref: 'User',
     required: [true, 'A review must have a reference to the author user']
   },
   _tour: {
     type: mongoose.Schema.ObjectId,
+    ref: 'Tour',
     required: [
       true,
       'A review must have a reference to the tour it was created for'
@@ -35,6 +37,9 @@ const reviewSchema = new mongoose.Schema({
     default: undefined
   }
 });
+// create a compound index for user and tour so that the one user can create only one review for
+// one tour
+reviewSchema.index({ _tour: 1, _user: 1 }, { unique: true });
 
 const Review = mongoose.model('Review', reviewSchema);
 

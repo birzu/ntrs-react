@@ -1,3 +1,5 @@
+*.vscode
+.vscode
 .git
 node_modules
 # do not allow docker-compose*.yml 

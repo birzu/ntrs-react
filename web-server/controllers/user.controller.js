@@ -11,12 +11,14 @@ const { catchAsyncError } = require('../utils/utils.functions');
 // user requests
 
 // this middlewares runs if the user is logged in so user's profile is avaliable on req
+// chain with getUserById
 exports.getMyProfile = catchAsyncError(async (req, res, next) => {
   // get the userId from req.userProfile
   const userId = req.userProfile.id;
   // userId is guranteed to exist
-  // redirect to route for getUserById
-  res.redirect(`/api/v1/users/${userId}`);
+  // set the params id to userId so the next middleware can find the user by id
+  req.params.id = userId;
+  next();
 });
 
 // ADMIN ONLY

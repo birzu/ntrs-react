@@ -25,7 +25,7 @@ router.route('/register').post(register);
 router.route('/signin').post(signin);
 router.route('/signout').get(protectRoutes, signOut);
 
-router.route('/me').get(protectRoutes, getMyProfile);
+router.route('/me').get(protectRoutes, getMyProfile, getUserById);
 router.route('/me/forgotpassword').post(onForgotPassword);
 router.route('/me/resetpassword/:token').post(onResetPassword, resetPassword);
 

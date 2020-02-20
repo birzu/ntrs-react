@@ -13,6 +13,7 @@ const tourRouter = require('./routes/tour.routes');
 const bookingRouter = require('./routes/booking.routes');
 const reviewRouter = require('./routes/review.routes');
 
+const { sendNewRefreshToken } = require('./controllers/auth.controller');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 
 /**
@@ -45,7 +46,7 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 
 // MIDDLEWARE TO HANDLE REFRESH TOKESN
-app.use(handleRefreshTokens);
+app.use(handleRefreshTokens, sendNewRefreshToken);
 
 // temp route
 app.get('/', (req, res, next) => {

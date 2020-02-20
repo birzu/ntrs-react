@@ -6,8 +6,11 @@ const {
   getTourById,
   deleteTourById
 } = require('../controllers/tour.controller');
+const reviewRouter = require('./review.routes');
 
 const router = express.Router();
+
+router.use('/:tourId/reviews', reviewRouter);
 
 router
   .route('/')

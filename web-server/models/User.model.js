@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema({
     default: 'user',
     select: false
   },
+  reviews: {
+    type: [{ type: mongoose.Schema.ObjectId, ref: 'Review' }],
+    select: false
+  },
   createdAt: {
     type: Date,
     default: Date.now()
@@ -90,11 +94,21 @@ userSchema.methods.compareHash = function(candidate, hash) {
   return bcrypt.compare(candidate, hash);
 };
 
-// userSchema.methods.incrementTokenVersion = async function(userId) {
-//   await this.model('User').findByIdAndUpdate(userId, {
-//     $inc: { tokenVersion: 1 }
-//   });
-// };
+userSchema.methods.requestReviews = async function(userId) {
+  return this.model('User')
+    .findById(userId)
+    .select('-__v +reviews')
+    .populate({
+      path: 'reviews',
+      select: 'createdAt updatedAt body rating _tour'
+    });
+};
+
+userSchema.methods.incrementTokenVersion = async function(userId) {
+  await this.model('User').findByIdAndUpdate(userId, {
+    $inc: { tokenVersion: 1 }
+  });
+};
 
 // DOCUMENT MIDDLEWARES
 

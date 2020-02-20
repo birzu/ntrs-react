@@ -208,3 +208,5 @@ exports.sendNewAccessToken = sendNewAccessToken;
 exports.sendOnSuccessfulLogin = sendOnSuccessfulLogin;
 exports.revokeRefreshTokens = revokeRefreshTokens;
 exports.signUserWith = signUserWith;
+exports.validateRefreshToken = validateRefreshToken;
+exports.createRefreshTokenAndSendCookie = createRefreshTokenAndSendCookie;

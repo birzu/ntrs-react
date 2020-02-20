@@ -13,7 +13,8 @@ const {
   auth,
   signUserWith,
   sendNewAccessToken,
-  revokeRefreshTokens
+  revokeRefreshTokens,
+  createRefreshTokenAndSendCookie
 } = require('../utils/utils.auth');
 
 exports.register = catchAsyncError(async (req, res, next) => {
@@ -120,7 +121,7 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
 });
 
 // middleware to check refresh tokens and send new access tokens
-exports.handleRefreshTokens = async (req, res, next) => {
+exports.handleRefreshTokens = catchAsyncError(async (req, res, next) => {
   /**
    * CASES WHERE REFRESH TOKEN WILL GENERATE A NEW ACCESS TOKEN
    * -- cookie obj contains the refresh token(alias: rid)
@@ -130,6 +131,22 @@ exports.handleRefreshTokens = async (req, res, next) => {
    */
   const { rid, access_token } = req.cookies;
   if (!rid) return next();
+  // if refresh token version doesn't match with user's tokenVersion
+  // throw a new error and notify the client to request for a new refrshtoken
+
+  const decoded = await auth.verifyToken(rid, process.env.REFRESH_TOKEN_SECRET);
+  if (decoded) {
+    const user = await User.findById(decoded.id).select('+tokenVersion');
+    if (
+      user &&
+      decoded.version &&
+      user.tokenVersion !== decoded.version &&
+      decoded.version < user.tokenVersion
+    ) {
+      req.user = user;
+      return next();
+    }
+  }
 
   // if refreshToken in rid is valid and request doesn't have a access_token as cookie
   // send a new cookie with access_token
@@ -152,7 +169,6 @@ exports.handleRefreshTokens = async (req, res, next) => {
       if (error.name === 'TokenExpiredError') {
         try {
           const { id } = jwt.decode(access_token);
-          console.log(id);
           await sendNewAccessToken(res, { refreshToken: rid });
           return res.redirect(req.originalUrl);
         } catch (err) {
@@ -168,7 +184,19 @@ exports.handleRefreshTokens = async (req, res, next) => {
   // because on successful accessToken reassign the request gets redirected
   // to the originalUrl
   next();
-};
+});
+
+// MIDDLEWARE TO SEND NEW REFRESH TOKEN
+exports.sendNewRefreshToken = catchAsyncError(async (req, res, next) => {
+  const { user } = req;
+  // send new refreshtoken
+  if (user) {
+    await createRefreshTokenAndSendCookie(user, res);
+    req.user = undefined;
+    res.redirect(req.originalUrl);
+  }
+  next();
+});
 
 // MIDDLWARE FOR THE ROUTE FOR A FORGOT PASSWORD REQUESTE
 exports.onForgotPassword = catchAsyncError(async (req, res, next) => {
@@ -195,7 +223,7 @@ exports.onForgotPassword = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: `password reset token for email ${email}, make a request to the request url with the token to reset your password`,
-    resetUrl: `http://example.localhost/api/v1/me/resetpassword/${resetToken}`
+    resetUrl: `http://example.localhost/api/v1/users/me/resetpassword/${resetToken}`
   });
   // TODO : send token in email
 });

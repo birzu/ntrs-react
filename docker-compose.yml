@@ -15,6 +15,9 @@ services:
       - --api.debug=true
       # log setting
       - --log.level=INFO
+      # tracing
+      - --tracing=true
+      - --tracing.serviceName=api
       # provider settings
       - --providers.docker
       - --providers.docker.exposedbydefault=false

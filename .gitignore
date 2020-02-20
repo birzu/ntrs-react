@@ -12,3 +12,5 @@ npm_debug.log*
 pids
 *.pid
 *.seed
+.vscode
+*.vscode

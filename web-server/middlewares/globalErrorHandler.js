@@ -20,12 +20,14 @@ const handleErrorProd = (err, res) => {
 const handleErrorDev = (err, res) => {
   const statusCode = err.statusCode || 500;
   const status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+  const errorName = err.name || undefined;
   const message =
     err.message ||
     'Something went wrong while processing request, please try again';
   res.status(statusCode).json({
     status,
     message,
+    errorName,
     stack: err.stack,
     error: err
   });
@@ -36,7 +38,7 @@ module.exports = (err, req, res, next) => {
   const error = handleDatabaseError(err);
   switch (process.env.NODE_ENV) {
     case 'development':
-      handleErrorDev(err, res);
+      handleErrorDev(error, res);
       break;
     case 'production':
       handleErrorProd(error, res);

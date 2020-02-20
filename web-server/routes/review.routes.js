@@ -1,12 +1,20 @@
 const express = require('express');
+const {
+  protectRoutes,
+  restrictAccessTo
+} = require('../controllers/auth.controller');
+const {
+  createReviewByUser,
+  getAllReviews
+} = require('../controllers/review.controller');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.route('/').get((req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    data: 'THIS ROUTE IS TO GET ALL REVIEWS'
-  });
-});
+router
+  .route('/')
+  .post(protectRoutes, restrictAccessTo(['user']), createReviewByUser);
+
+router.use(protectRoutes, restrictAccessTo(['admin']));
+router.route('/').get(getAllReviews);
 
 module.exports = router;
