@@ -89,6 +89,12 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+// add virtual field reviews
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: '_tour'
+});
 // DOCUMENT MIDDLEWARES
 // pre-save hooks (only available for Model.create() and Model.prototype.save())
 tourSchema.pre('save', function(next) {
@@ -104,7 +110,7 @@ tourSchema.pre('save', function(next) {
 // QUERY MIDDLEWARES
 // pre-find hooks
 tourSchema.pre(/find/, function(next) {
-  this.select('-__v');
+  this.select('-__v').populate('reviews');
   next();
 });
 

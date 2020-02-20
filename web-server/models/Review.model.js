@@ -1,4 +1,7 @@
+/* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
+const User = require('../models/User.model');
+const Tour = require('../models/Tour.model');
 
 const reviewSchema = new mongoose.Schema({
   _user: {
@@ -40,6 +43,16 @@ const reviewSchema = new mongoose.Schema({
 // create a compound index for user and tour so that the one user can create only one review for
 // one tour
 reviewSchema.index({ _tour: 1, _user: 1 }, { unique: true });
+
+// DOCUMENT MIDDLEWARES
+// post-save
+reviewSchema.post('save', async function(doc) {
+  const userId = doc._user;
+  // add the id of the review to user and tour doc
+  const user = await User.findById(userId).select('-__v +reviews');
+  user.reviews = [...user.reviews, doc.id];
+  await user.save({ validateBeforeSave: false });
+});
 
 const Review = mongoose.model('Review', reviewSchema);
 

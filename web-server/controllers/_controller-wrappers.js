@@ -47,16 +47,19 @@ exports.getOne = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
     const doc = await Model.findById(id);
-
     if (!doc)
       return next(
         new AppError(404, `${config.resourceName} with id ${id} not found`)
       );
+    let userDoc;
+    let data = { [config.resourceName]: doc };
+    if (config.resourceName === 'user' && config.requestReviews) {
+      userDoc = await doc.requestReviews(doc.id);
+      data = { [config.resourceName]: userDoc };
+    }
     res.status(200).json({
       status: 'success',
-      data: {
-        [config.resourceName]: doc
-      }
+      data
     });
   });
 };

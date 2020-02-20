@@ -1,5 +1,6 @@
 const Review = require('../models/Review.model');
 const Tour = require('../models/Tour.model');
+const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
 const { getAll } = require('./_controller-wrappers');
 const { catchAsyncError } = require('../utils/utils.functions');

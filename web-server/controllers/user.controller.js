@@ -24,7 +24,10 @@ exports.getMyProfile = catchAsyncError(async (req, res, next) => {
 // ADMIN ONLY
 exports.createUser = createOne(User, { resourceName: 'user' });
 exports.getAllUsers = getAll(User, { resourceName: 'users' });
-exports.getUserById = getOne(User, { resourceName: 'user' });
+exports.getUserById = getOne(User, {
+  resourceName: 'user',
+  requestReviews: true
+});
 exports.deleteUserById = deleteOne(User, { resourceName: 'user' });
 // update user by id (restricted for manual use by admin only)
 exports.updateUserById = catchAsyncError(async (req, res, next) => {

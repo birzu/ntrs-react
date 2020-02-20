@@ -100,7 +100,7 @@ userSchema.methods.requestReviews = async function(userId) {
     .select('-__v +reviews')
     .populate({
       path: 'reviews',
-      select: 'createdAt updatedAt body rating _tour'
+      select: 'createdAt id updatedAt body rating _tour'
     });
 };
 
