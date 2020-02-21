@@ -15,6 +15,7 @@ const reviewRouter = require('./routes/review.routes');
 
 const { sendNewRefreshToken } = require('./controllers/auth.controller');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
+const logger = require('./utils/utils.server');
 
 /**
  * dotenv config has to be set here in app.js instead of  server.js
@@ -31,10 +32,7 @@ dotenv.config({ path: path.join(__dirname, 'config.env') });
 const app = express();
 
 // middlewares
-// for dev environment
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+app.use(morgan('combined', { stream: logger.stream }));
 app.use(helmet());
 // enable compression
 app.use(compression());

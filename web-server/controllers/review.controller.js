@@ -2,7 +2,7 @@ const Review = require('../models/Review.model');
 const Tour = require('../models/Tour.model');
 const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
-const { getAll } = require('./_controller-wrappers');
+const { getAll, getOne, deleteOne } = require('./_controller-wrappers');
 const { catchAsyncError } = require('../utils/utils.functions');
 
 // create review by user
@@ -34,3 +34,8 @@ exports.createReviewByUser = catchAsyncError(async (req, res, next) => {
 
 // get all reviews (ADMIN ONLY ROUTE)
 exports.getAllReviews = getAll(Review, { resourceName: 'reviews' });
+// get review by id (ADMIN ONLY ROUTE)
+exports.getReviewById = getOne(Review, { resourceName: 'review' });
+// delete review by id (ADMIN ONLY ROUTE)
+exports.deleteReviewById = deleteOne(Review, { resourceName: 'review' });
+// only user should update the reviews

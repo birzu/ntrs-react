@@ -5,7 +5,9 @@ const {
 } = require('../controllers/auth.controller');
 const {
   createReviewByUser,
-  getAllReviews
+  getAllReviews,
+  deleteReviewById,
+  getReviewById
 } = require('../controllers/review.controller');
 
 const router = express.Router({ mergeParams: true });
@@ -16,5 +18,10 @@ router
 
 router.use(protectRoutes, restrictAccessTo(['admin']));
 router.route('/').get(getAllReviews);
+
+router
+  .route('/:id')
+  .get(getReviewById)
+  .delete(deleteReviewById);
 
 module.exports = router;

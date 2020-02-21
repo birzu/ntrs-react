@@ -1,6 +1,6 @@
 const path = require('path');
-const winston = require('winston');
 const mongoose = require('mongoose');
+const logger = require('./utils/utils.server');
 const app = require('./app');
 
 // CONSTANTS
@@ -9,20 +9,6 @@ const DB = process.env.MONGO_HOST.replace(
   '<PASSWORD>',
   process.env.MONGO_PASSWORD
 );
-
-// LOGGER (use transport console if running on docker else use file transport)
-const logger = winston.createLogger({
-  level: 'info',
-  transports: [
-    new winston.transports.Console({
-      level: 'info',
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      )
-    })
-  ]
-});
 
 // DATABASE CONNNECTION (DB--> TEMP)
 mongoose
@@ -37,9 +23,6 @@ mongoose
       level: 'info',
       message: `[${new Date().toISOString()}]: Database connection successful`
     });
-    console.log(
-      `[${new Date().toISOString()}]: Database connection successful`
-    );
   });
 // do not catch error(this will shutdown the server gracefully and restart afterwards) because server needs to restart if the db connection timesout or fails;
 
@@ -48,7 +31,6 @@ const server = app.listen(PORT, () => {
     level: 'info',
     message: `[${new Date().toISOString()}]: server started`
   });
-  console.log(`[${new Date().toISOString()}]: server started`);
 });
 // handle socket list to respond to graceful shutdown
 const sockets = {};
@@ -67,14 +49,12 @@ const closeSockets = timer => {
       level: 'info',
       message: `waiting ${timer}s before force closing all connections`
     });
-    console.log(`waiting ${timer}s before force closing all connections`);
     return setTimeout(closeSockets, 1000, timer - 1);
   }
   logger.log({
     level: 'info',
     message: 'Closing all connections'
   });
-  console.log('Closing all connections');
   Object.keys(sockets).forEach(socketId => sockets[socketId].destroy());
 };
 
@@ -88,9 +68,6 @@ const shutdown = exitCode => {
           err.message
         }`
       });
-      console.log(
-        `[${new Date().toISOString()}]: [ERROR] ${err.name}, ${err.message}`
-      );
       process.exitCode = exitCode || 1;
     }
     process.exit();
@@ -104,11 +81,6 @@ process.on('uncaughtException', err => {
       err.name
     }, ${err.message}`
   });
-  console.log(
-    `[${new Date().toISOString()}]: [uncaughtException] [ERROR] ${err.name}, ${
-      err.message
-    }`
-  );
   shutdown(1);
 });
 
@@ -120,11 +92,6 @@ process.on('unhandledRejection', err => {
       err.name
     }, ${err.message}`
   });
-  console.log(
-    `[${new Date().toISOString()}]: [unhandledRejection] [ERROR] ${err.name}, ${
-      err.message
-    }`
-  );
   shutdown(1);
 });
 
@@ -134,9 +101,6 @@ process.on('SIGTERM', () => {
     level: 'info',
     message: `[${new Date().toISOString()}]: SIGTERM recieved...Terminating process`
   });
-  console.log(
-    `[${new Date().toISOString()}]: SIGTERM recieved...Terminating process`
-  );
   shutdown();
 });
 
@@ -146,8 +110,5 @@ process.on('SIGINT', () => {
     level: 'info',
     message: `[${new Date().toISOString()}]: SIGINT recieved...Terminating process`
   });
-  console.log(
-    `[${new Date().toISOString()}]: SIGINT recieved...Terminating process`
-  );
   shutdown();
 });
