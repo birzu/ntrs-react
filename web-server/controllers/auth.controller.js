@@ -122,14 +122,7 @@ exports.protectRoutes = catchAsyncError(async (req, res, next) => {
 
 // middleware to check refresh tokens and send new access tokens
 exports.handleRefreshTokens = catchAsyncError(async (req, res, next) => {
-  /**
-   * CASES WHERE REFRESH TOKEN WILL GENERATE A NEW ACCESS TOKEN
-   * -- cookie obj contains the refresh token(alias: rid)
-   * -- refresh Token is valid and there is no access token in cookies
-   * -- refresh Token is valid and access token has expired
-   *
-   */
-  const { rid, access_token } = req.cookies;
+  const { rid } = req.cookies;
   if (!rid) return next();
   // if refresh token version doesn't match with user's tokenVersion
   // throw a new error and notify the client to request for a new refrshtoken
@@ -147,7 +140,19 @@ exports.handleRefreshTokens = catchAsyncError(async (req, res, next) => {
       return next();
     }
   }
+  next();
+});
 
+exports.handleAccessTokens = async (req, res, next) => {
+  /**
+   * CASES WHERE REFRESH TOKEN WILL GENERATE A NEW ACCESS TOKEN
+   * -- cookie obj contains the refresh token(alias: rid)
+   * -- refresh Token is valid and there is no access token in cookies
+   * -- refresh Token is valid and access token has expired
+   *
+   */
+  const { rid, access_token } = req.cookies;
+  if (!rid) return next();
   // if refreshToken in rid is valid and request doesn't have a access_token as cookie
   // send a new cookie with access_token
   if (!access_token) {
@@ -184,7 +189,7 @@ exports.handleRefreshTokens = catchAsyncError(async (req, res, next) => {
   // because on successful accessToken reassign the request gets redirected
   // to the originalUrl
   next();
-});
+};
 
 // MIDDLEWARE TO SEND NEW REFRESH TOKEN
 exports.sendNewRefreshToken = catchAsyncError(async (req, res, next) => {

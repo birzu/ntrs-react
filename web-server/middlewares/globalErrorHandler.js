@@ -35,6 +35,7 @@ const handleErrorDev = (err, res) => {
 
 // global error handler middleware
 module.exports = (err, req, res, next) => {
+  console.log(err);
   const error = handleDatabaseError(err);
   switch (process.env.NODE_ENV) {
     case 'development':

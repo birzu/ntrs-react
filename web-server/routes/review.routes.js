@@ -7,7 +7,8 @@ const {
   createReviewByUser,
   getAllReviews,
   deleteReviewById,
-  getReviewById
+  getReviewById,
+  updateReviewByUser
 } = require('../controllers/review.controller');
 
 const router = express.Router({ mergeParams: true });
@@ -15,6 +16,10 @@ const router = express.Router({ mergeParams: true });
 router
   .route('/')
   .post(protectRoutes, restrictAccessTo(['user']), createReviewByUser);
+
+router
+  .route('/:reviewId')
+  .patch(protectRoutes, restrictAccessTo(['user']), updateReviewByUser);
 
 router.use(protectRoutes, restrictAccessTo(['admin']));
 router.route('/').get(getAllReviews);

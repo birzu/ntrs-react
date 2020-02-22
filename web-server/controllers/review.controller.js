@@ -32,6 +32,34 @@ exports.createReviewByUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
+// update review by user
+// login required
+exports.updateReviewByUser = catchAsyncError(async (req, res, next) => {
+  const { rating, body } = req.body;
+  const { tourId, reviewId } = req.params;
+  const userId = req.userProfile;
+  const review = body ? { rating, body } : { rating };
+  if (!rating) return next(new AppError(400, 'A review must have a rating'));
+  const updatedReview = await Review.findOneAndUpdate(
+    {
+      _tour: tourId,
+      _user: userId,
+      _id: reviewId
+    },
+    review,
+    { runValidators: true, new: true }
+  );
+  if (!updatedReview)
+    return next(new AppError(400, 'invalid reviewId or review does not exist'));
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      review: updatedReview
+    }
+  });
+});
+
 // get all reviews (ADMIN ONLY ROUTE)
 exports.getAllReviews = getAll(Review, { resourceName: 'reviews' });
 // get review by id (ADMIN ONLY ROUTE)

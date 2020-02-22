@@ -6,7 +6,10 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
-const { handleRefreshTokens } = require('./controllers/auth.controller');
+const {
+  handleRefreshTokens,
+  handleAccessTokens
+} = require('./controllers/auth.controller');
 
 const userRouter = require('./routes/user.routes');
 const tourRouter = require('./routes/tour.routes');
@@ -43,8 +46,10 @@ app.use(cookieParser());
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 
-// MIDDLEWARE TO HANDLE REFRESH TOKESN
+// MIDDLEWARE TO HANDLE REFRESH TOKENS
 app.use(handleRefreshTokens, sendNewRefreshToken);
+// MIDDLEWARE TO HANDLE REFRESH TOKENS
+app.use(handleAccessTokens);
 
 // temp route
 app.get('/', (req, res, next) => {

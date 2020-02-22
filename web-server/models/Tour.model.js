@@ -63,6 +63,9 @@ const tourSchema = new mongoose.Schema(
       min: [1, 'A tour can not have an average rating  below 1'],
       max: [5, 'A tour can not have an average rating above 5']
     },
+    guides: {
+      type: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
+    },
     createdAt: {
       type: Date,
       default: Date.now(),
@@ -109,8 +112,10 @@ tourSchema.pre('save', function(next) {
 
 // QUERY MIDDLEWARES
 // pre-find hooks
-tourSchema.pre(/find/, function(next) {
-  this.select('-__v').populate('reviews');
+tourSchema.pre(/find$/, function(next) {
+  this.select('-__v')
+    .populate('reviews')
+    .populate({ path: 'guides', select: '-createdAt -updatedAt -__v' });
   next();
 });
 
