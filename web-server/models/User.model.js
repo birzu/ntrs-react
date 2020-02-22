@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const isEmail = require('validator/lib/isEmail');
 const bcrypt = require('bcryptjs');
+const Tour = require('./Tour.model');
+const Review = require('./Review.model');
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -88,6 +90,8 @@ const userSchema = new mongoose.Schema({
     select: false
   }
 });
+// index
+userSchema.index({ isActive: 1 });
 
 // methods
 userSchema.methods.compareHash = function(candidate, hash) {
@@ -145,6 +149,16 @@ userSchema.pre(/find/, function(next) {
   next();
 });
 
+// post-find hooks
+// ON DELETE CASCADE
+// this middleware will delete any orphan userId in guides array in tours
+// also remove the reviews the user made
+userSchema.post(/findOneAnd/, async function(doc) {
+  const userId = doc.id;
+  // remove the userId from the guides array in any tours
+  await Tour.update({}, { $pull: { guides: userId } });
+  await Review.deleteMany({ _user: userId });
+});
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

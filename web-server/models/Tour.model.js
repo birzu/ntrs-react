@@ -91,7 +91,9 @@ const tourSchema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
-
+// index
+tourSchema.index({ createdAt: 1 });
+tourSchema.index({ price: -1, difficulty: 1 });
 // add virtual field reviews
 tourSchema.virtual('reviews', {
   ref: 'Review',

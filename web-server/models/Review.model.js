@@ -43,6 +43,7 @@ const reviewSchema = new mongoose.Schema({
 // create a compound index for user and tour so that the one user can create only one review for
 // one tour
 reviewSchema.index({ _tour: 1, _user: 1 }, { unique: true });
+reviewSchema.index({ createdAt: 1 });
 // methods
 reviewSchema.methods.calculateAvgRating = async function(tourId) {
   const stats = await this.model('Review').aggregate([
