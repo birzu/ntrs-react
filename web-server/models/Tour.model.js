@@ -84,7 +84,38 @@ const tourSchema = new mongoose.Schema(
     startDates: {
       type: [Date]
     },
-    slug: String
+    slug: String,
+    startLocation: {
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+        required: [true, 'A location must have a geometry type of point']
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      },
+      address: String,
+      description: String
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+          required: [true, 'A location must have a geometry type of point']
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        },
+        address: String,
+        description: String,
+        day: Number
+      }
+    ]
   },
   {
     toJSON: { virtuals: true },
@@ -94,6 +125,7 @@ const tourSchema = new mongoose.Schema(
 // index
 tourSchema.index({ createdAt: 1 });
 tourSchema.index({ price: -1, difficulty: 1 });
+tourSchema.index({ startLocation: '2dsphere' });
 // add virtual field reviews
 tourSchema.virtual('reviews', {
   ref: 'Review',

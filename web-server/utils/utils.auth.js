@@ -1,7 +1,12 @@
 const Auth = require('../lib/auth');
 const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
-const { sendCookie } = require('../utils/utils.functions');
+const Mailer = require('../lib/mailer');
+const {
+  sendCookie,
+  randomString,
+  hashToken
+} = require('../utils/utils.functions');
 
 // create a new auth instance
 const auth = new Auth();
@@ -150,6 +155,28 @@ const restoreRefreshToken = async (user, req, res) => {
   }
 };
 
+const sendWelcomeEmail = async (newUser, req) => {
+  const mailer = new Mailer(
+    newUser,
+    'Verify your email address to complete registration of your natours account(token expires after 15mins)'
+  );
+  const token = randomString(64, 'hex');
+  const hash = hashToken(token);
+  newUser.emailVerificationToken = hash;
+  newUser.emailVerificationTokenExpiresAt = Date.now() + 15 * 60 * 1000;
+  try {
+    await newUser.save({ validateBeforeSave: false });
+    const url = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/users/me/verify/${token}`;
+    await mailer.sendWelcome({ url });
+  } catch (error) {
+    newUser.emailVerificationToken = undefined;
+    newUser.emailVerificationTokenExpiresAt = undefined;
+    await newUser.save();
+    throw new AppError(400, 'something went wrong');
+  }
+};
 // loginType: 'email' or 'username'
 // credentials: { email || username: val, password: val}
 const signUserWith = async (loginType, credentials, req, res, next) => {
@@ -157,7 +184,7 @@ const signUserWith = async (loginType, credentials, req, res, next) => {
   // find user with correct loginType
   const user = await User.findOne({
     [loginType]: credentials[loginType]
-  }).select('+password +tokenVersion');
+  }).select('+password +tokenVersion +emailVerified');
 
   if (!user)
     return next(
@@ -166,6 +193,15 @@ const signUserWith = async (loginType, credentials, req, res, next) => {
         `User with ${loginType} ${credentials[loginType]} does not exist`
       )
     );
+
+  if (!user.emailVerified) {
+    await sendWelcomeEmail(user, req);
+    return res.status(400).json({
+      status: 'fail',
+      message:
+        'Please verify your email address before login. A new email has been sent to your email'
+    });
+  }
   // validate user credentials and generate accessToken
   const accessToken = await validateUserCredentialsAndRespond(
     user,
@@ -203,6 +239,7 @@ const sendNewAccessToken = async (res, config) => {
 };
 
 exports.auth = auth;
+exports.sendWelcomeEmail = sendWelcomeEmail;
 exports.verifyUserExist = verifyUserExist;
 exports.sendNewAccessToken = sendNewAccessToken;
 exports.sendOnSuccessfulLogin = sendOnSuccessfulLogin;

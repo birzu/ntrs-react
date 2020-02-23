@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
+const Mailer = require('../lib/mailer');
 const {
   catchAsyncError,
   randomString,
@@ -14,7 +15,8 @@ const {
   signUserWith,
   sendNewAccessToken,
   revokeRefreshTokens,
-  createRefreshTokenAndSendCookie
+  createRefreshTokenAndSendCookie,
+  sendWelcomeEmail
 } = require('../utils/utils.auth');
 
 exports.register = catchAsyncError(async (req, res, next) => {
@@ -34,12 +36,52 @@ exports.register = catchAsyncError(async (req, res, next) => {
         avatar
       })
     : await User.create({ username, email, password, passwordConfirmation });
-  // TODO: if success send welcome email
+  // send welcome email, along with email verification
+  await sendWelcomeEmail(newUser, req);
   // send the response data
   res.status(201).json({
     status: 'success',
     data: {
       registrationComplete: true
+    }
+  });
+});
+
+// middleware to verify user's email address
+exports.verifyEmail = catchAsyncError(async (req, res, next) => {
+  const { verificationToken } = req.params;
+  if (!verificationToken)
+    return next(
+      new AppError(
+        400,
+        'invalid verification token or verification link has already expired'
+      )
+    );
+
+  const user = await User.findOne({
+    emailVerificationToken: hashToken(verificationToken),
+    emailVerified: false
+  }).select(
+    '+emailVerificationToken +emailVerificationTokenExpiresAt +emailVerified'
+  );
+  if (!user)
+    return next(
+      new AppError(
+        400,
+        'Invalid verification token or you have already verified your email address'
+      )
+    );
+
+  // if user exist then update the emailVerified status and save the user
+  user.emailVerified = true;
+  user.emailVerificationToken = undefined;
+  user.emailVerificationTokenExpiresAt = undefined;
+  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: 'success',
+    message: 'Your email has been successfully verified.',
+    data: {
+      verified: true
     }
   });
 });

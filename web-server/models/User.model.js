@@ -88,6 +88,19 @@ const userSchema = new mongoose.Schema({
   resetTokenExpiresAt: {
     type: Date,
     select: false
+  },
+  emailVerified: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  emailVerificationToken: {
+    type: String,
+    select: false
+  },
+  emailVerificationTokenExpiresAt: {
+    type: Date,
+    select: false
   }
 });
 // index

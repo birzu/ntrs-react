@@ -1,0 +1,16 @@
+extends base
+
+block mailcontent
+  p= `Hi ${username}`
+    p Welcome to Natours, we're glad to have you 🎉🙏
+    p Please confirm your email address to complete the registration process.
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+      tbody
+        tr
+          td(align='left')
+            table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+              tbody
+                tr
+                  td
+                    a(href=`${url}`, target='_blank') Verify
+    p If you need any help with booking your next tour, please don't hesitate to contact us.

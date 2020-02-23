@@ -15,7 +15,8 @@ const {
   onForgotPassword,
   onResetPassword,
   resetPassword,
-  restrictAccessTo
+  restrictAccessTo,
+  verifyEmail
 } = require('../controllers/auth.controller');
 
 const router = express.Router();
@@ -28,6 +29,7 @@ router.route('/signout').get(protectRoutes, signOut);
 router.route('/me').get(protectRoutes, getMyProfile, getUserById);
 router.route('/me/forgotpassword').post(onForgotPassword);
 router.route('/me/resetpassword/:token').post(onResetPassword, resetPassword);
+router.route('/me/verify/:verificationToken').post(verifyEmail);
 
 // ADMIN ONLY (authenticated)
 router.use(protectRoutes, restrictAccessTo(['admin']));
