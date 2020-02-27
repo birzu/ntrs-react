@@ -6,7 +6,9 @@ const {
   getTourById,
   deleteTourById,
   addNewGuideToTour,
-  removeGuideFromTour
+  removeGuideFromTour,
+  getTourStats,
+  getMonthlyTourPlans
 } = require('../controllers/tour.controller');
 const {
   protectRoutes,
@@ -22,6 +24,22 @@ router
   .route('/')
   .get(getAllTours)
   .post(protectRoutes, restrictAccessTo(['admin']), createTour);
+
+router
+  .route('/stats')
+  .get(
+    protectRoutes,
+    restrictAccessTo(['admin', 'lead-guide', 'guide']),
+    getTourStats
+  );
+
+router
+  .route('/monthly-plans/:year')
+  .get(
+    protectRoutes,
+    restrictAccessTo(['admin', 'lead-guide']),
+    getMonthlyTourPlans
+  );
 
 router
   .route('/:id')

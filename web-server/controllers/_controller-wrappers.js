@@ -1,6 +1,6 @@
 const AppError = require('../utils/utils.AppError');
 const { catchAsyncError } = require('../utils/utils.functions');
-const { validateBeforeUpdate } = require('../utils/utils.db');
+const { createQuery } = require('../utils/utils.db');
 // wrappers return specific middlewares for different types of queries for resoure
 
 /** *********************************************************************
@@ -28,6 +28,11 @@ exports.createOne = (Model, config) => {
  * */
 exports.getAll = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
+    //console.log(req.query);
+    const query = createQuery(req, Model.find());
+    const result = await query.exec();
+    console.log(result.length);
+    //console.log(result);
     const docs = await Model.find();
     res.status(200).json({
       status: 'success',

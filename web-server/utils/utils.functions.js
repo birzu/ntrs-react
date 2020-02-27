@@ -4,6 +4,12 @@ exports.catchAsyncError = fn => (req, res, next) => {
   return fn(req, res, next).catch(next);
 };
 
+// compose fn
+const compose = (fn, gn) => (...args) => fn(gn(...args));
+
+// reduced value after compose applied to an array of function
+exports.composedFunc = (...fns) => fns.reduce(compose);
+
 exports.randomString = (bufferLength, encoding) => {
   return crypto.randomBytes(bufferLength).toString(encoding);
 };

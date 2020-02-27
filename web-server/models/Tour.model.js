@@ -147,9 +147,10 @@ tourSchema.pre('save', function(next) {
 // QUERY MIDDLEWARES
 // pre-find hooks
 tourSchema.pre(/find$/, function(next) {
-  this.select('-__v')
-    .populate('reviews')
-    .populate({ path: 'guides', select: '-createdAt -updatedAt -__v' });
+  this.populate('reviews').populate({
+    path: 'guides',
+    select: '-createdAt -updatedAt -__v'
+  });
   next();
 });
 
