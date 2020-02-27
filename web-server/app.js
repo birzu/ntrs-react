@@ -3,6 +3,10 @@ const dotenv = require('dotenv');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const mongoSanitize = require('express-mongo-sanitize');
+const rateLimit = require('express-rate-limit');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
@@ -37,8 +41,33 @@ const app = express();
 // middlewares
 app.use(morgan('combined', { stream: logger.stream }));
 app.use(helmet());
+app.use(xss());
+// mongo query sanitization
+app.use(mongoSanitize());
 // enable compression
 app.use(compression());
+// ratelimiter
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 1000,
+  message:
+    'You have exceeded your request limit for using the api.Please try again after some time.'
+});
+
+app.use('/api', limiter);
+// prevent parameter polution
+app.use(
+  hpp({
+    whitelist: [
+      'price',
+      'ratingAvg',
+      'ratingCount',
+      'maxGroupSize',
+      'duration',
+      'difficulty'
+    ]
+  })
+);
 
 // cookie-parser
 app.use(cookieParser());
