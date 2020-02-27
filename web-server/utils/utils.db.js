@@ -61,7 +61,6 @@ const sortData = (req, Query) => {
 
 // function for selecting fields
 const selectFromData = (req, Query) => {
-  console.log(req.query);
   const { fields } = req.query;
   const selection = fields ? fields.split(',').join(' ') : '-__v';
   return Query.select(selection);

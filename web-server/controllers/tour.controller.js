@@ -70,7 +70,6 @@ exports.removeGuideFromTour = catchAsyncError(async (req, res, next) => {
   const { tourId } = req.params;
   const tour = await Tour.findById(tourId);
   if (!tour) return next(404, 'Tour not found');
-  console.log(tour.guides);
   if (!tour.guides.includes(userId))
     return next(
       new AppError(
@@ -82,7 +81,6 @@ exports.removeGuideFromTour = catchAsyncError(async (req, res, next) => {
   const newGuides = tour.guides
     .map(el => el.toString())
     .filter(guide => guide !== userId);
-  console.log(newGuides);
   tour.guides = newGuides;
   await tour.save();
   res.status(200).json({
