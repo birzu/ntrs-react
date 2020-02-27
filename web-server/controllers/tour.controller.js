@@ -10,6 +10,9 @@ const {
   deleteOne
 } = require('./_controller-wrappers');
 
+// CONSTANTS
+const VALID_UNITS = ['mi', 'km'];
+
 exports.getAllTours = getAll(Tour, { resourceName: 'tours' });
 exports.createTour = createOne(Tour, { resourceName: 'tour' });
 exports.getTourById = getOne(Tour, { resourceName: 'tour' });
@@ -220,6 +223,73 @@ exports.getMonthlyTourPlans = catchAsyncError(async (req, res, next) => {
     status: 'success',
     data: {
       monthlyPlans
+    }
+  });
+});
+
+// MIDDLEWARE TO GET TOURS WITH IN A RADIUS
+exports.findTourInRadiusOf = catchAsyncError(async (req, res, next) => {
+  // get data from query string
+  const { d, unit, lng, lat } = req.query;
+  if (!d || !unit || !lng || !lat || !VALID_UNITS.includes(unit)) {
+    return next(
+      new AppError(
+        400,
+        'Please specify a valid distance, unit longitude and latitude of the coordinates'
+      )
+    );
+  }
+  const radius = unit === 'mi' ? d / 3963.2 : 6378.1;
+  const tours = await Tour.find({
+    startLocation: {
+      $geoWithin: {
+        $centerSphere: [[lng * 1, lat * 1], radius]
+      }
+    }
+  });
+  res.status(200).json({
+    status: 'success',
+    results: tours.length,
+    data: {
+      tours
+    }
+  });
+});
+
+// MIDDLEWARE TO FIND TOUR DISTANCES FROM A CERTAIN POINT
+exports.calculateTourDistances = catchAsyncError(async (req, res, next) => {
+  const { lat, lng, unit } = req.query;
+  if (!lat || !lng || !unit) {
+    return next(
+      new AppError(
+        400,
+        'Please provide longitude, latitude and a valid unit(mi/km) to calculate distance from a tour '
+      )
+    );
+  }
+  const tourData = await Tour.aggregate([
+    {
+      $geoNear: {
+        near: {
+          type: 'Point',
+          coordinates: [lng * 1, lat * 1]
+        },
+        distanceField: 'distance',
+        distanceMultiplier: unit === 'mi' ? 0.000621371 : 0.001
+      }
+    },
+    {
+      $project: {
+        name: 1,
+        distance: 1
+      }
+    }
+  ]);
+  res.status(200).json({
+    status: 'success',
+    results: tourData.length,
+    data: {
+      tours: tourData
     }
   });
 });

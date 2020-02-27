@@ -28,17 +28,13 @@ exports.createOne = (Model, config) => {
  * */
 exports.getAll = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
-    //console.log(req.query);
     const query = createQuery(req, Model.find());
     const result = await query.exec();
-    console.log(result.length);
-    //console.log(result);
-    const docs = await Model.find();
     res.status(200).json({
       status: 'success',
-      results: docs.length,
+      results: result.length,
       data: {
-        [config.resourceName]: docs
+        [config.resourceName]: result
       }
     });
   });

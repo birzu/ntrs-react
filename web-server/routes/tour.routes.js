@@ -8,7 +8,9 @@ const {
   addNewGuideToTour,
   removeGuideFromTour,
   getTourStats,
-  getMonthlyTourPlans
+  getMonthlyTourPlans,
+  findTourInRadiusOf,
+  calculateTourDistances
 } = require('../controllers/tour.controller');
 const {
   protectRoutes,
@@ -24,6 +26,11 @@ router
   .route('/')
   .get(getAllTours)
   .post(protectRoutes, restrictAccessTo(['admin']), createTour);
+
+// GET tours within a certain radius
+router.route('/within').get(protectRoutes, findTourInRadiusOf);
+// GET distances from a certain point for the tours
+router.route('/distance-from/').get(protectRoutes, calculateTourDistances);
 
 router
   .route('/stats')
