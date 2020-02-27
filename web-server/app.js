@@ -55,7 +55,7 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
-// prevent parameter polution
+// prevent parameter pollution
 app.use(
   hpp({
     whitelist: [
