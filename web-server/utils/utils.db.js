@@ -7,18 +7,31 @@ const { composedFunc } = require('../utils/utils.functions');
 const PARAMS_TO_EXCLUDE = ['page', 'sort', 'limit', 'fields'];
 
 // function that can be composed for caching based on the query
+/**
+ * 	MUST CONTAIN EITHER QUERY OR AGGREGATE OBJ BUT NOT BOTH
+ *  field = {
+ * 		aggr: Aggregate Obj
+ * 		q: Query Obj
+ * 	}
+ *
+ * */
+
 exports.cache = async (Query, keyName) => {
-  const query = JSON.stringify({
-    ...Query.getQuery(),
+  const field = JSON.stringify({
+    query: Query.getQuery(),
     options: Query.getOptions(),
+    projection: Query.projection(),
     collection: Query.mongooseCollection.name
   });
+
   // CHECK IF THE QUERY EXIST IN CACHE
-  const cachedData = await redisClient.hget(keyName, query);
+  const cachedData = await redisClient.hget(keyName, field);
   // IF QUERY EXIST IS CACHE RETURN THE VALUE
   let docs;
   if (cachedData) {
+    // temp holds the js object version of the data
     const temp = JSON.parse(cachedData);
+    // conversion of data back to models
     docs = Array.isArray(temp)
       ? temp.map(d => Query.model(d))
       : Query.model(temp);
@@ -28,9 +41,14 @@ exports.cache = async (Query, keyName) => {
   // ELSE EXECUTE THE QUERY
   const data = await Query.exec();
   // CACHE THE QUERY RETURN VALUE
-  redisClient.hset(keyName, query, JSON.stringify(data), 'EX', 15 * 60);
+  redisClient.hset(keyName, field, JSON.stringify(data));
+  redisClient.EXPIRE(keyName, 15 * 60);
   // RETURN THE VALUE
   return data;
+};
+
+exports.clearCache = keyName => {
+  redisClient.DEL(keyName);
 };
 
 // handle duplicate key error for reviews

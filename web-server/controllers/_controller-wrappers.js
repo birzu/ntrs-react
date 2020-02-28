@@ -1,7 +1,6 @@
 const AppError = require('../utils/utils.AppError');
-const redisClient = require('../service/redis');
 const { catchAsyncError } = require('../utils/utils.functions');
-const { createQuery, cache } = require('../utils/utils.db');
+const { createQuery, cache, clearCache } = require('../utils/utils.db');
 
 // wrappers return specific middlewares for different types of queries for resoure
 
@@ -12,7 +11,9 @@ const { createQuery, cache } = require('../utils/utils.db');
 
 exports.createOne = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
-    const doc = await Model.create(req.body);
+    const q = Model.create(req.body);
+    const doc = await q;
+    clearCache(q.mongooseCollection.name);
 
     res.status(201).json({
       status: 'success',
@@ -49,7 +50,8 @@ exports.getAll = (Model, config) => {
 exports.getOne = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
-    const doc = await Model.findById(id);
+    const q = Model.findById(id);
+    const doc = await cache(q, id);
     if (!doc)
       return next(
         new AppError(404, `${config.resourceName} with id ${id} not found`)
@@ -75,15 +77,20 @@ exports.getOne = (Model, config) => {
 exports.updateOne = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
-    const updatedDoc = await Model.findByIdAndUpdate(id, req.body, {
+    const q = Model.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true
     });
+
+    const updatedDoc = await q;
 
     if (!updatedDoc)
       return next(
         new AppError(404, `${config.resourceName} with id ${id} not found`)
       );
+
+    clearCache(q.mongooseCollection.name);
+    clearCache(id);
 
     res.status(200).json({
       status: 'success',
@@ -101,12 +108,17 @@ exports.updateOne = (Model, config) => {
 exports.deleteOne = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
     const { id } = req.params;
-    const doc = await Model.findByIdAndDelete(id);
+    const q = Model.findByIdAndDelete(id);
+
+    const doc = await q.exec();
 
     if (!doc)
       return next(
         new AppError(404, `${config.resourceName} with id ${id} not found`)
       );
+
+    clearCache(q.mongooseCollection.name);
+    clearCache(id);
     res.status(204).json({
       status: 'success',
       data: null

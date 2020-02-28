@@ -7,6 +7,8 @@ const {
   deleteOne
 } = require('./_controller-wrappers');
 const { catchAsyncError } = require('../utils/utils.functions');
+const { clearCache } = require('../utils/utils.db');
+const { revokeRefreshTokens } = require('../utils/utils.auth');
 
 // user requests
 
@@ -51,8 +53,12 @@ exports.updateUserById = catchAsyncError(async (req, res, next) => {
   // if no user found return with next call
   if (!updatedUser)
     return next(new AppError(404, `User with id ${id} not found`));
-  // TODO: revoke accessTokens and refreshTokens if isActive set to false
   // on success return newly created user
+  await revokeRefreshTokens(id);
+  clearCache(id);
+  clearCache('users');
+  clearCache('tours');
+  clearCache('reviews');
 
   res.status(200).json({
     status: 'success',

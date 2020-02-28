@@ -4,6 +4,7 @@ const User = require('../models/User.model');
 const AppError = require('../utils/utils.AppError');
 const { getAll, getOne, deleteOne } = require('./_controller-wrappers');
 const { catchAsyncError } = require('../utils/utils.functions');
+const { clearCache } = require('../utils/utils.db');
 
 // create review by user
 // login required
@@ -24,6 +25,10 @@ exports.createReviewByUser = catchAsyncError(async (req, res, next) => {
     _user: userId,
     _tour: tour.id
   });
+  clearCache('tours');
+  clearCache('users');
+  clearCache(userId);
+  clearCache(tourId);
   res.status(201).json({
     status: 'success',
     data: {
@@ -51,6 +56,11 @@ exports.updateReviewByUser = catchAsyncError(async (req, res, next) => {
   );
   if (!updatedReview)
     return next(new AppError(400, 'invalid reviewId or review does not exist'));
+
+  clearCache('tours');
+  clearCache('users');
+  clearCache(userId);
+  clearCache(tourId);
 
   res.status(200).json({
     status: 'success',

@@ -9,6 +9,7 @@ const {
   getOne,
   deleteOne
 } = require('./_controller-wrappers');
+const { clearCache } = require('../utils/utils.db');
 
 // CONSTANTS
 const VALID_UNITS = ['mi', 'km'];
@@ -55,6 +56,8 @@ exports.addNewGuideToTour = catchAsyncError(async (req, res, next) => {
   }
   tour.guides.push(userId);
   await tour.save();
+  clearCache('tours');
+  clearCache(tourId);
   res.status(200).json({
     status: 'success',
     message: 'Added new guide to tour. Tour updated successfully'
@@ -83,6 +86,8 @@ exports.removeGuideFromTour = catchAsyncError(async (req, res, next) => {
     .filter(guide => guide !== userId);
   tour.guides = newGuides;
   await tour.save();
+  clearCache('tours');
+  clearCache(tourId);
   res.status(200).json({
     status: 'success',
     message: `${userId} removed from tour guides`
@@ -137,6 +142,7 @@ exports.getTourStats = catchAsyncError(async (req, res, next) => {
       $sort: { avgRating: -1 }
     }
   ]);
+
   if (stats.length) {
     return res.status(200).json({
       status: 'success',
