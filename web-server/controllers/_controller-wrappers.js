@@ -1,6 +1,8 @@
 const AppError = require('../utils/utils.AppError');
+const redisClient = require('../service/redis');
 const { catchAsyncError } = require('../utils/utils.functions');
 const { createQuery } = require('../utils/utils.db');
+
 // wrappers return specific middlewares for different types of queries for resoure
 
 /** *********************************************************************
@@ -28,6 +30,8 @@ exports.createOne = (Model, config) => {
  * */
 exports.getAll = (Model, config) => {
   return catchAsyncError(async (req, res, next) => {
+    const tempVar = await redisClient.get('test');
+    console.log(tempVar);
     const query = createQuery(req, Model.find());
     const result = await query.exec();
     res.status(200).json({

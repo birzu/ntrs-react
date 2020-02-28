@@ -4,6 +4,8 @@ services:
   proxy:
     image: traefik:2.1.4
     restart: always
+    networks:
+      - traefik-proxy
     ports:
       - '80:80'
       - '8080:8080' # dashboard
@@ -21,16 +23,14 @@ services:
       # provider settings
       - --providers.docker
       - --providers.docker.exposedbydefault=false
-      - --providers.docker.network=ntrs-react-web
+      - --providers.docker.network=traefik-proxy
       # entrypoints
       - --entrypoints.web.address=:80 # <===> defining entrypoint for http on port 80 named web
     # - --entrypoints.web-secured.address=:443 <===> defining entrypoint for https on port 443 named web-secured
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - ntrs-react-web
     labels:
-      #define the rules of the traefik proxy for this container
+      # define the rules of the traefik proxy for this container
       - 'traefik.enable=true'
       - 'traefik.http.routers.api.rule=Host(`monitor.localhost`)'
       - 'traefik.http.routers.api.service=api@internal'
@@ -38,22 +38,25 @@ services:
       - 'traefik.http.services.api.loadbalancer.server.port=8080'
       - 'traefik.http.middlewares.auth.basicauth.users=admin:$$2y$$12$$clzXj8NS26OVISVxncGEOe5uyX21jU3/PwLChAFPdmAq6KP9T1LFC'
 
+  redis:
+    image: redis:5.0.7
+    networks:
+      - backend
+    healthcheck:
+      test: redis-cli ping
+
   web-server:
     build:
       context: ./web-server
       target: dev
     networks:
-      - ntrs-react-web
+      - traefik-proxy
+      - backend
     ports:
       - '9229:9229'
-    environment:
-      - MONGO_USER
-      - MONGO_HOST
-      - MONGO_PASSWORD
-      - ACCESS_TOKEN_SECRET
-      - REFRESH_TOKEN_SECRET
-      - NODE_ENV
     env_file: ./web-server/config.env
+    depends_on:
+      - redis
     volumes:
       - ./web-server/:/opt/node/node_app/ # bind mounts the working dir
       - /opt/node/node_app/node_modules # create a volume in the parent dir for node_modules
@@ -67,5 +70,6 @@ services:
       - 'traefik.http.services.web-server-natours.loadbalancer.server.port=4000'
 
 networks:
-  ntrs-react-web:
-    external: false
+  backend:
+  traefik-proxy:
+    name: traefik-proxy

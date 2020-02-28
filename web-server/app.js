@@ -32,8 +32,8 @@ const logger = require('./utils/utils.server');
  * by that time all env variables are undefined if dotenv config
  * is set in server.js instead of app.js
  * */
-// development env config
-dotenv.config({ path: path.join(__dirname, 'config.env') });
+// development env config (if running outside docker container)
+// dotenv.config({ path: path.join(__dirname, 'config.env') });
 
 // express app declaration
 const app = express();
