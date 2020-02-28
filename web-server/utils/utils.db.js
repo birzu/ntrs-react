@@ -1,9 +1,37 @@
 const AppError = require('../utils/utils.AppError');
+const redisClient = require('../service/redis');
 const { composedFunc } = require('../utils/utils.functions');
 
 // constant
 // query params to exclude from the req query
 const PARAMS_TO_EXCLUDE = ['page', 'sort', 'limit', 'fields'];
+
+// function that can be composed for caching based on the query
+exports.cache = async (Query, keyName) => {
+  const query = JSON.stringify({
+    ...Query.getQuery(),
+    options: Query.getOptions(),
+    collection: Query.mongooseCollection.name
+  });
+  // CHECK IF THE QUERY EXIST IN CACHE
+  const cachedData = await redisClient.hget(keyName, query);
+  // IF QUERY EXIST IS CACHE RETURN THE VALUE
+  let docs;
+  if (cachedData) {
+    const temp = JSON.parse(cachedData);
+    docs = Array.isArray(temp)
+      ? temp.map(d => Query.model(d))
+      : Query.model(temp);
+    console.log('seving from cache');
+    return docs;
+  }
+  // ELSE EXECUTE THE QUERY
+  const data = await Query.exec();
+  // CACHE THE QUERY RETURN VALUE
+  redisClient.hset(keyName, query, JSON.stringify(data), 'EX', 15 * 60);
+  // RETURN THE VALUE
+  return data;
+};
 
 // handle duplicate key error for reviews
 const handleDuplicateKeyError = err => {

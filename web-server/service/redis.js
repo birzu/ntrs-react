@@ -27,5 +27,6 @@ const redisClient = redis.createClient({
 });
 
 redisClient.get = util.promisify(redisClient.get).bind(redisClient);
+redisClient.hget = util.promisify(redisClient.hget).bind(redisClient);
 
 module.exports = redisClient;
