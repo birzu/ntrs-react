@@ -1,9 +1,9 @@
 # List of all stages in the file [base, dev, test, audit, pre-prod, prod]
 # default build without --target results in build image for production
 # example -------------------------------------------------------------------
-#     docker image build -t YOUR_DOCKER_ID/web-client
+#     docker image build -t YOUR_DOCKER_ID/web-server
 # if no target is specified the end result is the production version of the build
-#     docker image build -t YOUR_DOCKER_ID/web-client:STAGE --target STAGE
+#     docker image build -t YOUR_DOCKER_ID/web-server:STAGE --target STAGE
 # where STAGE refers to different stages and YOUR_DOCKER_ID refers to your docker id
 # ---------------------------------------------------------------------------
 # using Node:12.16.0-stretch as base image
@@ -33,7 +33,7 @@ EXPOSE $PORT 9229
 # user node is an unprevileged user provided by the node base image
 RUN mkdir -p /opt/node/node_app && chown -R node:node /opt/node/
 
-# switch working directory to /opt/node_app
+# switch working directory to /opt/node
 WORKDIR /opt/node
 # switch to user node and install dependencies
 USER node

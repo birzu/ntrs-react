@@ -45,6 +45,32 @@ services:
     healthcheck:
       test: redis-cli ping
 
+  web-client:
+    build:
+      context: ./web-client
+      target: dev
+    networks:
+      - traefik-proxy
+      - frontend
+    ports:
+      - '9228:9229'
+    # env_file
+    depends_on:
+      - web-server
+    volumes:
+      # bind-mount the working dir
+      - ./web-client:/opt/node/react_app
+      # create an empty volume for the node_modules folder
+      - /opt/node/react_app/node_modules
+    labels:
+      # define the rules of the traefik proxy for this service
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.frontend-client.rule=Host(`client.localhost`) && (PathPrefix(`/`))'
+      - 'traefik.http.routers.frontend-client.entrypoints=web'
+      - 'traefik.http.routers.frontend-client.service=web-client-natours'
+      - 'traefik.http.services.web-client-natours.loadbalancer.server.scheme=http'
+      - 'traefik.http.services.web-client-natours.loadbalancer.server.port=3000'
+
   web-server:
     build:
       context: ./web-server
@@ -52,6 +78,7 @@ services:
     networks:
       - traefik-proxy
       - backend
+      - frontend
     ports:
       - '9229:9229'
     env_file: ./web-server/config.env
@@ -59,9 +86,9 @@ services:
       - redis
     volumes:
       - ./web-server/:/opt/node/node_app/ # bind mounts the working dir
-      - /opt/node/node_app/node_modules # create a volume in the parent dir for node_modules
+      - /opt/node/node_app/node_modules # create an empty volume in the working dir for node_modules
     labels:
-      # define the rules of the traefik proxy for this container
+      # define the rules of the traefik proxy for this service
       - 'traefik.enable=true'
       - 'traefik.http.routers.backend-server.rule=Host(`server.localhost`) && (PathPrefix(`/api`))'
       - 'traefik.http.routers.backend-server.entrypoints=web'
@@ -71,5 +98,6 @@ services:
 
 networks:
   backend:
+  frontend:
   traefik-proxy:
     name: traefik-proxy
