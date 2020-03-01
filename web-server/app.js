@@ -81,18 +81,19 @@ app.use(handleRefreshTokens, sendNewRefreshToken);
 app.use(handleAccessTokens);
 
 // temp route
-app.get('/', (req, res, next) => {
+app.get('/_/api/', (req, res, next) => {
   res.status(200).json({
     status: 'success',
+    apiVersion: 1,
     message: 'API listening for request'
   });
 });
 
 // RESOURE ENDPOINTS
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/reviews', reviewRouter);
-app.use('/api/v1/tours', tourRouter);
-app.use('/api/v1/bookings', bookingRouter);
+app.use('/_/api/v1/users', userRouter);
+app.use('/_/api/v1/reviews', reviewRouter);
+app.use('/_/api/v1/tours', tourRouter);
+app.use('/_/api/v1/bookings', bookingRouter);
 
 // message for non-implemented routes
 app.all('*', (req, res, next) => {
