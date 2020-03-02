@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Header from './components/header/Header.component';
+
+import './App.scss';
+
 const App = () => {
   return (
     <div className="ntrs-app">
-      <h1 className="app-heading">Natours React App</h1>
+      <Header />
     </div>
   );
 };

@@ -1,0 +1,43 @@
+@import '../../../sass/abstract/variables';
+.header {
+  &__main-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__heading {
+    text-transform: uppercase;
+    color: $color-foreground-light;
+    transform: translateY(-75%);
+  }
+
+  &__heading-span {
+    display: block;
+    &--primary {
+      letter-spacing: 1.6rem;
+      font-size: 6.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.4rem;
+    }
+
+    &--secondary {
+      font-size: 2.4rem;
+      letter-spacing: 1rem;
+      color: darken($color-foreground-light, 5%);
+    }
+  }
+
+  &__signup-text {
+    font-size: 1.5rem;
+  }
+
+  &__btn {
+    margin-top: -5rem;
+    margin-left: -0.7rem;
+  }
+}

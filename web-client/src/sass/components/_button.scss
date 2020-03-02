@@ -1,0 +1,129 @@
+%btn {
+  &,
+  &::before {
+    cursor: pointer;
+    background-color: $color-foreground-light;
+    color: $color-foreground-dark;
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 22rem;
+    padding: 1.6rem 2.2rem;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    position: relative;
+    box-shadow: 1rem 1.5rem 1.5rem 0 rgba(#000, 0.12);
+    transition: all 0.3s ease-out;
+  }
+
+  &::before {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+  }
+
+  &:hover {
+    transform: translateY(-0.4rem);
+  }
+
+  &:active {
+    transform: translateY(0.2rem);
+  }
+
+  &:focus {
+    border: 2px solid $color-primary-dark;
+  }
+
+  &:hover::before {
+    opacity: 0;
+    transform: scaleX(1.4) scaleY(1.6);
+  }
+}
+
+.ntrs-btn {
+  @extend %btn;
+
+  &--primary {
+    &,
+    &::before {
+      width: 28rem;
+      font-size: 1.5rem;
+      padding: 2rem 2.8rem;
+    }
+  }
+
+  &--login,
+  &--register {
+    background-color: $color-grey-dark-5;
+    &,
+    &::before {
+      padding: 1rem 1.6rem;
+      width: 10rem;
+    }
+
+    &::before {
+      display: none;
+    }
+
+    &:hover,
+    &:active {
+      transform: translateY(0);
+    }
+    &:focus {
+      border: none;
+    }
+    &:active {
+      transform: translateY(3px);
+    }
+    .btn-inner-span {
+      transition: all 0.2s ease-in;
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: darken($color: $color-grey-dark-5, $amount: 5%);
+      border-radius: 5rem;
+      z-index: -1;
+      opacity: 0;
+    }
+  }
+
+  &--register {
+    color: $color-foreground-light;
+    .btn-inner-span {
+      background-color: darken($color-grey-dark-5, 5%);
+    }
+
+    &:hover {
+      color: $color-foreground-light;
+    }
+
+    &:hover .btn-inner-span {
+      opacity: 1;
+    }
+  }
+
+  &--login {
+    background-color: #22c978; //darken($color-primary-light, 3%);
+    color: #424242; //lighten($color: $color-foreground-light, $amount: 10%);
+    .btn-inner-span {
+      background-color: darken(
+        $color: #21bf73,
+        $amount: 4%
+      ); //darken($color: $color-primary-light, $amount: 10%);
+      color: #3d3d3d;
+    }
+
+    &:hover .btn-inner-span {
+      opacity: 1;
+    }
+  }
+}

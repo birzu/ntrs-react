@@ -1,0 +1,27 @@
+// FONT
+$font-primary: 'Lato', sans-serif;
+
+// COLORS
+$color-foreground-light: #c3d9da; // #c3d9da #d8e6e7
+$color-foreground-dark: #575b66; //  #575b66 #637883
+$color-foreground: #f8f8ff;
+$color-grey-light: #f7f7f7;
+$color-grey-light-1: #ebebeb;
+$color-grey-dark-7: #777;
+$color-grey-dark-9: #999;
+$color-grey-dark-5: #555;
+$color-grey-dark-3: #333;
+$color-primary: #5a9367; // #5a9367
+$color-primary-light: #5cab7d; // #5cab7d
+$color-primary-dark: #467302; // #44633f
+
+// GRADIENTS
+$bg-gradient: linear-gradient(
+  to right,
+  rgba($color-primary-light, 0.6),
+  rgba($color-primary, 0.6)
+);
+// BORDERS
+$border-primary-sm: 1px solid $color-primary-light;
+
+// SHADOWS

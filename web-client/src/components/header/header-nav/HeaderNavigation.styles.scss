@@ -1,0 +1,135 @@
+@import '../../../sass//abstract/variables';
+
+.header {
+  &__logo {
+    width: 19rem;
+  }
+
+  &__search-box {
+    margin-left: 3rem;
+    position: relative;
+  }
+  &__label {
+    &--search {
+      font-family: inherit;
+      font-size: 1.5rem;
+      color: darken($color: #bebebe, $amount: 15%);
+      position: absolute;
+      top: 0;
+      left: 1.8rem;
+      margin: 1rem 1.4rem;
+    }
+  }
+
+  &__icon {
+    &--search {
+      line-height: 1;
+      width: 1.7rem;
+      height: 1.7rem;
+      position: absolute;
+      top: 0;
+      margin: 1.5rem 0;
+      right: 1.8rem;
+      fill: darken(
+        $color: (
+          #bebebe
+        ),
+        $amount: 10%
+      );
+    }
+  }
+
+  &__input {
+    color: $color-grey-light;
+    font-family: inherit;
+    font-size: 1.5rem;
+    &--search {
+      width: 45rem;
+      background-color: $color-grey-dark-5;
+      outline: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      border-radius: 8px;
+      padding: 1rem 1.8rem;
+      color: $color-foreground;
+      margin-top: 0.3rem;
+      transform-origin: right;
+      transition: transform 0.25s ease-out;
+
+      &::placeholder {
+        font-family: inherit;
+        color: darken($color: #bebebe, $amount: 20%);
+      }
+
+      &:focus {
+        border: 2px solid $color-primary-light;
+      }
+      &:focus + .header__label--search {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__nav-list {
+    list-style: none;
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+
+    &--1 {
+      margin: 0.5rem auto 0 2rem;
+    }
+  }
+
+  &__nav-list-item {
+    &:not(:first-child) {
+      margin-left: 1.7rem;
+    }
+  }
+}
+
+.header__nav-link:hover + .nav-border {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-border {
+  width: 100%;
+  background-color: $color-primary-light;
+  height: 2px;
+  opacity: 0;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.nav__support {
+  font-size: 1.4rem;
+  margin-left: 1rem;
+  color: $color-foreground-light;
+
+  &--email {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 1.6rem;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+}
+
+.nav__support-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: $color-primary-light;
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-right: 0.6rem;
+  &--email {
+  }
+
+  &--phone {
+    margin-bottom: -0.1rem;
+  }
+}

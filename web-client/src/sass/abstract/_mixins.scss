@@ -1,0 +1,11 @@
+// GRID
+@mixin gridMain {
+  display: grid;
+  grid-template-columns:
+    [lpad-start] 3vw [lpad-end content-start] repeat(
+      8,
+      [col-start] minmax(15rem, 1fr) [col-end]
+    )
+    [content-end rpad-start] 3vw [rpad-end];
+  grid-template-rows: 92vh 1fr;
+}

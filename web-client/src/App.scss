@@ -1,0 +1,5 @@
+@import './sass/abstract/mixins';
+
+.ntrs-app {
+  @include gridMain;
+}
