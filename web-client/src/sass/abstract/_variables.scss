@@ -9,11 +9,12 @@ $color-grey-light: #f7f7f7;
 $color-grey-light-1: #ebebeb;
 $color-grey-dark-7: #777;
 $color-grey-dark-9: #999;
+$color-grey-dark-8: #838383;
 $color-grey-dark-5: #555;
 $color-grey-dark-3: #333;
-$color-primary: #5a9367; // #5a9367
-$color-primary-light: #5cab7d; // #5cab7d
-$color-primary-dark: #467302; // #44633f
+$color-primary: #55c57a; // #5a9367  #55c57a
+$color-primary-light: #7edf6f; // #5cab7d  #7ed56f
+$color-primary-dark: #28b485; // #44633f #28b485
 
 // GRADIENTS
 $bg-gradient: linear-gradient(
@@ -25,3 +26,6 @@ $bg-gradient: linear-gradient(
 $border-primary-sm: 1px solid $color-primary-light;
 
 // SHADOWS
+
+// OTHER VARIABLES
+$pad-X: 7vw;

@@ -1,0 +1,9 @@
+// layouts for the home page
+.section-about {
+  grid-column: lpad-start / rpad-end;
+  padding: 0 $pad-X 3.5rem $pad-X;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content 1fr;
+  grid-gap: 2rem;
+}

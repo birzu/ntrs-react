@@ -13,11 +13,12 @@
     &--search {
       font-family: inherit;
       font-size: 1.5rem;
-      color: darken($color: #bebebe, $amount: 15%);
+      color: darken($color: #bebebe, $amount: 3%);
       position: absolute;
       top: 0;
       left: 1.8rem;
       margin: 1rem 1.4rem;
+      opacity: 0;
     }
   }
 
@@ -30,11 +31,11 @@
       top: 0;
       margin: 1.5rem 0;
       right: 1.8rem;
-      fill: darken(
+      fill: lighten(
         $color: (
           #bebebe
         ),
-        $amount: 10%
+        $amount: 2%
       );
     }
   }
@@ -51,18 +52,24 @@
       border-bottom: 2px solid transparent;
       border-radius: 8px;
       padding: 1rem 1.8rem;
-      color: $color-foreground;
+      color: $color-grey-light-1;
       margin-top: 0.3rem;
       transform-origin: right;
       transition: transform 0.25s ease-out;
 
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance: none;
+      }
+
       &::placeholder {
         font-family: inherit;
-        color: darken($color: #bebebe, $amount: 20%);
+        color: lighten($color: #bebebe, $amount: 2%);
       }
 
       &:focus {
-        border: 2px solid $color-primary-light;
+        border: 2px solid $color-primary;
       }
       &:focus + .header__label--search {
         opacity: 0;
@@ -77,7 +84,7 @@
     align-items: center;
 
     &--1 {
-      margin: 0.5rem auto 0 2rem;
+      margin: 0.3rem auto 0 2rem;
     }
   }
 
@@ -86,16 +93,24 @@
       margin-left: 1.7rem;
     }
   }
+
+  &__nav-link {
+    color: lighten($color-foreground-light, 4%);
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
-.header__nav-link:hover + .nav-border {
+.header__nav-link:hover + .nav-border,
+.header__nav-link:focus + .nav-border {
   opacity: 1;
   transform: scaleX(1);
 }
 
 .nav-border {
   width: 100%;
-  background-color: $color-primary-light;
+  background-color: $color-primary;
   height: 2px;
   opacity: 0;
   transform-origin: left;
@@ -122,13 +137,10 @@
 .nav__support-icon {
   width: 1.4rem;
   height: 1.4rem;
-  fill: $color-primary-light;
+  fill: $color-primary;
   display: inline-block;
   margin-top: 0.5rem;
   margin-right: 0.6rem;
-  &--email {
-  }
-
   &--phone {
     margin-bottom: -0.1rem;
   }

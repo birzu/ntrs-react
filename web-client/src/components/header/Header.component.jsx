@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import HeaderNavigation from './header-nav/HeaderNavigation.component';
 import HeaderMain from './header-main/HeaderMain.component';
 
-const Header = () => {
+const Header = ({ homePage }) => {
   return (
     <header className="header">
-      <HeaderNavigation />
-      <HeaderMain />
+      {!homePage ? (
+        <HeaderNavigation />
+      ) : (
+        <Fragment>
+          <HeaderNavigation />
+          <HeaderMain />
+        </Fragment>
+      )}
     </header>
   );
 };

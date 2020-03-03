@@ -28,16 +28,13 @@
     display: block;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     transform: translateY(-0.4rem);
   }
 
   &:active {
     transform: translateY(0.2rem);
-  }
-
-  &:focus {
-    border: 2px solid $color-primary-dark;
   }
 
   &:hover::before {
@@ -48,10 +45,12 @@
 
 .ntrs-btn {
   @extend %btn;
+  backface-visibility: hidden;
 
   &--primary {
     &,
     &::before {
+      background-color: $color-foreground;
       width: 28rem;
       font-size: 1.5rem;
       padding: 2rem 2.8rem;
@@ -60,6 +59,8 @@
 
   &--login,
   &--register {
+    text-transform: capitalize;
+    font-size: 1.5rem;
     background-color: $color-grey-dark-5;
     &,
     &::before {
@@ -77,6 +78,7 @@
     }
     &:focus {
       border: none;
+      transform: translateY(-3px);
     }
     &:active {
       transform: translateY(3px);
@@ -97,7 +99,7 @@
   }
 
   &--register {
-    color: $color-foreground-light;
+    color: lighten($color-foreground-light, 3%);
     .btn-inner-span {
       background-color: darken($color-grey-dark-5, 5%);
     }
@@ -112,14 +114,23 @@
   }
 
   &--login {
-    background-color: #22c978; //darken($color-primary-light, 3%);
-    color: #424242; //lighten($color: $color-foreground-light, $amount: 10%);
+    background-image: linear-gradient(
+      105deg,
+      rgba($color-primary-dark, 1) 50%,
+      rgba($color-primary-light, 1)
+    ); //darken($color-primary-light, 3%); #22c978
+    color: darken($color-foreground-dark, 4%);
     .btn-inner-span {
-      background-color: darken(
-        $color: #21bf73,
-        $amount: 4%
-      ); //darken($color: $color-primary-light, $amount: 10%);
-      color: #3d3d3d;
+      background-image: linear-gradient(
+          105deg,
+          rgba(#000, 0.2) 50%,
+          rgba(#000, 0.24)
+        ),
+        linear-gradient(
+          105deg,
+          rgba($color-primary-dark, 1) 50%,
+          rgba($color-primary-light, 1)
+        );
     }
 
     &:hover .btn-inner-span {

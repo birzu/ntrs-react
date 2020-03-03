@@ -11,8 +11,9 @@
 
   &__heading {
     text-transform: uppercase;
-    color: $color-foreground-light;
+    color: $color-foreground;
     transform: translateY(-75%);
+    text-shadow: 2px 3px 5px rgba(#000, 0.15);
   }
 
   &__heading-span {
@@ -28,7 +29,7 @@
     &--secondary {
       font-size: 2.4rem;
       letter-spacing: 1rem;
-      color: darken($color-foreground-light, 5%);
+      color: darken($color-foreground, 2%);
     }
   }
 

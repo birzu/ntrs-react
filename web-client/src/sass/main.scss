@@ -6,7 +6,11 @@
 @import './base/typography';
 @import './base/base';
 
+@import './utils/utils';
+
 @import './components/button';
 @import './components/link';
 
 @import './layouts/header';
+
+@import './pages/home';

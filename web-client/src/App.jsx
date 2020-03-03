@@ -1,13 +1,16 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import Header from './components/header/Header.component';
+import HomePage from './pages/HomePage.component';
 
 import './App.scss';
 
 const App = () => {
   return (
     <div className="ntrs-app">
-      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+      </Switch>
     </div>
   );
 };

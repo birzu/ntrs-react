@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as IconSearch } from '../../../assets/iconmonstr-magnifier-4.svg';
@@ -11,8 +11,26 @@ import CustomButton from '../../custom-button/CustomButton.component';
 import './HeaderNavigation.styles.scss';
 
 const HeaderNavigation = () => {
+  const [shouldStick, setShouldStick] = useState(false);
+  const headerRef = useRef(null);
+  const handleScroll = () => {
+    setShouldStick(window.scrollY > 100);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
-    <div className="header__navigation">
+    <div
+      style={{ display: 'flex' }}
+      className={`${
+        shouldStick ? 'header__navigation--sticky' : 'header__navigation'
+      }`}
+      ref={headerRef}
+    >
       <img className="header__logo" src={logo} alt="natours logo"></img>
       <ul className="header__nav-list header__nav-list--1">
         <li className="header__nav-list-item">
@@ -39,6 +57,7 @@ const HeaderNavigation = () => {
           type="search"
           className="header__input header__input--search"
           id="header-input-search"
+          placeholder="search tours"
         ></input>
         <label
           className="header__label header__label--search"

@@ -1,0 +1,13 @@
+$vals: (
+  'xm': 1,
+  'sm': 2,
+  'md': 3.5,
+  'bg': 5,
+  'xl': 8
+);
+
+@each $k, $v in $vals {
+  .u-mb-#{$k} {
+    margin-bottom: #{$v}rem;
+  }
+}
