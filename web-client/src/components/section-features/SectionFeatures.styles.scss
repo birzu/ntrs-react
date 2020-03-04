@@ -1,0 +1,10 @@
+@import '../../sass/abstract/variables';
+.section-features {
+  // temp
+  height: 80rem;
+  &__heading {
+    justify-self: center;
+    background-image: none;
+    color: $color-foreground;
+  }
+}

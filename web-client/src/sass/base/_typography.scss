@@ -14,15 +14,18 @@
   font-size: 4.2rem;
   font-weight: 700;
   text-transform: uppercase;
-  display: block;
-  background-image: linear-gradient(
-    135deg,
-    rgba($color-primary-light, 0.74),
-    rgba($color-primary-dark, 0.74)
-  );
-  background-clip: text;
-  color: transparent;
-  text-shadow: 2px 2px 4px rgba(#000, 0.15);
+
+  &--primary {
+    display: block;
+    background-image: linear-gradient(
+      135deg,
+      rgba($color-primary-light, 0.74),
+      rgba($color-primary-dark, 0.74)
+    );
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(#000, 0.15);
+  }
 }
 
 .heading-3 {

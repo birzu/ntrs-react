@@ -11,7 +11,7 @@ import './SectionAbout.styles.scss';
 const SectionAbout = () => {
   return (
     <section className="section-about">
-      <h2 className="section-about__heading heading-2 u-mb-sm">
+      <h2 className="section-about__heading heading-2 heading-2--primary u-mb-sm">
         Exciting tours for adventurous people
       </h2>
       <div className="section-about__details-wrapper">

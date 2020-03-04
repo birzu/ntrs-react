@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 import { ReactComponent as IconSearch } from '../../../assets/iconmonstr-magnifier-4.svg';
 import { ReactComponent as IconEmail } from '../../../assets/iconmonstr-email-12.svg';
 import { ReactComponent as IconPhone } from '../../../assets/iconmonstr-phone-3.svg';
@@ -79,11 +79,17 @@ const HeaderNavigation = () => {
       </ul>
       <div className="nav__support">
         <p className="nav__support nav__support--email">
-          <IconEmail className="nav__support-icon nav__support-icon--email" />
+          <SvgIconSelector
+            cls="nav__support-icon nav__support-icon--email"
+            icName="email-2"
+          />
           support.tours@natours.com
         </p>
         <p className="nav__support nav__support--phone">
-          <IconPhone className="nav__support-icon nav__support-icon--phone" />
+          <SvgIconSelector
+            cls="nav__support-icon nav__support-icon--phone"
+            icName="phone"
+          />
           999-999-9999
         </p>
       </div>
