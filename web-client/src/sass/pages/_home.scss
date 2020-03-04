@@ -4,6 +4,7 @@
   padding: 0 $pad-X 3.5rem $pad-X;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: max-content 1fr;
-  grid-gap: 2rem;
+  grid-template-rows: max-content 1fr 0.8fr max-content;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1.5rem;
 }

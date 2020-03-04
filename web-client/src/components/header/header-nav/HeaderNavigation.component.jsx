@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as IconSearch } from '../../../assets/iconmonstr-magnifier-4.svg';
@@ -12,7 +12,6 @@ import './HeaderNavigation.styles.scss';
 
 const HeaderNavigation = () => {
   const [shouldStick, setShouldStick] = useState(false);
-  const headerRef = useRef(null);
   const handleScroll = () => {
     setShouldStick(window.scrollY > 100);
   };
@@ -29,7 +28,6 @@ const HeaderNavigation = () => {
       className={`${
         shouldStick ? 'header__navigation--sticky' : 'header__navigation'
       }`}
-      ref={headerRef}
     >
       <img className="header__logo" src={logo} alt="natours logo"></img>
       <ul className="header__nav-list header__nav-list--1">

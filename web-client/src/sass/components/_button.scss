@@ -13,7 +13,7 @@
     outline: none;
     border-radius: 50px;
     position: relative;
-    box-shadow: 1rem 1.5rem 1.5rem 0 rgba(#000, 0.12);
+    box-shadow: 0.2rem 0.8rem 1.3rem rgba(#000, 0.1);
     transition: all 0.3s ease-out;
   }
 
@@ -54,6 +54,45 @@
       width: 28rem;
       font-size: 1.5rem;
       padding: 2rem 2.8rem;
+    }
+  }
+
+  &--secondary {
+    &,
+    &::before {
+      background-color: transparent;
+      border: 2px solid $color-primary;
+      font-size: 1.5rem;
+      color: $color-primary;
+      border-radius: 4px;
+      width: 18rem;
+      padding: 1.2rem 1rem 1.2rem 1.4rem;
+      box-shadow: 0 1rem 1.2rem rgba(#000, 0.05);
+    }
+
+    &::before {
+      display: none;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-foreground;
+      transform: translateY(-4px);
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+
+    &:hover::before,
+    &:focus::before {
+      transform: scaleX(0) scaleY(0);
     }
   }
 
