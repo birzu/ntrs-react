@@ -21,7 +21,7 @@ class FeaturedTours extends React.Component {
         </div>
 
         <div className="featured-tours__tour-list">
-          {[1, 2, 3].map(el => this.renderTourItem({ id: el }))}
+          {[1, 2, 3].map(el => this.renderTourItem({ id: el, rating: 4.6 }))}
         </div>
       </section>
     );

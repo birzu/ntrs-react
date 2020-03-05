@@ -1,7 +1,6 @@
 import React from 'react';
 
-import TourImg from '../../assets/mountain-hiker_1.jpg';
-
+import ReviewContainer from '../review-stars-container/ReviewContainer.component';
 import SvgIconSelector from '../svg-icon-selector/SvgIconSelector.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
@@ -26,7 +25,7 @@ const renderTourDescription = (icName, value) => (
   </figure>
 );
 
-const TourCard = ({ size }) => {
+const TourCard = ({ size, rating }) => {
   return (
     <div className={`ntrs-tour-card ntrs-tour-card--${size}`}>
       <div className="ntrs-tour-card__img">&nbsp;</div>
@@ -34,8 +33,26 @@ const TourCard = ({ size }) => {
         <span>The Mountain Hiker</span>
       </h4>
       <div className="ntrs-tour-card__details">
-        {renderTourDetails('difficulty'.toUpperCase(), 'Easy')}
-        {renderTourDetails('duration'.toUpperCase(), '7 Days')}
+        <div className="ntrs-tour-card__details-group">
+          {renderTourDetails('difficulty'.toUpperCase(), 'Easy')}
+        </div>
+        <div className="ntrs-tour-card__details-group">
+          {renderTourDetails('duration'.toUpperCase(), '7 Days')}
+        </div>
+        <div className="ntrs-tour-card__details-group">
+          <p className="ntrs-tour-card__rating">
+            Rating
+            <span>
+              <strong>4.5</strong>
+            </span>
+          </p>
+        </div>
+        <div className="ntrs-tour-card__details-group">
+          <ReviewContainer
+            cls="ntrs-tour-card__review-rating"
+            rating={rating}
+          />
+        </div>
       </div>
       <div className="ntrs-tour-card__summary">
         Exploring the jaw-dropping US east coast by foot and by boat.
@@ -51,12 +68,6 @@ const TourCard = ({ size }) => {
           Price
           <span>
             <strong>$699.97</strong>
-          </span>
-        </p>
-        <p className="ntrs-tour-card__rating">
-          Rating
-          <span>
-            <strong>4.8</strong>
           </span>
         </p>
         <CustomButton cls="ntrs-btn ntrs-btn--success ntrs-tour-card__btn">

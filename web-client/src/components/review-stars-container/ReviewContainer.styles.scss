@@ -1,0 +1,41 @@
+@import '../../sass/abstract/variables';
+.review-container {
+  display: flex;
+  height: 3.5rem;
+
+  &__star-wrapper {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    &:not(:first-child) {
+      margin-left: 0.2rem;
+    }
+  }
+
+  &__star {
+    width: 3rem;
+    height: 3rem;
+    display: block;
+
+    &--filled,
+    &--unfilled {
+      mask-image: url(../../assets/star.svg);
+      mask-size: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 8;
+    }
+
+    &--filled {
+      background-color: #ffd700;
+
+      width: 0%;
+    }
+
+    &--unfilled {
+      background-color: $color-foreground-light;
+      z-index: 5;
+    }
+  }
+}
