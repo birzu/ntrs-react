@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
-import { ReactComponent as IconSearch } from '../../../assets/iconmonstr-magnifier-4.svg';
-import { ReactComponent as IconEmail } from '../../../assets/iconmonstr-email-12.svg';
-import { ReactComponent as IconPhone } from '../../../assets/iconmonstr-phone-3.svg';
 import logo from '../../../assets/logo-green-small-2x.png';
 
 import CustomButton from '../../custom-button/CustomButton.component';
@@ -63,7 +60,10 @@ const HeaderNavigation = () => {
         >
           search tours
         </label>
-        <IconSearch className="header__icon header__icon--search" />
+        <SvgIconSelector
+          cls="header__icon header__icon--search"
+          icName="magnifier"
+        />
       </div>
       <ul className="header__nav-list header__nav-list--2">
         <li className="header__nav-list-item">

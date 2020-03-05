@@ -10,6 +10,12 @@
   grid-row-gap: 1.5rem;
 }
 
+.featured-tours {
+  grid-column: lpad-start / rpad-end;
+  padding: 4rem $pad-X 10rem $pad-X;
+  background-color: lighten($color-grey-light-0, 1.5%);
+}
+
 .section-features {
   background-image: linear-gradient(
       to right bottom,

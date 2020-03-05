@@ -57,6 +57,42 @@
     }
   }
 
+  &--success {
+    transition: transform 0.2s ease;
+    &,
+    &::before {
+      width: 16rem;
+      background-color: $color-primary;
+      color: $color-foreground;
+      font-size: 1.5rem;
+      padding: 1.4rem 1.6rem;
+      border-radius: 0.5rem;
+    }
+    &::before {
+      display: none;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      transform: translateY(0);
+    }
+
+    &:hover::before,
+    &:focus::before {
+      transform: scaleX(0) scaleY(0);
+    }
+
+    &:hover,
+    &:focus {
+      transform: translateY(-4px);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
   &--secondary {
     &,
     &::before {
