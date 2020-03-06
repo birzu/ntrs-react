@@ -1,10 +1,19 @@
 @import '../../sass/abstract/variables';
 .section-features {
-  // temp
-  height: 80rem;
   &__heading {
     justify-self: center;
-    background-image: none;
-    color: $color-foreground;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+  }
+
+  &__card {
+    width: 70%;
+  }
+
+  &__btn {
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+    margin-top: 5rem;
   }
 }

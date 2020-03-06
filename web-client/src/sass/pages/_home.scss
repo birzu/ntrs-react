@@ -13,37 +13,29 @@
 .featured-tours {
   grid-column: lpad-start / rpad-end;
   padding: 4rem $pad-X 10rem $pad-X;
-  background-color: lighten($color-grey-light-0, 1.5%);
+  background-color: lighten($color-grey-light-0, 1%);
 }
 
 .section-features {
-  background-image: linear-gradient(
-      to right bottom,
-      rgba($color-primary-dark, 0.7),
-      rgba($color-primary-light, 0.5)
-    ),
-    url(../../assets/hero-alternate.jpg);
-
-  background-color: $color-grey-light;
   grid-column: lpad-start / rpad-end;
-  padding: 4rem $pad-X 3.5rem $pad-X;
-  // display: grid;
-  // grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
-  // clip-path: polygon(0 15%, 100% 0, 100% 80%, 0 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+  padding: 7rem $pad-X 10rem $pad-X;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: max-content max-content min-content;
+  grid-row-gap: 3rem;
+  grid-column-gap: 2.5rem;
+  justify-items: center;
+  align-items: start;
+}
 
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url(../../assets/wave.png);
-    background-position: bottom;
-    background-repeat: no-repeat;
-  }
+.section-cta {
+  height: 80rem; //temp
+  padding: 5rem $pad-X 10rem $pad-X;
+  grid-column: lpad-start / rpad-end;
+}
+
+/* FOOTER LAYOUT FOR HOMEPAGE */
+.footer {
+  grid-column: lpad-start / rpad-end;
+  padding: 5rem $pad-X;
 }

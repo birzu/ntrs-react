@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 import logo from '../../../assets/logo-green-small-2x.png';
 
@@ -27,26 +27,6 @@ const HeaderNavigation = () => {
       }`}
     >
       <img className="header__logo" src={logo} alt="natours logo"></img>
-      <ul className="header__nav-list header__nav-list--1">
-        <li className="header__nav-list-item">
-          <Link className="ntrs-link header__nav-link" to="#">
-            Home
-          </Link>
-          <div className="nav-border"></div>
-        </li>
-        <li className="header__nav-list-item">
-          <Link className="ntrs-link header__nav-link" to="#">
-            Destinations
-          </Link>
-          <div className="nav-border"></div>
-        </li>
-        <li className="header__nav-list-item">
-          <Link className="ntrs-link header__nav-link" to="#">
-            About
-          </Link>
-          <div className="nav-border"></div>
-        </li>
-      </ul>
       <div className="header__search-box">
         <input
           type="search"

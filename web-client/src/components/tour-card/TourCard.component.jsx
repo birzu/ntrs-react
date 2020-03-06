@@ -27,7 +27,7 @@ const renderTourDescription = (icName, value) => (
 
 const TourCard = ({ size, rating }) => {
   return (
-    <div className={`ntrs-tour-card ntrs-tour-card--${size}`}>
+    <div className={`ntrs-tour-card ${size ? `ntrs-tour-card--${size}` : ''}`}>
       <div className="ntrs-tour-card__img">&nbsp;</div>
       <h4 className="ntrs-tour-card__tour-name heading-4">
         <span>The Mountain Hiker</span>
@@ -61,7 +61,7 @@ const TourCard = ({ size, rating }) => {
         {renderTourDescription('map', 'Miami, USA')}
         {renderTourDescription('calendar', 'April 2021')}
         {renderTourDescription('flag', '4 Stops')}
-        {renderTourDescription('iconmonstr-user-6', 'Upto 15 members')}
+        {renderTourDescription('user', 'Upto 15 members')}
       </div>
       <div className="ntrs-tour-card__rating-box">
         <p className="ntrs-tour-card__price">

@@ -17,6 +17,9 @@
 
   &--primary {
     display: block;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    line-height: 1.2;
     background-image: linear-gradient(
       135deg,
       rgba($color-primary-light, 0.74),

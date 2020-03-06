@@ -55,6 +55,14 @@
       font-size: 1.5rem;
       padding: 2rem 2.8rem;
     }
+
+    &--alternate {
+      &,
+      &::before {
+        background-color: $color-primary;
+        color: $color-foreground;
+      }
+    }
   }
 
   &--success {

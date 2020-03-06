@@ -1,0 +1,46 @@
+.footer {
+  background-color: $color-grey-dark-3;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60rem, 1fr));
+  align-items: center;
+
+  &__logo {
+    width: 12rem;
+  }
+
+  &__nav {
+    justify-self: end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__copyright {
+    margin-top: 1.2rem;
+    display: block;
+    font-size: 1.6rem;
+    color: $color-grey-dark-9;
+    grid-column: 2 / 3;
+  }
+
+  &__nav-list {
+    list-style: none;
+    display: flex;
+  }
+
+  &__nav-list-item {
+    &:not(:last-of-type) {
+      margin-right: 1.5rem;
+    }
+  }
+
+  &__link {
+    color: $color-grey-dark-9;
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: $color-foreground;
+    }
+  }
+}
