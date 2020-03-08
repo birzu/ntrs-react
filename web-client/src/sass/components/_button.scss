@@ -4,6 +4,7 @@
     cursor: pointer;
     background-color: $color-foreground-light;
     color: $color-foreground-dark;
+    letter-spacing: 1px;
     font-weight: 700;
     text-transform: uppercase;
     width: 22rem;
@@ -51,8 +52,9 @@
     &,
     &::before {
       background-color: $color-foreground;
+      letter-spacing: 1px;
       width: 28rem;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       padding: 2rem 2.8rem;
     }
 
@@ -199,15 +201,15 @@
   &--login {
     background-image: linear-gradient(
       105deg,
-      rgba($color-primary-dark, 1) 38%,
+      rgba($color-primary, 1) 38%,
       rgba($color-primary-light, 1)
     ); //darken($color-primary-light, 3%); #22c978
     color: darken($color-foreground-dark, 4%);
     .btn-inner-span {
       background-image: linear-gradient(
           105deg,
-          rgba(#000, 0.2) 50%,
-          rgba(#000, 0.24)
+          rgba(#000, 0.1) 50%,
+          rgba(#000, 0.14)
         ),
         linear-gradient(
           105deg,

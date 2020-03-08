@@ -14,7 +14,7 @@ class FeaturedTours extends React.Component {
   render() {
     return (
       <section className="featured-tours">
-        <div className="featured-tours__heading-wrapper u-mb-sm">
+        <div className="featured-tours__heading-wrapper u-mb-md">
           <h2 className="featured-tours__heading heading-2 heading-2--primary">
             Most Popular Tours
           </h2>

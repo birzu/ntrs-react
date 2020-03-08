@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import FeatureCard from '../feature-card/FeatureCard.component';
-import CustomButton from '../custom-button/CustomButton.component';
+import FeatureCard from "../feature-card/FeatureCard.component";
+import CustomButton from "../custom-button/CustomButton.component";
 
-import './SectionFeatures.styles.scss';
+import "./SectionFeatures.styles.scss";
 
 const FEATURE_CARD_TEXTS = [
-  'Variety of tours all across the world. You can choose your own experience based on your need.',
-  'Professional and experienced guides to help you along in the tour so that you can have the best experience.',
-  'We bring you close to nature. Take a break from your busy life an enjoy the beauty of nature.'
+  "Variety of tours all across the world. You can choose your own experience based on your need.",
+  "Professional and experienced guides to help you along in the tour so that you can have the best experience.",
+  "We bring you close to nature. Take a break from your busy life an enjoy the beauty of nature."
 ];
 
 const SectionFeatures = () => {

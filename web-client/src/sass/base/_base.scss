@@ -19,6 +19,12 @@ body {
   min-height: 100vh;
 }
 
+#reactPortal {
+  width: 100vh;
+  height: 100vw;
+  display: block;
+}
+
 ::selection {
   background-color: $color-primary-light;
   color: $color-foreground;
