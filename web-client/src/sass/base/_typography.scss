@@ -11,11 +11,10 @@
 
 .heading-2 {
   @extend %heading;
-  font-size: 4.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-
   &--primary {
+    font-size: 4.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
     display: block;
     letter-spacing: 2px;
     word-spacing: 2px;
@@ -28,6 +27,12 @@
     background-clip: text;
     color: transparent;
     text-shadow: 2px 2px 4px rgba(#000, 0.15);
+  }
+
+  &--secondary {
+    font-size: 3.8rem;
+    word-spacing: 2px;
+    letter-spacing: 1px;
   }
 }
 

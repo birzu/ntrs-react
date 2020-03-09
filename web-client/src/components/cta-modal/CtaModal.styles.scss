@@ -1,0 +1,164 @@
+@import '../../sass/abstract/variables';
+
+.cta-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: block;
+  width: 66%;
+  height: 60rem;
+  background-image: linear-gradient(
+      105deg,
+      rgba(#fff, 0.92) 50%,
+      rgba($color-primary-dark, 0.45) 50%,
+      rgba($color-primary-light, 0.45) 80%
+    ),
+    url(../../assets/sea-exlorer_2.jpg);
+  background-size: cover;
+  background-position: 0 60%;
+  background-repeat: no-repeat;
+  border-radius: 0.65rem;
+  box-shadow: -1rem -1rem 1rem rgba(#000, 0.14),
+    1.2rem 1.5rem 1.2rem rgba(#000, 0.16);
+  padding: 4.5rem 6rem;
+
+  &__heading {
+    line-height: 1;
+    margin-bottom: 7rem;
+    display: block;
+    background-image: linear-gradient(
+      135deg,
+      rgba($color-primary-dark, 1),
+      rgba($color-primary-light, 1)
+    );
+    text-shadow: 1px 2px 3px rgba(#000, 0.15);
+    background-clip: text;
+    color: transparent;
+    font-size: 4.2rem;
+  }
+}
+
+.cta-form {
+  display: flex;
+  flex-direction: column;
+
+  &__group {
+    position: relative;
+    width: 45%;
+
+    &:nth-child(1) {
+      margin-bottom: 6.5rem;
+    }
+  }
+
+  &__radio-group {
+    margin-top: 3.5rem;
+    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  &__btn {
+    margin-top: 4.5rem;
+  }
+
+  &__input {
+    padding: 1.6rem 2.2rem;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: rgba(#fff, 0.8);
+    border-bottom: 3px solid transparent;
+    font-family: inherit;
+    font-size: 1.7rem;
+    color: $color-grey-dark-7;
+
+    &::placeholder {
+      font-family: inherit;
+      font-size: 1.6rem;
+      color: $color-grey-dark-9;
+    }
+
+    &:focus {
+      box-shadow: 0 1rem 1.4rem rgba(#000, 0.14);
+    }
+    &:focus:invalid,
+    &:focus {
+      border-bottom: 3px solid #ff7730;
+    }
+
+    &:focus:valid {
+      border-bottom: 3px solid $color-primary;
+    }
+  }
+  &__label {
+    font-size: 2rem;
+    color: $color-foreground-dark;
+    position: absolute;
+    top: 1.2rem;
+    left: 0.2rem;
+    transform: scale(1) translateY(-5.7rem);
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    transform: scale(1.04) translateY(-2rem);
+  }
+
+  &__error {
+    position: absolute;
+    top: 1.5rem;
+    right: 2.2rem;
+  }
+  &__radio-label {
+    cursor: pointer;
+    font-size: 2rem;
+    flex-basis: 45%;
+    text-shadow: 0 1px 2px rgba(#000, 0.08);
+    color: $color-primary-dark;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    line-height: 1;
+  }
+
+  &__input-radio {
+    display: none;
+    visibility: hidden;
+  }
+
+  &__radio-button {
+    cursor: pointer;
+    display: block;
+    margin-top: 3px;
+    margin-right: 0.8rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 3px solid $color-primary;
+    border-radius: 50%;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 1.23rem;
+      height: 1.23rem;
+      background-color: $color-primary-dark;
+      border-radius: 50%;
+      position: absolute;
+      top: 0.4rem;
+      left: 0.4rem;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+    }
+  }
+  &__input-radio:checked + &__radio-label > &__radio-button::after {
+    opacity: 1;
+  }
+}

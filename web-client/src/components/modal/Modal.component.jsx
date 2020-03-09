@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Modal = InnerModal => props => {
-  ReactDOM.createPortal(
-    <div className="modal-wrapper">
-      <InnerModal {...props} />
-    </div>,
-    document.getElementById('reactPortal')
+const Modal = InnerModal => ({ ...props }) => {
+  return ReactDOM.createPortal(
+    <div className="modal-wrapper">{<InnerModal {...props} />}</div>,
+    document.querySelector('#reactPortal')
   );
 };
 
