@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { hideModal } from '../../redux/reducers/modal.reducer';
 
 import Modal from '../modal/Modal.component';
+import FormGroup from '../form-group/FormGroup.component';
 import FormError from '../form-error/FormError.component';
 import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
@@ -29,47 +30,29 @@ const CtaModal = ({ onDismis }) => {
         &#10005;
       </div>
       <form className="cta-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="cta-form__group">
-          <FormInput
-            type="email"
-            id="cta-form-input-email"
-            label="Email"
-            inputCls="cta-form__input cta-form__input--email"
-            name="email"
-            labelCls="cta-form__label cta-form__label--email"
-            placeholder="Email"
-            inputRef={register({
-              required: { value: true, message: 'Email is required' }
-            })}
-          />
+        <FormGroup
+          clsPrefix="cta-form"
+          inputType="email"
+          errors={errors}
+          inputRef={register({
+            required: { value: true, message: 'Email is required' }
+          })}
+        />
 
-          <div className="cta-form__error cta-form__error--email">
-            <FormError name="email" errors={errors} />
-          </div>
-        </div>
-
-        <div className="cta-form__group">
-          <FormInput
-            type="text"
-            id="cta-form-input-fullname"
-            label="Name"
-            inputCls="cta-form__input cta-form__input--fullname"
-            name="fullname"
-            placeholder="Full Name"
-            inputRef={register({
-              required: { value: true, message: 'Name is required' },
-              pattern: {
-                value: /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/,
-                message: 'Please provide your full name'
-              }
-            })}
-            labelCls="cta-form__label cta-form__label--fullname"
-          />
-
-          <div className="cta-form__error cta-form__error--fullname">
-            <FormError name="fullname" errors={errors} />
-          </div>
-        </div>
+        <FormGroup
+          clsPrefix="cta-form"
+          inputType="text"
+          inputCls="fullname"
+          name="name"
+          errors={errors}
+          inputRef={register({
+            required: { value: true, message: 'Name is required' },
+            pattern: {
+              value: /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/,
+              message: 'Please provide your full name'
+            }
+          })}
+        />
 
         <div className="cta-form__radio-group">
           <FormInput
