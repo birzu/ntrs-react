@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 import logo from '../../../assets/logo-green-small-2x.png';
 
@@ -45,10 +45,19 @@ const HeaderNavigation = () => {
           icName="magnifier"
         />
       </div>
+      <ul className="header__nav-list header__nav-list--1">
+        <li className="header__nav-list-item">
+          <Link className="ntrs-link header__nav-link">Home</Link>
+        </li>
+        <li className="header__nav-list-item">
+          <Link className="ntrs-link header__nav-link">Tours</Link>
+        </li>
+      </ul>
+      <div className="header__nav-list-divider"></div>
       <ul className="header__nav-list header__nav-list--2">
         <li className="header__nav-list-item">
           <CustomButton cls="ntrs-btn ntrs-btn--login header__nav-btn">
-            Log in
+            Sign in
           </CustomButton>
         </li>
         <li className="header__nav-list-item">
@@ -63,7 +72,7 @@ const HeaderNavigation = () => {
             cls="nav__support-icon nav__support-icon--email"
             icName="email-2"
           />
-          support.tours@natours.com
+          support@natours.com
         </p>
         <p className="nav__support nav__support--phone">
           <SvgIconSelector

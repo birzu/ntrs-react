@@ -28,7 +28,6 @@
     left: 0;
     display: block;
   }
-
   &:hover,
   &:focus {
     transform: translateY(-0.4rem);
@@ -148,13 +147,17 @@
 
   &--login,
   &--register {
-    text-transform: capitalize;
     font-size: 1.5rem;
+    text-transform: uppercase;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+    border-radius: 0.4rem;
     background-color: $color-grey-dark-5;
+
     &,
     &::before {
       padding: 1rem 1.6rem;
-      width: 10rem;
+      width: 12rem;
     }
 
     &::before {
@@ -181,20 +184,22 @@
       top: 0;
       left: 0;
       background-color: darken($color: $color-grey-dark-5, $amount: 5%);
-      border-radius: 5rem;
+      border-radius: 0.4rem;
       z-index: -1;
+      border-radius: 0.4rem;
       opacity: 0;
     }
   }
 
   &--register {
-    color: lighten($color-foreground-light, 3%);
+    color: $color-foreground;
+    background-color: darken($color-primary, 10%);
     .btn-inner-span {
-      background-color: darken($color-grey-dark-5, 5%);
+      background-color: darken($color-primary, 20%);
     }
 
     &:hover {
-      color: $color-foreground-light;
+      color: $color-foreground;
     }
 
     &:hover .btn-inner-span {
@@ -203,25 +208,8 @@
   }
 
   &--login {
-    background-image: linear-gradient(
-      105deg,
-      rgba($color-primary, 1) 38%,
-      rgba($color-primary-light, 1)
-    ); //darken($color-primary-light, 3%); #22c978
-    color: darken($color-foreground-dark, 4%);
-    .btn-inner-span {
-      background-image: linear-gradient(
-          105deg,
-          rgba(#000, 0.1) 50%,
-          rgba(#000, 0.14)
-        ),
-        linear-gradient(
-          105deg,
-          rgba($color-primary-dark, 1) 50%,
-          rgba($color-primary-light, 1)
-        );
-    }
-
+    background-color: $color-grey-dark-5;
+    color: $color-foreground;
     &:hover .btn-inner-span {
       opacity: 1;
     }
