@@ -1,23 +1,33 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
 
+import { hideModal } from '../../redux/reducers/modal.reducer';
+
+import Modal from '../modal/Modal.component';
 import FormError from '../form-error/FormError.component';
 import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
 import './CtaModal.styles.scss';
 
-const CtaModal = () => {
+const mapDispatchToProps = dispatch => ({
+  hideModal: () => dispatch(hideModal())
+});
+
+const CtaModal = ({ onDismis }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = data => console.log(data);
 
   return (
-    <div className="cta-modal">
+    <div className="cta-modal" onClick={e => e.stopPropagation()}>
       <h2 className="cta-modal__heading heading-2 heading-2--secondary">
-        Book your next adventure !
+        Start your next adventure !
       </h2>
-      <div className="cta-modal__btn-dismiss">&#10005;</div>
+      <div className="cta-modal__btn-dismiss" onClick={() => onDismis()}>
+        &#10005;
+      </div>
       <form className="cta-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="cta-form__group">
           <FormInput
@@ -94,4 +104,4 @@ const CtaModal = () => {
   );
 };
 
-export default CtaModal;
+export default connect(null, mapDispatchToProps)(Modal(CtaModal));

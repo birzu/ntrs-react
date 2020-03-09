@@ -1,17 +1,25 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import FeatureCard from "../feature-card/FeatureCard.component";
-import CustomButton from "../custom-button/CustomButton.component";
+import FeatureCard from '../feature-card/FeatureCard.component';
+import CustomButton from '../custom-button/CustomButton.component';
 
-import "./SectionFeatures.styles.scss";
+import './SectionFeatures.styles.scss';
+import { setCurrentModal, showModal } from '../../redux/reducers/modal.reducer';
 
 const FEATURE_CARD_TEXTS = [
-  "Variety of tours all across the world. You can choose your own experience based on your need.",
-  "Professional and experienced guides to help you along in the tour so that you can have the best experience.",
-  "We bring you close to nature. Take a break from your busy life an enjoy the beauty of nature."
+  'Variety of tours all across the world. You can choose your own experience based on your need.',
+  'Professional and experienced guides to help you along in the tour so that you can have the best experience.',
+  'We bring you close to nature. Take a break from your busy life an enjoy the beauty of nature.'
 ];
 
-const SectionFeatures = () => {
+const mapDispatchToProps = dispatch => ({
+  setModalName: modalName => dispatch(setCurrentModal(modalName)),
+  showModal: () => dispatch(showModal())
+});
+
+const SectionFeatures = ({ showModal, setModalName }) => {
   return (
     <section className="section-features">
       <h2 className="heading-2 heading-2--primary section-features__heading u-mb-md">
@@ -38,11 +46,19 @@ const SectionFeatures = () => {
           text={FEATURE_CARD_TEXTS[2]}
         />
       </div>
-      <CustomButton cls="ntrs-btn ntrs-btn--primary--alternate section-features__btn">
+      <CustomButton
+        type="button"
+        cls="ntrs-btn ntrs-btn--primary--alternate section-features__btn"
+        onClick={e => {
+          e.stopPropagation();
+          setModalName('Cta');
+          showModal();
+        }}
+      >
         Contact Now
       </CustomButton>
     </section>
   );
 };
 
-export default SectionFeatures;
+export default connect(null, mapDispatchToProps)(SectionFeatures);
