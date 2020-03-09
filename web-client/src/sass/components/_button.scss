@@ -69,6 +69,7 @@
 
   &--success {
     transition: transform 0.2s ease;
+
     &,
     &::before {
       width: 16rem;
@@ -81,7 +82,10 @@
     &::before {
       display: none;
     }
-
+    &--alternate {
+      width: 18rem;
+      border-radius: 5rem;
+    }
     &:hover,
     &:active,
     &:focus {

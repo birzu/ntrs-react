@@ -17,6 +17,7 @@ const CtaModal = () => {
       <h2 className="cta-modal__heading heading-2 heading-2--secondary">
         Book your next adventure !
       </h2>
+      <div className="cta-modal__btn-dismiss">&#10005;</div>
       <form className="cta-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="cta-form__group">
           <FormInput
@@ -83,10 +84,10 @@ const CtaModal = () => {
           </FormInput>
         </div>
         <CustomButton
-          cls="cta-form__btn cta-form__btn--submit ntrs-btn ntrs-btn--success"
+          cls="cta-form__btn cta-form__btn--submit ntrs-btn ntrs-btn--success ntrs-btn--success--alternate"
           type="submit"
         >
-          Submit
+          Next Step <span>&#10142;</span>
         </CustomButton>
       </form>
     </div>
