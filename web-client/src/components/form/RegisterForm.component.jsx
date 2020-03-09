@@ -1,17 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import isEmail from 'validator/lib/isEmail';
 
-import FormGroup from '../form-group';
-import FormInput from '../form-input';
+import FormGroup from '../form-group/FormGroup.component';
+import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
 const RegisterForm = ({}) => {
   const { errors, handleSubmit, register, watch } = useForm();
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => console.log(data); // temp
 
   return (
-    <div className="register-form-modal-wrapper">
+    <div
+      className="register-form-modal-wrapper"
+      onClick={e => e.stopPropagation()}
+    >
       <h2 className="heading-2 heading-2--secondary register-form__modal-heading">
         Create a new natours account
       </h2>
@@ -45,7 +49,8 @@ const RegisterForm = ({}) => {
           clsPrefix="register-form"
           errors={errors}
           inputRef={register({
-            required: { value: true, message: 'Email is required' }
+            required: { value: true, message: 'Email is required' },
+            validate: val => isEmail(val) || 'Invalid email'
           })}
         />
 

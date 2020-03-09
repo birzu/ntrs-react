@@ -8,6 +8,10 @@ const FORM_INPUT_TYPES = {
     name: {
       label: 'Name',
       placeholder: 'Full Name'
+    },
+    username: {
+      label: 'Username',
+      placeholder: 'username'
     }
   },
 
@@ -55,9 +59,7 @@ const FormGroup = ({
         name={inputType}
         inputRef={inputRef}
       />
-      <div
-        className={`s${clsPrefix}__error s${clsPrefix}__error--${inputType}`}
-      >
+      <div className={`${clsPrefix}__error ${clsPrefix}__error--${inputType}`}>
         <FormError name={inputType} errors={errors} />
       </div>
     </div>

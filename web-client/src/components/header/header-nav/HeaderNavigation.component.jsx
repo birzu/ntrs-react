@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import {
+  setCurrentModal,
+  showModal
+} from '../../../redux/reducers/modal.reducer';
+
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 import logo from '../../../assets/logo-green-small-2x.png';
 
@@ -7,7 +14,12 @@ import CustomButton from '../../custom-button/CustomButton.component';
 
 import './HeaderNavigation.styles.scss';
 
-const HeaderNavigation = () => {
+const mapDispatchToProps = dispatch => ({
+  setModalName: modalName => dispatch(setCurrentModal(modalName)),
+  showModal: () => dispatch(showModal())
+});
+
+const HeaderNavigation = ({ setModalName, showModal }) => {
   const [shouldStick, setShouldStick] = useState(false);
   const handleScroll = () => {
     setShouldStick(window.scrollY > 100);
@@ -56,12 +68,24 @@ const HeaderNavigation = () => {
       <div className="header__nav-list-divider"></div>
       <ul className="header__nav-list header__nav-list--2">
         <li className="header__nav-list-item">
-          <CustomButton cls="ntrs-btn ntrs-btn--login header__nav-btn">
+          <CustomButton
+            cls="ntrs-btn ntrs-btn--login header__nav-btn"
+            onClick={() => {
+              setModalName('signin');
+              showModal();
+            }}
+          >
             Sign in
           </CustomButton>
         </li>
         <li className="header__nav-list-item">
-          <CustomButton cls="ntrs-btn ntrs-btn--register header__nav-btn">
+          <CustomButton
+            cls="ntrs-btn ntrs-btn--register header__nav-btn"
+            onClick={() => {
+              setModalName('register');
+              showModal();
+            }}
+          >
             Register
           </CustomButton>
         </li>
@@ -86,4 +110,4 @@ const HeaderNavigation = () => {
   );
 };
 
-export default HeaderNavigation;
+export default connect(null, mapDispatchToProps)(HeaderNavigation);

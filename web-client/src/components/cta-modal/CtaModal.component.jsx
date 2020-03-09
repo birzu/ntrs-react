@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
+import isEmail from 'validator/lib/isEmail';
 
 import { hideModal } from '../../redux/reducers/modal.reducer';
 
 import Modal from '../modal/Modal.component';
 import FormGroup from '../form-group/FormGroup.component';
-import FormError from '../form-error/FormError.component';
 import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
@@ -35,7 +35,8 @@ const CtaModal = ({ onDismis }) => {
           inputType="email"
           errors={errors}
           inputRef={register({
-            required: { value: true, message: 'Email is required' }
+            required: { value: true, message: 'Email is required' },
+            validate: val => isEmail(val) || 'Invalid email'
           })}
         />
 

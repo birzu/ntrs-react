@@ -3,7 +3,7 @@
 // INITIAL STATE
 const INITIAL_STATE = {
   currentModal: '',
-  modalHidden: true
+  modalHidden: false
 };
 
 // ACTION CREATORS

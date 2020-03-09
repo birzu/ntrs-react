@@ -1,10 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import isEmail from 'validator/lib/isEmail';
 
 import FormGroup from '../form-group/FormGroup.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
-const SignInForm = ({}) => {
+const SignInForm = ({ onDismiss }) => {
   const { errors, register, handleSubmit } = useForm();
 
   const onSubmit = data => console.log(data);
@@ -12,19 +13,20 @@ const SignInForm = ({}) => {
   return (
     <div
       className="signin-form-modal-wrapper"
-      onSubmit={handleSubmit(onSubmit)}
+      onClick={e => e.stopPropagation()}
     >
       <h2 className="heading-2 heading-2--secondary signin-form__modal-heading">
         Log in to your naturs account
       </h2>
 
-      <form className="signin-form">
+      <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
         <FormGroup
           clsPrefix="signin-form"
           inputType="email"
           errors={errors}
           inputRef={register({
-            required: { value: true, message: 'Email is required' }
+            required: { value: true, message: 'Email is required' },
+            validate: val => isEmail(val) || 'Invalid email'
           })}
         />
         <FormGroup
