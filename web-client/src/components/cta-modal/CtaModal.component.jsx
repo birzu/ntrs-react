@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
   hideModal: () => dispatch(hideModal())
 });
 
-const CtaModal = ({ onDismis }) => {
+const CtaModal = ({ onDismiss }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = data => console.log(data);
@@ -26,7 +26,7 @@ const CtaModal = ({ onDismis }) => {
       <h2 className="cta-modal__heading heading-2 heading-2--secondary">
         Start your next adventure !
       </h2>
-      <div className="cta-modal__btn-dismiss" onClick={() => onDismis()}>
+      <div className="cta-modal__btn-dismiss" onClick={() => onDismiss()}>
         &#10005;
       </div>
       <form className="cta-form" onSubmit={handleSubmit(onSubmit)}>

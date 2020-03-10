@@ -1,0 +1,97 @@
+@import '../../sass/abstract/variables';
+.signin-form-modal-wrapper,
+.register-form-modal-wrapper {
+  width: 52rem;
+  height: 50rem;
+  background-color: rgba(#fff, 0.95);
+  border-radius: 0.45rem;
+  box-shadow: 1rem 1.5rem 1.8rem rgba(#000, 0.14),
+    -0.8rem -1.2rem 1.5rem rgba(#000, 0.08);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 4.5rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signin-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &__modal-btn-dismiss {
+    cursor: pointer;
+    color: $color-foreground-dark;
+    font-size: 2rem;
+    position: absolute;
+    top: 1.2rem;
+    right: 2.4rem;
+
+    &:hover {
+      color: #ee4849;
+    }
+  }
+
+  &__modal-heading {
+    font-size: 2.8rem;
+    background-image: linear-gradient(
+      135deg,
+      rgba($color-primary-dark, 1) 8%,
+      rgba($color-primary-light, 1) 66%
+    );
+    color: transparent;
+    background-clip: text;
+    margin-bottom: 4.5rem;
+    text-shadow: 1px 1px 2px rgba(#000, 0.08);
+  }
+
+  &__group {
+    &:not(:last-child) {
+      margin-bottom: 4.4rem;
+    }
+
+    width: 92%;
+  }
+
+  &__input {
+    width: 100%;
+    display: block;
+    padding: 1.4rem 2rem;
+    background-color: $color-grey-light-1;
+    outline: none;
+    border: none;
+    border-radius: 0.4rem;
+    border-bottom: 2px solid transparent;
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: $color-grey-dark-5;
+
+    &::placeholder {
+      font-family: inherit;
+      font-size: 1.5rem;
+      color: $color-grey-dark-7;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus:invalid,
+    &:focus {
+      border-bottom: 2px solid #ff7730;
+    }
+
+    &:focus:valid {
+      border-bottom: 2px solid $color-primary;
+    }
+  }
+}
+
+.register-form-modal-wrapper {
+  height: 66rem;
+}

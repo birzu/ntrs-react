@@ -12,8 +12,8 @@ const mapDispatchToProps = dispatch => ({
   hideModal: () => dispatch(hideModal())
 });
 
-const FormModal = ({ signin, register }) => {
-  return register ? <RegisterForm /> : <SignInForm />;
+const FormModal = ({ signin, register, ...props }) => {
+  return register ? <RegisterForm {...props} /> : <SignInForm {...props} />;
 };
 
 export default connect(null, mapDispatchToProps)(Modal(FormModal));

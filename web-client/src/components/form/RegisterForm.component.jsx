@@ -6,7 +6,7 @@ import FormGroup from '../form-group/FormGroup.component';
 import FormInput from '../form-input/FormInput.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
-const RegisterForm = ({}) => {
+const RegisterForm = ({ onDismiss }) => {
   const { errors, handleSubmit, register, watch } = useForm();
 
   const onSubmit = data => console.log(data); // temp
@@ -19,6 +19,13 @@ const RegisterForm = ({}) => {
       <h2 className="heading-2 heading-2--secondary register-form__modal-heading">
         Create a new natours account
       </h2>
+
+      <div
+        className="register-form__modal-btn-dismiss"
+        onClick={() => onDismiss()}
+      >
+        &#10005;
+      </div>
 
       <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
         <FormGroup

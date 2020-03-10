@@ -5,6 +5,8 @@ import isEmail from 'validator/lib/isEmail';
 import FormGroup from '../form-group/FormGroup.component';
 import CustomButton from '../custom-button/CustomButton.component';
 
+import './Form.styles.scss';
+
 const SignInForm = ({ onDismiss }) => {
   const { errors, register, handleSubmit } = useForm();
 
@@ -15,8 +17,15 @@ const SignInForm = ({ onDismiss }) => {
       className="signin-form-modal-wrapper"
       onClick={e => e.stopPropagation()}
     >
+      <div
+        className="signin-form__modal-btn-dismiss"
+        onClick={() => onDismiss()}
+      >
+        &#10005;
+      </div>
+
       <h2 className="heading-2 heading-2--secondary signin-form__modal-heading">
-        Log in to your naturs account
+        Log in to your natours account
       </h2>
 
       <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
