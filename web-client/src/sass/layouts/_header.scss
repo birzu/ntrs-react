@@ -1,23 +1,30 @@
 .header {
-  height: 100%;
   grid-column: lpad-start / rpad-end;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
 
+  // use this modifier if using header outside of homepage component
+  &--nav-only {
+    position: relative;
+    height: 7.5rem;
+
+    &__navigation,
+    &__navigation--sticky {
+      box-shadow: 0 3px 8px rgba(#000, 0.14);
+    }
+  }
+
   &__navigation,
   &__navigation--sticky {
     background-color: $color-grey-dark-3;
     height: 7.5rem;
-    box-shadow: 0 0.5rem 1.2rem 0 rgba(#000, 0.35);
+    box-shadow: 0 0.5rem 1.2rem 0 rgba(#000, 0.2);
     padding: 0 7vw;
     display: flex;
     flex-direction: row;
     align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     z-index: 2;
   }
@@ -34,7 +41,7 @@
   }
 
   &__main {
-    height: calc(100% - 7rem);
+    height: calc(85vh - 7.5rem);
     width: 100%;
     background-image: linear-gradient(
         to right bottom,

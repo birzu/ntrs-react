@@ -23,7 +23,6 @@ const mapStateToProps = createStructuredSelector({
 
 const HomePage = ({ modalHidden, currentModalName }) => {
   const renderModal = () => {
-    console.log(currentModalName);
     switch (currentModalName) {
       case 'Cta':
         return <CtaModal />;

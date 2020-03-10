@@ -1,0 +1,26 @@
+/* LAYOUTS FOR TOUR-COLLECTION PAGE */
+
+.link-navigation-wrapper {
+  grid-column: lpad-start / rpad-end;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  height: 4rem;
+}
+
+.section-tours {
+  grid-column: col-end 1 / rpad-start;
+  grid-row-start: 4;
+}
+
+.section-slides {
+  grid-column: col-end 1 / rpad-start;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+.tours-search-sidebar {
+  grid-column: lpad-end / col-end 1;
+  grid-row-start: 3;
+  grid-row-end: 7;
+  margin-top: 3rem;
+}

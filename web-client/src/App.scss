@@ -2,4 +2,5 @@
 
 .ntrs-app {
   @include gridMain;
+  min-height: 100vh;
 }
