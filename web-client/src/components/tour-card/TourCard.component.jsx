@@ -2,7 +2,7 @@ import React from 'react';
 
 import ReviewContainer from '../review-stars-container/ReviewContainer.component';
 import SvgIconSelector from '../svg-icon-selector/SvgIconSelector.component';
-import CustomButton from '../custom-button/CustomButton.component';
+import UIButton from '../core-ui/button/UIButton';
 
 const renderTourDetails = (key, value, clsName) => (
   <p className={`${clsName}__details-title`}>
@@ -72,9 +72,9 @@ const TourCard = ({ size, rating }) => {
             <strong>$699.97</strong>
           </span>
         </p>
-        <CustomButton cls={`ntrs-btn ntrs-btn--success ${clsName}__btn`}>
-          Details
-        </CustomButton>
+        <UIButton modifier="success-alt">
+          Details <span>&#10142;</span>
+        </UIButton>
       </div>
     </div>
   );

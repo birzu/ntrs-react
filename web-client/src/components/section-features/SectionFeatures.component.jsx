@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import FeatureCard from '../feature-card/FeatureCard.component';
-import CustomButton from '../custom-button/CustomButton.component';
+import UIButton from '../core-ui/button/UIButton';
 
 import './SectionFeatures.styles.scss';
 import { setCurrentModal, showModal } from '../../redux/reducers/modal.reducer';
@@ -46,17 +46,17 @@ const SectionFeatures = ({ showModal, setModalName }) => {
           text={FEATURE_CARD_TEXTS[2]}
         />
       </div>
-      <CustomButton
-        type="button"
-        cls="ntrs-btn ntrs-btn--primary--alternate section-features__btn"
+      <UIButton
+        modifier="primary"
+        utilCls="u-mt-bg u-grid-center"
         onClick={e => {
           e.stopPropagation();
           setModalName('Cta');
           showModal();
         }}
       >
-        Contact Now
-      </CustomButton>
+        Contact now
+      </UIButton>
     </section>
   );
 };

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Modal = InnerModal => ({ hideModal, ...props }) => {
+const Modal = InnerContent => ({ hideModal, ...props }) => {
   return ReactDOM.createPortal(
-    <div className="modal-wrapper" onClick={() => hideModal()}>
-      {<InnerModal {...props} onDismiss={hideModal} />}
+    <div className="modal-wrapper">
+      <InnerContent onDismiss={hideModal} {...props} />
     </div>,
-    document.querySelector('#reactPortal')
+    document.getElementById('reactPortal')
   );
 };
 

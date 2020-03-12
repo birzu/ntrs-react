@@ -1,0 +1,4 @@
+.ui-grid {
+  @include gridMain;
+  min-height: 100vh;
+}

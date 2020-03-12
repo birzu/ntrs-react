@@ -23,11 +23,19 @@ const ReviewContainer = ({ rating, cls, size }) => {
     <div className={`review-container ${cls}`}>
       {[1, 2, 3, 4, 5].map((current, idx) => {
         if (rating >= current) {
-          return <Star width={'100%'} size={starSize} />;
+          return <Star width={'100%'} size={starSize} key={idx} />;
         }
+        // if rating is less than current
         const width = (rating - (current - 1)) * 100;
-        const calculatedWidth = width < 49 ? width * 1.15 : width * 0.92;
-        return <Star width={`${calculatedWidth}%`} size={starSize} />;
+        let calculatedWidth;
+        if (width < 48) {
+          calculatedWidth = width * 1.17;
+        } else if (width > 52) {
+          calculatedWidth = width * 0.93;
+        } else {
+          calculatedWidth = width;
+        }
+        return <Star width={`${calculatedWidth}%`} size={starSize} key={idx} />;
       })}
     </div>
   );

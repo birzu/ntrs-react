@@ -1,17 +1,10 @@
 @import '../../sass/abstract/variables';
 .signin-form-modal-wrapper,
 .register-form-modal-wrapper {
-  width: 52rem;
-  height: 50rem;
   background-color: rgba(#fff, 0.95);
-  border-radius: 0.45rem;
-  box-shadow: 1rem 1.5rem 1.8rem rgba(#000, 0.14),
-    -0.8rem -1.2rem 1.5rem rgba(#000, 0.08);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 4.5rem 3.5rem;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,13 +34,13 @@
     font-size: 2.8rem;
     background-image: linear-gradient(
       135deg,
-      rgba($color-primary-dark, 1) 8%,
-      rgba($color-primary-light, 1) 66%
+      rgba($color-primary-dark, 1) 90%,
+      rgba($color-primary-light, 1) 40%
     );
     color: transparent;
     background-clip: text;
     margin-bottom: 4.5rem;
-    text-shadow: 1px 1px 2px rgba(#000, 0.08);
+    text-shadow: 1px 2px 2px rgba(#000, 0.12);
   }
 
   &__group {
@@ -93,5 +86,4 @@
 }
 
 .register-form-modal-wrapper {
-  height: 66rem;
 }

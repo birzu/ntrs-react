@@ -1,19 +1,18 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import UIGrid from './components/core-ui/grid/UIGrid';
 import HomePage from './pages/HomePage.component';
 import ToursPage from './pages/ToursPage.component';
 
-import './App.scss';
-
 const App = () => {
   return (
-    <div className="ntrs-app">
+    <UIGrid>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/tours" component={ToursPage} />
       </Switch>
-    </div>
+    </UIGrid>
   );
 };
 

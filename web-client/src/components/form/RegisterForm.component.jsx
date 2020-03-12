@@ -4,7 +4,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import FormGroup from '../form-group/FormGroup.component';
 import FormInput from '../form-input/FormInput.component';
-import CustomButton from '../custom-button/CustomButton.component';
+import UIButton from '../core-ui/button/UIButton';
 
 const RegisterForm = ({ onDismiss }) => {
   const { errors, handleSubmit, register, watch } = useForm();
@@ -17,7 +17,7 @@ const RegisterForm = ({ onDismiss }) => {
       onClick={e => e.stopPropagation()}
     >
       <h2 className="heading-2 heading-2--secondary register-form__modal-heading">
-        Create a new natours account
+        Sign up
       </h2>
 
       <div
@@ -96,10 +96,7 @@ const RegisterForm = ({ onDismiss }) => {
             })}
           />
         </div>
-
-        <CustomButton className="register-form__btn ntrs-btn ntrs-btn--secondary">
-          Resister
-        </CustomButton>
+        <UIButton modifier="submit-bg"> Register </UIButton>
       </form>
       <div className="to-signin">
         <div className="to-signin__text">

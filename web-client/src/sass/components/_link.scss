@@ -2,11 +2,16 @@
   &:link,
   &:visited {
     text-decoration: none;
-    text-transform: uppercase;
     font-weight: 400;
   }
 }
 
 .ntrs-link {
   @extend %link;
+  text-transform: uppercase;
+
+  &--nav-link {
+    font-size: 1.4rem;
+    text-transform: none;
+  }
 }

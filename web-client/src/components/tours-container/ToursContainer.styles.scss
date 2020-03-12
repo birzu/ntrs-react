@@ -1,13 +1,193 @@
 @import '../../sass/abstract/variables';
 
 .section-tours {
-  margin: 0 3rem;
-  margin-top: 0.5rem;
-  background-color: $color-grey-light-0;
+  margin-top: 0.8rem;
+  margin-left: 2rem;
 
   &__head {
-    height: 5rem;
-    background-color: darken($color: $color-grey-light-0, $amount: 10%);
+    height: 6rem;
+    display: flex;
+    padding: 0 2rem;
+    background-color: $color-grey-light;
+    align-items: center;
+  }
+
+  &__body {
+  }
+
+  &__label {
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: $color-grey-dark-5;
+    font-weight: 700;
+    margin-right: 0.8rem;
+  }
+
+  &__input {
+  }
+
+  &__sort-box {
+    margin-left: auto;
+    margin-right: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: translateY(40%);
+    z-index: 10;
+  }
+
+  &__sort-box-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $color-grey-dark-5;
+    position: absolute;
+    top: 0.4rem;
+    left: -35%;
+  }
+
+  &__select-wrapper {
+    display: flex;
+    width: 20rem;
+    outline: none;
+
+    &:focus {
+      outline: 1px solid $color-primary;
+    }
+  }
+
+  &__select {
+    display: none;
+  }
+
+  &__select-label {
+    cursor: pointer;
+    width: 20rem;
+    padding: 0.6rem 1.2rem;
+    background-color: darken($color: $color-grey-light, $amount: 6%);
+    color: $color-grey-dark-7;
+    font-size: 1.5rem;
+    display: block;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 1.8rem;
+      height: 1.8rem;
+      background-image: url(../../assets/caret.svg);
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-repeat: no-repeat;
+      transition: transform 0.05s ease;
+    }
+  }
+
+  &__select-option-list {
+    width: 20rem;
+    transform: translateY(0.6rem);
+    background-color: darken($color-grey-light, 5%);
+    list-style: none;
+    color: $color-grey-dark-7;
+    font-size: 1.5rem;
+    z-index: 10;
+    opacity: 0;
+  }
+
+  &__select-wrapper:focus ~ &__select-option-list {
+    opacity: 1;
+  }
+
+  &__select-wrapper:focus &__select-label {
+    background-color: darken($color: $color-primary, $amount: 10%);
+    color: $color-foreground;
+    &::after {
+      transform: translateX(-50%) rotate(180deg);
+    }
+  }
+
+  &__select-option {
+    cursor: pointer;
+    display: block;
+    padding: 0.5rem 1.2rem;
+    position: relative;
+    transition: color 0.2s ease;
+    &::after {
+      display: block;
+      content: '';
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background-color: darken($color-primary, 10%);
+      transition: opacity 0.2s ease;
+    }
+    &:not(:last-of-type) {
+      border-bottom: 1px solid darken($color-grey-light, 25%);
+    }
+
+    &:hover::after,
+    &:focus::after {
+      opacity: 1;
+    }
+
+    &:hover,
+    &:focus {
+      color: $color-foreground;
+    }
+  }
+
+  &__page-box {
+    color: $color-grey-dark-7;
+    display: flex;
+  }
+
+  &__page-current {
+    font-size: 1.6rem;
+    display: block;
+    color: $color-grey-dark-5;
+    font-weight: 700;
+    padding: 0.4rem 1rem;
+  }
+
+  &__btn-prev-page,
+  &__btn-next-page {
+    display: flex;
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    line-height: 1.2;
+    font-size: 1.6rem;
+    border: 1px solid darken($color: $color-grey-light, $amount: 15%);
+    background-color: darken($color: $color-grey-light, $amount: 5%);
+
+    & span {
+      margin-right: 4px;
+      margin-top: 1px;
+      align-self: center;
+      display: block;
+      border: 7px solid;
+      border-color: transparent $color-grey-dark-5 transparent transparent;
+    }
+
+    &:hover span {
+      border-color: transparent $color-primary transparent transparent;
+    }
+  }
+
+  &__btn-next-page {
+    & span {
+      margin-left: 4px;
+      margin-right: 0;
+      border-color: transparent transparent transparent $color-grey-dark-5;
+    }
+
+    &:hover span {
+      border-color: transparent transparent transparent $color-primary;
+    }
   }
 }
 
@@ -16,7 +196,7 @@
   display: grid;
   grid-column-gap: 5rem;
   grid-row-gap: 5rem;
-  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   justify-items: center;
   align-items: center;
   &__card {

@@ -10,7 +10,6 @@ import {
 import Header from '../components/header/Header.component';
 import SectionAbout from '../components/section-about/SectionAbout.component';
 import SectionFeatures from '../components/section-features/SectionFeatures.component';
-import SectionCta from '../components/section-cta/SectionCta.component';
 import CtaModal from '../components/cta-modal/CtaModal.component';
 import FormModal from '../components/form/FormModal.component';
 import FeaturedTours from '../components/section-featured-tours/FeaturedTours.component';

@@ -1,182 +1,105 @@
-%btn {
+.ui-btn {
+  cursor: pointer;
   &,
-  &::before {
-    cursor: pointer;
-    background-color: $color-foreground-light;
-    color: $color-foreground-dark;
+  &::after {
     letter-spacing: 1px;
+    word-spacing: 2px;
     font-weight: 700;
     text-transform: uppercase;
-    width: 22rem;
     padding: 1.6rem 2.2rem;
     text-align: center;
     border: none;
     outline: none;
-    border-radius: 50px;
+    border-radius: 5rem;
     position: relative;
-    box-shadow: 0.2rem 0.8rem 1.3rem rgba(#000, 0.1);
-    transition: all 0.3s ease-out;
+    transition: all 0.2s ease-in-out;
+    backface-visibility: hidden;
+    box-shadow: 0.2rem 0.4rem 0.6rem rgba($color: #000000, $alpha: 0.1);
   }
 
-  &::before {
+  &::after {
     width: 100%;
     height: 100%;
-    z-index: -1;
-    content: '';
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1;
     display: block;
+    content: '';
   }
+
   &:hover,
   &:focus {
-    transform: translateY(-0.4rem);
+    transform: translateY(-3px);
   }
 
   &:active {
-    transform: translateY(0.2rem);
+    transform: translateY(1px);
   }
 
-  &:hover::before {
-    opacity: 0;
-    transform: scaleX(1.4) scaleY(1.6);
-  }
-}
+  &--main {
+    width: 26rem;
+    padding: 2rem 2.4rem;
+    font-size: 1.5rem;
+    word-spacing: 1px;
+    letter-spacing: normal;
+    color: $color-foreground-dark;
+    // background-color: lighten($color: $color-foreground-light, $amount: 7%);
+    background-color: darken($color-foreground, 3%);
+    &::after {
+      background-color: darken($color: $color-foreground, $amount: 3%);
+    }
 
-.ntrs-btn {
-  @extend %btn;
-  backface-visibility: hidden;
+    &:hover::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+  &--primary,
+  &--secondary {
+    width: 21rem;
+  }
 
   &--primary {
-    &,
-    &::before {
-      background-color: $color-foreground;
-      letter-spacing: 1px;
-      width: 28rem;
-      font-size: 1.4rem;
-      padding: 2rem 2.8rem;
+    background-color: darken($color: $color-primary, $amount: 10%);
+    padding: 1.6rem 2rem;
+    color: $color-foreground;
+
+    &::after {
+      background-color: darken($color: $color-primary, $amount: 10%);
     }
 
-    &--alternate {
-      &,
-      &::before {
-        background-color: $color-primary;
-        color: $color-foreground;
-      }
-    }
-  }
-
-  &--success {
-    transition: transform 0.2s ease;
-
-    &,
-    &::before {
-      width: 14rem;
-      background-color: $color-primary;
-      color: $color-foreground;
-      font-size: 1.5rem;
-      padding: 1.4rem 1.6rem;
-      border-radius: 0.5rem;
-    }
-    &::before {
-      display: none;
-    }
-    &--alternate {
-      width: 18rem;
-      border-radius: 5rem;
-    }
-    &:hover,
-    &:active,
-    &:focus {
-      transform: translateY(0);
-    }
-
-    &:hover::before,
-    &:focus::before {
-      transform: scaleX(0) scaleY(0);
-    }
-
-    &:hover,
-    &:focus {
-      transform: translateY(-4px);
-    }
-
-    &:active {
-      transform: translateY(1px);
+    &:hover::after {
+      transform: scaleX(1.35) scaleY(1.55);
+      opacity: 0;
     }
   }
 
   &--secondary {
-    &,
-    &::before {
-      background-color: transparent;
-      border: 2px solid $color-primary;
-      font-size: 1.5rem;
-      color: $color-primary;
-      border-radius: 4px;
-      width: 18rem;
-      padding: 1.2rem 1rem 1.2rem 1.4rem;
-      box-shadow: 0 1rem 1.2rem rgba(#000, 0.05);
-    }
+    border-radius: 0.45rem;
+    background-color: transparent;
+    border: 2px solid darken($color: $color-primary, $amount: 10%);
+    color: darken($color: $color-primary, $amount: 10%);
 
-    &::before {
+    &::after {
       display: none;
-    }
-
-    &:hover,
-    &:focus,
-    &:active {
-      transform: translateY(0);
-    }
-
-    &:hover {
-      background-color: $color-primary;
-      color: $color-foreground;
-      transform: translateY(-4px);
-    }
-
-    &:active {
-      transform: translateY(2px);
-    }
-
-    &:hover::before,
-    &:focus::before {
-      transform: scaleX(0) scaleY(0);
     }
   }
-
   &--login,
-  &--register {
+  &--register,
+  &--success,
+  &--submit,
+  &--submit-bg,
+  &--success-alt {
     font-size: 1.5rem;
-    text-transform: uppercase;
-    word-spacing: 2px;
-    letter-spacing: 1px;
     border-radius: 0.4rem;
+    width: 12rem;
+    padding: 1rem 1.6rem;
     background-color: $color-grey-dark-5;
+    color: $color-foreground;
 
-    &,
-    &::before {
-      padding: 1rem 1.6rem;
-      width: 12rem;
-    }
-
-    &::before {
-      display: none;
-    }
-
-    &:hover,
-    &:active {
-      transform: translateY(0);
-    }
-    &:focus {
-      border: none;
-      transform: translateY(-3px);
-    }
-    &:active {
-      transform: translateY(3px);
-    }
-    .btn-inner-span {
-      transition: all 0.2s ease-in;
+    &__inner {
+      transition: opacity 0.2s ease-in;
       display: block;
       width: 100%;
       height: 100%;
@@ -185,33 +108,94 @@
       left: 0;
       background-color: darken($color: $color-grey-dark-5, $amount: 5%);
       border-radius: 0.4rem;
-      z-index: -1;
-      border-radius: 0.4rem;
       opacity: 0;
+      z-index: -1;
+    }
+
+    &::after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus {
+      transform: translateY(0);
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+
+    &:hover &__inner,
+    &:focus &__inner {
+      opacity: 1;
     }
   }
 
   &--register {
-    color: $color-foreground;
-    background-color: darken($color-primary, 10%);
-    .btn-inner-span {
-      background-color: darken($color-primary, 20%);
-    }
+    background-color: darken($color: $color-primary, $amount: 10%);
 
-    &:hover {
-      color: $color-foreground;
-    }
-
-    &:hover .btn-inner-span {
-      opacity: 1;
+    &__inner {
+      background-color: darken($color: $color-primary, $amount: 20%);
     }
   }
 
-  &--login {
-    background-color: $color-grey-dark-5;
-    color: $color-foreground;
-    &:hover .btn-inner-span {
-      opacity: 1;
+  &--success,
+  &--success-alt,
+  &--submit,
+  &--submit-bg {
+    width: 17rem;
+    padding: 1.7rem 1.8rem;
+    color: darken($color: $color-foreground, $amount: 2%);
+    background-color: darken($color: $color-primary, $amount: 10%);
+
+    &__inner {
+      background-color: darken($color: $color-primary, $amount: 15%);
+    }
+  }
+
+  &--success-alt {
+    width: 14rem;
+    padding: 1.2rem 1.4rem;
+    padding-left: 1.8rem;
+    border-radius: 0.4rem;
+  }
+
+  &--submit {
+    width: 16rem;
+    padding: 1.4rem 1.5rem 1.4rem 1.6rem;
+  }
+
+  &--submit-bg {
+    align-self: center;
+    width: 80%;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    padding: 1.55rem 2rem;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+    background-color: darken($color: $color-primary, $amount: 15%);
+
+    &__inner,
+    &::after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus {
+      transform: translateY(0);
+    }
+  }
+
+  &--filter {
+    width: 7rem;
+    font-size: 1.1rem;
+    padding: 0.4rem 1.2rem;
+    border-radius: 3px;
+    font-weight: 400;
+    background-color: darken($color: $color-grey-light, $amount: 8%);
+    box-shadow: 2px 3px 3px rgba(#000, 0.1);
+    &::after {
+      display: none;
     }
   }
 }

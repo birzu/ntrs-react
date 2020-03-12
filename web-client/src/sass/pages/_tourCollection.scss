@@ -10,17 +10,17 @@
 .section-tours {
   grid-column: col-end 1 / rpad-start;
   grid-row-start: 4;
+  margin-bottom: 2rem;
 }
 
 .section-slides {
-  grid-column: col-end 1 / rpad-start;
+  grid-column: lpad-end / rpad-start;
   grid-row-start: 3;
   grid-row-end: 4;
 }
 
 .tours-search-sidebar {
   grid-column: lpad-end / col-end 1;
-  grid-row-start: 3;
+  grid-row-start: 4;
   grid-row-end: 7;
-  margin-top: 3rem;
 }

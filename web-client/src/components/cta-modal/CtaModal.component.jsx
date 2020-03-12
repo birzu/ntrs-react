@@ -3,17 +3,23 @@ import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import isEmail from 'validator/lib/isEmail';
 
-import { hideModal } from '../../redux/reducers/modal.reducer';
+import {
+  showModal,
+  hideModal,
+  setCurrentModal
+} from '../../redux/reducers/modal.reducer';
 
 import Modal from '../modal/Modal.component';
 import FormGroup from '../form-group/FormGroup.component';
 import FormInput from '../form-input/FormInput.component';
-import CustomButton from '../custom-button/CustomButton.component';
+import UIButton from '../core-ui/button/UIButton';
 
 import './CtaModal.styles.scss';
 
 const mapDispatchToProps = dispatch => ({
-  hideModal: () => dispatch(hideModal())
+  showModal: () => dispatch(showModal()),
+  hideModal: () => dispatch(hideModal()),
+  setModalName: modalName => dispatch(setCurrentModal(modalName))
 });
 
 const CtaModal = ({ onDismiss }) => {
@@ -77,12 +83,9 @@ const CtaModal = ({ onDismiss }) => {
             <span className="cta-form__radio-button"></span>
           </FormInput>
         </div>
-        <CustomButton
-          cls="cta-form__btn cta-form__btn--submit ntrs-btn ntrs-btn--success ntrs-btn--success--alternate"
-          type="submit"
-        >
+        <UIButton modifier="submit" utilCls="u-mt-bg">
           Next Step <span>&#10142;</span>
-        </CustomButton>
+        </UIButton>
       </form>
     </div>
   );

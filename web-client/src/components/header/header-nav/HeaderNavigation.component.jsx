@@ -10,7 +10,7 @@ import {
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 import logo from '../../../assets/logo-green-small-2x.png';
 
-import CustomButton from '../../custom-button/CustomButton.component';
+import UIButton from '../../core-ui/button/UIButton';
 
 import './HeaderNavigation.styles.scss';
 
@@ -68,26 +68,26 @@ const HeaderNavigation = ({ setModalName, showModal }) => {
       <div className="header__nav-list-divider"></div>
       <ul className="header__nav-list header__nav-list--2">
         <li className="header__nav-list-item">
-          <CustomButton
-            cls="ntrs-btn ntrs-btn--login header__nav-btn"
+          <UIButton
+            modifier="login"
             onClick={() => {
               setModalName('signin');
               showModal();
             }}
           >
             Sign in
-          </CustomButton>
+          </UIButton>
         </li>
         <li className="header__nav-list-item">
-          <CustomButton
-            cls="ntrs-btn ntrs-btn--register header__nav-btn"
+          <UIButton
+            modifier="register"
             onClick={() => {
               setModalName('register');
               showModal();
             }}
           >
-            Register
-          </CustomButton>
+            register
+          </UIButton>
         </li>
       </ul>
       <div className="nav__support">

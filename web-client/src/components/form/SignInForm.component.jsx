@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import isEmail from 'validator/lib/isEmail';
 
 import FormGroup from '../form-group/FormGroup.component';
-import CustomButton from '../custom-button/CustomButton.component';
+import UIButton from '../core-ui/button/UIButton';
 
 import './Form.styles.scss';
 
@@ -25,7 +25,7 @@ const SignInForm = ({ onDismiss }) => {
       </div>
 
       <h2 className="heading-2 heading-2--secondary signin-form__modal-heading">
-        Log in to your natours account
+        Log in
       </h2>
 
       <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
@@ -46,9 +46,7 @@ const SignInForm = ({ onDismiss }) => {
             required: { value: true, message: 'Password is required' }
           })}
         />
-        <CustomButton cls="ntrs-btn ntrs-btn--success ntrs-btn--success--wide signin-form__btn">
-          Sign in
-        </CustomButton>
+        <UIButton modifier="submit-bg">Log in</UIButton>
       </form>
 
       <div className="to-register-wrapper">

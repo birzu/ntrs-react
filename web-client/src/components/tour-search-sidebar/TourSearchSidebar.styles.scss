@@ -2,9 +2,74 @@
 
 .tours-search-sidebar {
   height: 80rem;
-  background-color: #999;
+  position: relative;
+  margin-top: 0.8rem;
+}
+
+.sidebar-separator {
+  height: 100%;
+  width: 1px;
+  background-color: darken($color: $color-grey-light, $amount: 7%);
+  position: absolute;
+  top: 0;
+  right: 1rem;
 }
 
 .sidebar-wrapper {
-  height: 80rem;
+  display: flex;
+
+  flex-flow: column nowrap;
+  padding: 0 0.8rem 3rem 0;
+  align-items: flex-start;
+}
+
+.sidebar {
+  &__heading {
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    color: $color-foreground-dark;
+
+    &--2,
+    &--3 {
+      margin-top: 0.5rem;
+    }
+
+    &--3 {
+      margin-bottom: 0.7rem;
+    }
+  }
+
+  &__filter-title {
+    font-size: 1.4rem;
+    color: $color-foreground-dark;
+    margin-bottom: 0.8rem;
+    &:nth-of-type(2) {
+      margin-top: 0.7rem;
+    }
+  }
+
+  &__container {
+    width: 80%;
+    border-bottom: 1px solid darken($color-grey-light-0, 5%);
+    padding-bottom: 1.4rem;
+    color: $color-grey-dark-7;
+  }
+
+  &__item {
+    font-size: 1.4rem;
+    &:not(:last-child) {
+      margin-bottom: 2px;
+    }
+  }
+
+  &__filter-box {
+    margin-bottom: 2rem;
+  }
+
+  &__filter-btns {
+    display: flex;
+    justify-content: space-between;
+  }
 }

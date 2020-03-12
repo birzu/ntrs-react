@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CustomButton from '../../custom-button/CustomButton.component';
+import UIButton from '../../core-ui/button/UIButton';
 
 import './HeaderMain.styles.scss';
 
@@ -16,9 +16,9 @@ const HeaderMain = () => {
             Is where life happens
           </span>
         </h1>
-        <CustomButton cls="ntrs-btn ntrs-btn--primary header__btn">
+        <UIButton style={{ marginLeft: '-.8rem' }} modifier="main">
           Discover All Tours
-        </CustomButton>
+        </UIButton>
       </div>
     </div>
   );

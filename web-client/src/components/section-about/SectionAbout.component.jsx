@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-import CustomButton from '../custom-button/CustomButton.component';
+import { showModal, setCurrentModal } from '../../redux/reducers/modal.reducer';
+
+import UIButton from '../core-ui/button/UIButton';
 
 import Img1 from '../../assets/mountain-hiker_1.jpg';
 import Img2 from '../../assets/sports-lover-1.jpg';
@@ -8,7 +11,12 @@ import Img3 from '../../assets/sea-exlorer_2.jpg';
 
 import './SectionAbout.styles.scss';
 
-const SectionAbout = () => {
+const mapDispatchToProps = dispatch => ({
+  setModalName: modalName => dispatch(setCurrentModal(modalName)),
+  showModal: () => dispatch(showModal())
+});
+
+const SectionAbout = ({ setModalName, showModal }) => {
   return (
     <section className="section-about">
       <h2 className="section-about__heading heading-2 heading-2--primary u-mb-sm">
@@ -35,9 +43,16 @@ const SectionAbout = () => {
             Enjoy the eternal beauty of nature and live on a happy life. Join
             the community, your next breathtaking adventure awaits you.
           </p>
-          <CustomButton cls="ntrs-btn ntrs-btn--secondary section-about__btn">
-            Sign up now<span className="section-about__btn-span">&rarr;</span>
-          </CustomButton>
+          <UIButton
+            utilCls="u-mt-bg"
+            modifier="secondary"
+            onClick={() => {
+              setModalName('signin');
+              showModal();
+            }}
+          >
+            Sign up now <span>&#10142;</span>
+          </UIButton>
         </div>
       </div>
       <div className="section-about__gallery">
@@ -67,4 +82,4 @@ const SectionAbout = () => {
   );
 };
 
-export default SectionAbout;
+export default connect(null, mapDispatchToProps)(SectionAbout);
