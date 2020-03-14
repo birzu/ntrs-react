@@ -1,0 +1,9 @@
+// LAYOUTS FOR TOUR DETAILS PAGE
+.section-tour-intro {
+  grid-column: lpad-start / rpad-end;
+  height: 45vh;
+}
+
+.tour-quick-summary {
+  grid-column: lpad-start / rpad-end;
+}

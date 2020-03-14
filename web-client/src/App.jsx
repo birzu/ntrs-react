@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import UIGrid from './components/core-ui/grid/UIGrid';
 import HomePage from './pages/HomePage.component';
+import TourDetailsPage from './pages/TourDetailsPage.component';
 import ToursPage from './pages/ToursPage.component';
 
 const App = () => {
@@ -10,7 +11,8 @@ const App = () => {
     <UIGrid>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/tours" component={ToursPage} />
+        <Route exact path="/tours" component={ToursPage} />
+        <Route path="/tours/:tourId" component={TourDetailsPage} />
       </Switch>
     </UIGrid>
   );
