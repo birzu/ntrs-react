@@ -1,6 +1,9 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 
+// IMPORTANT (this component requires the _mapboxgl.scss file to load)
+import '../../sass/vendor/_mapboxgl.external.scss';
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN;
 
 class TourMapBox extends React.Component {

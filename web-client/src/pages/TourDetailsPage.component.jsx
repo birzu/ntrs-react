@@ -6,6 +6,7 @@ import TourDetailsIntro from '../components/tour-details-intro/TourDetailsIntro.
 import TourQuickSummary from '../components/tour-quick-summary/TourQuickSummary.component';
 import TourMapBox from '../components/tour-mapbox/TourMapbox.component';
 import Footer from '../components/footer/Footer.component';
+import TourDetails from '../components/tour-details/TourDetails.component';
 import TourReviews from '../components/tour-reviews/TourReviews.component';
 
 const TourDetailsPage = () => {
@@ -19,8 +20,10 @@ const TourDetailsPage = () => {
       <TourQuickSummary />
       {
         // not rendering map box for now
-        <TourMapBox />
+        // <TourMapBox />
       }
+      <TourDetails />
+      <TourMapBox />
       <TourReviews />
       <Footer />
     </Fragment>

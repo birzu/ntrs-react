@@ -24,6 +24,7 @@
     overflow: hidden;
     grid-column: 1 / 2;
     grid-row: 1 / 3;
+    z-index: 50;
   }
 
   &__content {
