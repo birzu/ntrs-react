@@ -1,9 +1,24 @@
 // LAYOUTS FOR TOUR DETAILS PAGE
 .section-tour-intro {
   grid-column: lpad-start / rpad-end;
-  height: 45vh;
+  height: 46vh;
 }
 
 .tour-quick-summary {
   grid-column: lpad-start / rpad-end;
+}
+
+.section-tour-mapbox {
+  grid-column: lpad-start / rpad-end;
+  height: 60vh;
+  position: relative;
+}
+
+// map container
+.tour-map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

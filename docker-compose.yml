@@ -55,7 +55,8 @@ services:
       - frontend
     ports:
       - '9228:9229'
-    # env_file
+    env_file: ./web-client/config.env
+
     depends_on:
       - web-server
     volumes:

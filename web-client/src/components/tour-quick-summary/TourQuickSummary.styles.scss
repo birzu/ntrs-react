@@ -2,10 +2,11 @@
 
 .tour-quick-summary {
   background-color: $color-grey-light;
+  padding-bottom: 1rem;
 }
 
 .quick-summary {
-  padding: 0 7vw;
+  padding: 0 10vw 0 8vw;
   display: grid;
   grid-template-columns: 36% 1fr;
   grid-template-rows: 10rem 30rem;
