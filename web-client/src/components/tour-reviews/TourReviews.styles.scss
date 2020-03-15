@@ -1,0 +1,140 @@
+@import '../../sass/abstract/variables';
+
+.tour-reviews-container {
+  padding: 7rem 8vw;
+  display: flex;
+}
+
+.featured-review {
+  margin-right: 5%;
+  flex-basis: 45%;
+  display: grid;
+  grid-template-columns: repeat(2, max-content) 1fr;
+  grid-template-rows: repeat(3, max-content) 1fr;
+  grid-row-gap: 3rem;
+  grid-column-gap: 2.5rem;
+
+  &__meta {
+    font-size: 1.6rem;
+    color: $color-grey-dark-9;
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+  }
+
+  &__heading {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    font-size: 3.2rem;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(#000, 0.07);
+    font-weight: 400;
+    display: block;
+    background-image: linear-gradient(
+      135deg,
+      rgba($color-primary-light, 1),
+      rgba($color-primary-dark, 1) 60%
+    );
+    color: transparent;
+    background-clip: text;
+  }
+
+  &__author {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-foreground-dark;
+    align-self: end;
+    letter-spacing: 1px;
+    word-spacing: 1px;
+  }
+
+  &__author-img {
+    width: 14rem;
+    height: 14rem;
+    border-radius: 50%;
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+  }
+
+  &__stars {
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+    align-self: end;
+  }
+
+  &__review-body {
+    grid-column: 1 / -1;
+    font-size: 1.7rem;
+
+    color: $color-grey-dark-7;
+  }
+}
+
+.tour-review-wrapper {
+  flex-basis: 50%;
+  &__heading {
+    font-size: 2.4rem;
+    color: $color-foreground-dark;
+    margin-bottom: 3rem;
+    font-weight: 400;
+  }
+}
+
+.tour-review {
+  width: 100%;
+  display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  grid-template-rows: repeat(2, max-content) 1fr;
+  grid-row-gap: 0.8rem;
+  grid-column-gap: 2rem;
+
+  &:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+
+  &:not(:last-child) {
+    padding-bottom: 3rem;
+    border-bottom: 1px solid darken($color: $color-grey-light, $amount: 5%);
+  }
+
+  &__author {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $color-foreground-dark;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+
+  &__meta {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    justify-self: start;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: $color-grey-dark-9;
+  }
+
+  &__stars {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+
+  &__author-img {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+  }
+
+  &__review-body {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    font-size: 1.5rem;
+    color: $color-grey-dark-7;
+    font-weight: 400;
+  }
+}

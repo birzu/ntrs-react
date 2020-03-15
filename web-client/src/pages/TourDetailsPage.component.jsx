@@ -4,9 +4,9 @@ import HeaderNavigation from '../components/header/header-nav/HeaderNavigation.c
 import LinkNavigation from '../components/link-navigation/LinkNavigation.component';
 import TourDetailsIntro from '../components/tour-details-intro/TourDetailsIntro.component';
 import TourQuickSummary from '../components/tour-quick-summary/TourQuickSummary.component';
-import TourDetails from '../components/tour-details/TourDetails.component';
 import TourMapBox from '../components/tour-mapbox/TourMapbox.component';
 import Footer from '../components/footer/Footer.component';
+import TourReviews from '../components/tour-reviews/TourReviews.component';
 
 const TourDetailsPage = () => {
   return (
@@ -19,8 +19,9 @@ const TourDetailsPage = () => {
       <TourQuickSummary />
       {
         // not rendering map box for now
+        <TourMapBox />
       }
-      <TourDetails />
+      <TourReviews />
       <Footer />
     </Fragment>
   );

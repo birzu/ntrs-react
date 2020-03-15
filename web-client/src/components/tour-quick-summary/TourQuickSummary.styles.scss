@@ -6,7 +6,7 @@
 }
 
 .quick-summary {
-  padding: 0 10vw 0 8vw;
+  padding: 0 8vw;
   display: grid;
   grid-template-columns: 36% 1fr;
   grid-template-rows: 10rem 30rem;
@@ -29,7 +29,6 @@
   &__content {
     grid-column: 2 / 3;
     grid-row: 2/ 3;
-    width: 100%;
     display: flex;
     flex-flow: row wrap;
   }
@@ -67,7 +66,7 @@
 
   &__item-group {
     align-self: flex-start;
-    flex-basis: 35%;
+    flex: 0 0 35%;
     display: grid;
     grid-template-columns: 1fr;
     grid-row-gap: 1.5rem;
@@ -97,13 +96,13 @@
   }
 
   &__tour-guides {
-    flex-basis: 65%;
+    flex-basis: 60%;
     height: 18.4rem;
     align-self: flex-start;
     margin-left: auto;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
   }
 
   &__guide {

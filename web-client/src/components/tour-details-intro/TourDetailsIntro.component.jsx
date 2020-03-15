@@ -1,9 +1,6 @@
 import React from 'react';
 
 import SvgIconSelector from '../svg-icon-selector/SvgIconSelector.component';
-import TourQuickSummary from '../tour-quick-summary/TourQuickSummary.component';
-
-import TourImg from '../../assets/hero-alternate.jpg';
 
 import './TourDetailsIntro.styles.scss';
 

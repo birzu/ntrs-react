@@ -4,8 +4,6 @@ import SvgIconSelector from '../svg-icon-selector/SvgIconSelector.component';
 import ReviewContainer from '../review-stars-container/ReviewContainer.component';
 import UIButton from '../core-ui/button/UIButton';
 
-import GuideImg from '../../assets/user-10.jpg';
-import GuideImg2 from '../../assets/user-12.jpg';
 import TourImg from '../../assets/forest-hiker.jpg';
 import './TourQuickSummary.styles.scss';
 
@@ -17,6 +15,7 @@ const TourQuickSummary = () => (
       </div>
       <h3 className="quick-summary__title">
         Exquisite wines, scenic views, exclusive barrel tastings, and much more
+        !!
       </h3>
       <div className="quick-summary__content">
         <div className="quick-summary__item-group">
@@ -66,7 +65,7 @@ const TourQuickSummary = () => (
             eget sapien in viverra. Suspendisse et porta arcu.
           </p>
 
-          <UIButton modifier="secondary" style={{ marginTop: 'auto' }}>
+          <UIButton modifier="success" style={{ marginTop: 'auto' }}>
             Book now !
           </UIButton>
           {/*
