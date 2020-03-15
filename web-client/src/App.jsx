@@ -5,6 +5,7 @@ import UIGrid from './components/core-ui/grid/UIGrid';
 import HomePage from './pages/HomePage.component';
 import TourDetailsPage from './pages/TourDetailsPage.component';
 import ToursPage from './pages/ToursPage.component';
+import UserProfilePage from './pages/UserProfilePage.component';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/tours" component={ToursPage} />
         <Route path="/tours/:tourId" component={TourDetailsPage} />
+        <Route exact path="/me/user-profile" component={UserProfilePage} />
       </Switch>
     </UIGrid>
   );
