@@ -13,6 +13,7 @@ const UserProfilePage = () => {
       </header>
       <LinkNavigation />
       <UserDetailsContainer />
+      <Footer />
     </Fragment>
   );
 };

@@ -57,19 +57,17 @@
 
   &__nav-link {
     width: 100%;
-    &:link,
-    &:visited {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      font-size: 1.8rem;
-      color: $color-foreground;
-      line-height: 1;
-      margin-left: 4rem;
-      transition: all 0.1s cubic-bezier(1, 0, 0, 1);
-      transition-delay: 0.2s;
-      position: relative;
-    }
+    display: block;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    color: $color-foreground;
+    line-height: 1;
+    margin-left: 4rem;
+    transition: all 0.1s cubic-bezier(1, 0, 0, 1);
+    transition-delay: 0.2s;
+    position: relative;
 
     &::after {
       display: block;
@@ -98,11 +96,8 @@
 
     &--active {
       transform: translateY(-2px) translateX(4px);
+      color: $color-primary;
 
-      &:link,
-      &:visited {
-        color: $color-primary;
-      }
       &::after {
         transform: translateX(calc(-4rem - 4px)) scaleX(1) scaleY(1);
       }
