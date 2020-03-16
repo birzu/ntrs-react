@@ -1,0 +1,207 @@
+@import '../../../sass/abstract/variables';
+
+.edit-user-details {
+  padding: 4rem 6rem;
+
+  &__heading {
+    display: block;
+    background-image: linear-gradient(
+      135deg,
+      rgba($color-primary-dark, 1),
+      rgba($color-primary-light, 1)
+    );
+    color: transparent;
+    background-clip: text;
+    font-size: 3.6rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid darken($color-grey-light, 3%);
+  }
+}
+
+.edit-details-form {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-template-rows: max-content max-content 0.5fr;
+  grid-column-gap: 2rem;
+  grid-row-gap: 2.5rem;
+
+  &__group {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+
+    &:nth-of-type(2) {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      align-self: end;
+    }
+
+    &:nth-of-type(3) {
+      grid-column: 2 / 3;
+      grid-row: 1 / -1;
+      align-self: start;
+      justify-self: center;
+    }
+
+    &--file-inp {
+      display: grid;
+      grid-template-columns: max-content;
+      grid-template-rows: repeat(3, max-content);
+      grid-column-gap: 2rem;
+      grid-row-gap: 1.6rem;
+      align-items: center;
+      padding: 1.5rem 0;
+    }
+  }
+
+  &__profile-img-wrapper {
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    justify-self: center;
+  }
+
+  &__profile-img-label {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $color-primary;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    line-height: 1;
+
+    &:hover {
+      background-color: $color-primary;
+      border: 1px solid $color-primary;
+      color: $color-foreground;
+    }
+  }
+
+  &__profile-img {
+    width: 14rem;
+    height: 14rem;
+    border-radius: 50%;
+    display: block;
+  }
+
+  &__upload-img-input {
+    margin-left: 4rem;
+    display: none;
+  }
+
+  &__profile-img-fname {
+    font-size: 1.4rem;
+    color: $color-grey-dark-8;
+  }
+
+  &__label {
+    order: 1;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: $color-foreground-dark;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+
+    &--email {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-right: auto;
+
+      & span {
+        margin-left: 0.8rem;
+        align-self: flex-end;
+        display: flex;
+
+        color: $color-primary;
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
+    }
+  }
+
+  &__input {
+    order: 2;
+    padding: 1.2rem 1.6rem;
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: $color-grey-light;
+    font-family: inherit;
+    color: $color-grey-dark-7;
+    border: 2px solid transparent;
+    font-size: 1.6rem;
+    word-spacing: 1px;
+    border-radius: 0.45rem;
+
+    &::placeholder {
+      font-family: inherit;
+      color: lighten($color: $color-grey-dark-9, $amount: 5%);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus:invalid,
+    &:focus {
+      border-bottom: 2px solid #ff7730;
+    }
+
+    &:focus:valid {
+      border-bottom: 2px solid $color-primary;
+    }
+  }
+
+  &__error {
+    order: 3;
+    margin-top: 1.5rem;
+  }
+
+  &__ic-verify {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: currentColor;
+    display: block;
+    margin-right: 0.3rem;
+    margin-top: 0.2rem;
+  }
+
+  &__ic-upload {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-right: 0.7rem;
+    fill: currentColor;
+  }
+
+  &__btn-wrapper {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    align-self: center;
+    justify-self: center;
+    padding-top: 3rem;
+  }
+
+  &__btn-submit {
+    cursor: pointer;
+    display: block;
+    border: none;
+    outline: none;
+    width: 20rem;
+    border-radius: 10rem;
+    padding: 1.4rem 2rem;
+    font-family: inherit;
+    font-size: 1.5rem;
+    color: $color-foreground;
+    font-weight: 700;
+    text-align: center;
+    background-color: $color-primary;
+  }
+}

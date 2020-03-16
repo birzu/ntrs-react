@@ -9,12 +9,24 @@ const FormInput = ({
   labelCls,
   label,
   id,
+  disabled,
   ...props
 }) => (
   <Fragment>
-    <input className={inputCls} ref={inputRef} id={id} {...props} />
+    <input
+      className={inputCls}
+      ref={inputRef}
+      id={id}
+      {...props}
+      disabled={disabled}
+      onClick={e => e.stopPropagation()}
+    />
     {label ? (
-      <label className={labelCls} htmlFor={id}>
+      <label
+        onClick={e => e.stopPropagation()}
+        className={labelCls}
+        htmlFor={id}
+      >
         {children}
         {label}
       </label>

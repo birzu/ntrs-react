@@ -1,0 +1,116 @@
+@import '../../../sass/abstract/variables';
+.section-user-details {
+  border-radius: 0.8rem;
+  box-shadow: 0.4rem 0.2rem 0.8rem rgba(#000, 0.14),
+    -0.2rem 0rem 0.8rem rgba(#000, 0.06);
+  margin: 8rem 14vw;
+  display: flex;
+  overflow: hidden;
+
+  &__side {
+    min-height: 70rem;
+    flex: 0 0 25%;
+    display: block;
+    background-image: linear-gradient(
+      135deg,
+      rgba($color-primary-dark, 0.8),
+      rgba($color-primary-light, 1)
+    );
+    padding: 4rem 0;
+  }
+
+  &__ic {
+    width: 2.5rem;
+    height: 2.5rem;
+    fill: currentColor;
+    margin-right: 1.5rem;
+  }
+
+  &__nav-list {
+    list-style: none;
+  }
+
+  &__nav-list-item {
+    cursor: pointer;
+    height: 5rem;
+    display: flex;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+
+    & span {
+      display: block;
+      opacity: 0;
+      width: 5px;
+      height: 100%;
+      background-color: $color-foreground;
+      transform: scaleY(0) translateY(0);
+      transform-origin: center;
+      transition: all 0.2s cubic-bezier(1, 0, 0, 1);
+    }
+  }
+
+  &__nav-link:hover ~ & span {
+    opacity: 1;
+    transform: translateY(-2px) scaleY(1);
+  }
+
+  &__nav-link {
+    width: 100%;
+    &:link,
+    &:visited {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      color: $color-foreground;
+      line-height: 1;
+      margin-left: 4rem;
+      transition: all 0.1s cubic-bezier(1, 0, 0, 1);
+      transition-delay: 0.2s;
+      position: relative;
+    }
+
+    &::after {
+      display: block;
+      content: '';
+      background-color: $color-foreground;
+      width: calc(100% + 4rem + 4px);
+      transform: translateX(calc(-4rem - 4px)) scaleX(0) scaleY(0);
+      height: 100%;
+      position: absolute;
+      transform-origin: left;
+      top: 0;
+      left: 0;
+      transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+      transition-delay: 0.3s;
+      z-index: -2;
+    }
+
+    &:hover {
+      transform: translateY(-2px) translateX(4px);
+      color: $color-primary;
+    }
+
+    &:hover::after {
+      transform: translateX(calc(-4rem - 4px)) scaleX(1) scaleY(1);
+    }
+
+    &--active {
+      transform: translateY(-2px) translateX(4px);
+
+      &:link,
+      &:visited {
+        color: $color-primary;
+      }
+      &::after {
+        transform: translateX(calc(-4rem - 4px)) scaleX(1) scaleY(1);
+      }
+    }
+  }
+
+  &__content {
+    flex: 0 0 75%;
+    min-height: 70rem;
+  }
+}

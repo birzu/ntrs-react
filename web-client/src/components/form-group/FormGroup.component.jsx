@@ -32,7 +32,9 @@ const FormGroup = ({
   inputRef,
   inputCls,
   errors,
-  name
+  name,
+  inputDisabled,
+  children
 }) => {
   const label =
     inputType === 'text'
@@ -44,7 +46,7 @@ const FormGroup = ({
       : FORM_INPUT_TYPES[inputType].placeholder;
 
   return (
-    <div className={`${clsPrefix}__group`}>
+    <div className={`${clsPrefix}__group`} onClick={e => e.stopPropagation()}>
       <FormInput
         id={`${clsPrefix}-input-${inputType}`}
         label={label}
@@ -56,11 +58,14 @@ const FormGroup = ({
         }`}
         placeholder={placeholder}
         type={inputType}
-        name={inputType}
+        name={name ? name : inputType}
         inputRef={inputRef}
-      />
+        disabled={inputDisabled}
+      >
+        {children}
+      </FormInput>
       <div className={`${clsPrefix}__error ${clsPrefix}__error--${inputType}`}>
-        <FormError name={inputType} errors={errors} />
+        <FormError name={name ? name : inputType} errors={errors} />
       </div>
     </div>
   );
