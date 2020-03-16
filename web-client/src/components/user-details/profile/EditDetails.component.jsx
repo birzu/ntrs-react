@@ -48,7 +48,7 @@ const EditDetails = () => {
   console.log(userImgFileName);
 
   return (
-    <div className="edit-user-details" onClick={() => setEmailDisabled(true)}>
+    <div className="edit-user-details">
       <h2 className="edit-user-details__heading">Edit user profile</h2>
       <form
         onSubmit={handleSubmit(data => console.log(data))}
