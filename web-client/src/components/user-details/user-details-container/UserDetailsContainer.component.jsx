@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import EditDetails from '../profile/EditDetails.component';
+import EditPassword from '../profile/EditPassword.component';
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 
 import './UserDetailsContainer.styles.scss';
@@ -42,6 +43,7 @@ const UserDetailsContainer = () => {
       </aside>
       <div className="section-user-details__content">
         <EditDetails />
+        <EditPassword />
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import isEmail from 'validator/lib/isEmail';
 
@@ -49,7 +49,9 @@ const EditDetails = () => {
 
   return (
     <div className="edit-user-details">
-      <h2 className="edit-user-details__heading">Edit user profile</h2>
+      <div className="edit-user-details__heading-wrapper">
+        <h2 className="edit-user-details__heading">Edit user profile</h2>
+      </div>
       <form
         onSubmit={handleSubmit(data => console.log(data))}
         className="edit-details-form"

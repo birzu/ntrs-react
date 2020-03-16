@@ -1,7 +1,13 @@
 @import '../../../sass/abstract/variables';
 
-.edit-user-details {
-  padding: 4rem 6rem;
+.edit-user-details,
+.edit-paswd {
+  margin-bottom: 5rem;
+  &__heading-wrapper {
+    width: 100%;
+    background-color: darken($color: $color-grey-light, $amount: 3%);
+    padding: 2rem 8rem;
+  }
 
   &__heading {
     display: block;
@@ -10,20 +16,26 @@
       rgba($color-primary-dark, 1),
       rgba($color-primary-light, 1)
     );
+    text-shadow: 1px 2px 2px rgba(#000, 0.08);
     color: transparent;
     background-clip: text;
     font-size: 3.6rem;
     font-weight: 400;
-    line-height: 1;
+    line-height: 1.2;
     letter-spacing: 1px;
     word-spacing: 2px;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid darken($color-grey-light, 3%);
+    // border-bottom: 1px solid darken($color-grey-light, 3%);
+    // padding-bottom: 1.8rem;
   }
 }
 
-.edit-details-form {
-  margin-top: 2rem;
+.edit-paswd {
+  padding: 0;
+}
+
+.edit-details-form,
+.edit-paswd-form {
+  padding: 4rem 6rem;
   display: grid;
   grid-template-columns: 50% 1fr;
   grid-template-rows: max-content max-content 0.5fr;
@@ -182,7 +194,7 @@
   }
 
   &__btn-wrapper {
-    grid-column: 2 / 3;
+    grid-column: 1 / -1;
     grid-row: 3 / 4;
     align-self: center;
     justify-self: center;
@@ -203,5 +215,22 @@
     font-weight: 700;
     text-align: center;
     background-color: $color-primary;
+  }
+}
+.edit-paswd-form {
+  grid-template-columns: 50% 50%;
+  align-self: center;
+
+  &__group {
+    &:nth-of-type(3) {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+      justify-self: stretch;
+    }
+  }
+
+  &__btn-wrapper {
+    grid-column: 1 / -1;
+    grid-row: 4 / 5;
   }
 }

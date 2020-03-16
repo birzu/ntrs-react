@@ -33,6 +33,7 @@ const FormGroup = ({
   inputCls,
   errors,
   name,
+  inputLabel,
   inputDisabled,
   children
 }) => {
@@ -48,8 +49,8 @@ const FormGroup = ({
   return (
     <div className={`${clsPrefix}__group`} onClick={e => e.stopPropagation()}>
       <FormInput
-        id={`${clsPrefix}-input-${inputType}`}
-        label={label}
+        id={`${clsPrefix}-input-${name ? name : inputType}`}
+        label={inputLabel ? inputLabel : label}
         labelCls={`${clsPrefix}__label ${clsPrefix}__label--${
           inputCls ? inputCls : inputType
         }`}

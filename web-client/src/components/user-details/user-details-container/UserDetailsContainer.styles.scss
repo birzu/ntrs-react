@@ -112,5 +112,7 @@
   &__content {
     flex: 0 0 75%;
     min-height: 70rem;
+    display: flex;
+    flex-direction: column;
   }
 }
