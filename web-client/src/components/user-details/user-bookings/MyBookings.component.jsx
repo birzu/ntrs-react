@@ -14,23 +14,25 @@ const UserBooking = () => {
           alt="forest hiker tour"
         ></img>
       </div>
-      <h3 className="user-booking__tour-name">The Forest hiker</h3>
+      <h3 className="user-booking__tour-name">The Forest Hiker</h3>
       <div className="user-booking__tour-start-date">
         <p>Start date:</p>
         <span>{new Date().toLocaleDateString()}</span>
       </div>
-      <div className="user-booking__purchase-details">
-        <p className="user-booking__tour-price">
-          Price <span>$799.00</span>
-        </p>
-        <p className="user-booking__tour-discount">
-          Discount <span>10%</span>
-        </p>
-        <p className="user-booking__tour-final-price">
-          Total <span>$719.10</span>
-        </p>
+      <h3 className="user-booking__tour-purchase-details">Purchase Details</h3>
+      <div className="user-booking__details-box">
+        <p className="user-booking__tour-price">Price </p>
+        <p className="user-booking__tour-price-val">$799.00</p>
+        <p className="user-booking__tour-discount">Discount</p>
+        <p className="user-booking__tour-discount-val">10%</p>{' '}
+        <p className="user-booking__tour-total">Total</p>
+        <p className="user-booking__tour-total-val">$719.10</p>
       </div>
-      <input type="button" value="Request cancel" />
+      <input
+        type="button"
+        value="Request cancel"
+        className="user-booking__btn-cancel"
+      />
     </div>
   );
 };

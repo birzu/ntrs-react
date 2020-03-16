@@ -6,6 +6,7 @@ import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 import UserReviewsContainer from '../user-reviews/MyReviews.component';
 
 import './UserDetailsContainer.styles.scss';
+import UserBookingContainer from '../user-bookings/MyBookings.component';
 
 const UserDetailsContainer = () => {
   const [currentContent, setCurrentContent] = useState('profile');
@@ -23,6 +24,12 @@ const UserDetailsContainer = () => {
         return (
           <Fragment>
             <UserReviewsContainer />
+          </Fragment>
+        );
+      case 'bookings':
+        return (
+          <Fragment>
+            <UserBookingContainer />
           </Fragment>
         );
       default:
