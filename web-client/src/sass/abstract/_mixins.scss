@@ -2,10 +2,10 @@
 @mixin gridMain {
   display: grid;
   grid-template-columns:
-    [lpad-start] 4vw [lpad-end content-start] repeat(
+    [lpad-start] $grid-gutter-X [lpad-end content-start] repeat(
       8,
       [col-start] minmax(15rem, 1fr) [col-end]
     )
-    [content-end rpad-start] 4vw [rpad-end];
+    [content-end rpad-start] $grid-gutter-X [rpad-end];
   grid-template-rows: repeat(4, max-content);
 }

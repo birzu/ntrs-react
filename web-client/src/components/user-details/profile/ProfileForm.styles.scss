@@ -5,8 +5,8 @@
   margin-bottom: 5rem;
   &__heading-wrapper {
     width: 100%;
-    background-color: darken($color: $color-grey-light, $amount: 3%);
-    padding: 2rem 8rem;
+    padding: 2rem 6rem;
+    border-bottom: 1px solid $color-grey-light-0;
   }
 
   &__heading {

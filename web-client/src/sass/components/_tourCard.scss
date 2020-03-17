@@ -165,7 +165,7 @@
 .ntrs-tour-card-md {
   @extend %tour-card;
   position: relative;
-  width: 100%;
+  width: 95%;
   box-shadow: 0.3rem 0.5rem 0.7rem rgba(#000, 0.15);
 
   &__img {

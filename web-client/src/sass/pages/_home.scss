@@ -1,8 +1,8 @@
 // layouts for the home page
 .section-about {
-  grid-column: lpad-start / rpad-end;
+  grid-column: lpad-end / rpad-start;
   margin-top: calc(82vh + 3rem);
-  padding: 0 $pad-X 3.5rem $pad-X;
+  padding: 0 0 3.5rem 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: max-content 1fr 0.8fr max-content;
@@ -12,13 +12,13 @@
 
 .featured-tours {
   grid-column: lpad-start / rpad-end;
-  padding: 4rem $pad-X 10rem $pad-X;
+  padding: 4rem $grid-gutter-X 10rem $grid-gutter-X;
   background-color: lighten($color-grey-light-0, 0.55%);
 }
 
 .section-features {
   grid-column: lpad-start / rpad-end;
-  padding: 7rem $pad-X 10rem $pad-X;
+  padding: 7rem $grid-gutter-X 10rem $grid-gutter-X;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: max-content max-content min-content;
@@ -37,5 +37,5 @@
 /* FOOTER LAYOUT FOR HOMEPAGE */
 .footer {
   grid-column: lpad-start / rpad-end;
-  padding: 5rem $pad-X;
+  padding: 5rem $grid-gutter-X;
 }

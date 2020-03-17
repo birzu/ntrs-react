@@ -15,6 +15,7 @@ const TourSearchSidebar = () => {
           <p className="sidebar__item">The city wonderer</p>
           <p className="sidebar__item">The wine taster</p>
           <p className="sidebar__item">The Forest hiker</p>
+          <p className="sidebar__item">The Forest hiker</p>
         </div>
         <div className="sidebar__container sidebar__container--2">
           <h4 className="sidebar__heading sidebar__heading--2">
@@ -25,7 +26,14 @@ const TourSearchSidebar = () => {
           <p className="sidebar__item">The Forest hiker</p>
         </div>
         <div className="sidebar__container sidebar__container--3">
-          <h4 className="sidebar__heading sidebar__heading--3">
+          <h4 className="sidebar__heading sidebar__heading--3">New tours</h4>
+          <p className="sidebar__item">The sports lover</p>
+          <p className="sidebar__item">The wine taster</p>
+          <p className="sidebar__item">The northen lights</p>
+        </div>
+
+        <div className="sidebar__container sidebar__container--4">
+          <h4 className="sidebar__heading sidebar__heading--4">
             Apply Filters
           </h4>
           <div className="sidebar__filter-box">

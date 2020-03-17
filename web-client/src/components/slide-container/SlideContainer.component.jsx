@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
 import UIButton from '../core-ui/button/UIButton';
 
 import './SlideContainer.styles.scss';
 
-const Slide = ({ idx, id }) => {
+const SLIDE_DATA = [
+  {
+    title: 'Explore out most popular tours',
+    text:
+      'Explore our most popular and most reviewed tours, with over 300 members and 200 reviews.'
+  },
+  {
+    title: 'Start your new adventure',
+    text:
+      'Explore the best new experiences prepared by experts for you and bring a yourself a step closer to nature.'
+  }
+];
+
+const Slide = ({ idx, id, title, text, style }) => {
   return (
-    <div id={id} className={`slide slide--${idx}`}>
-      <h2 className="slide__heading heading-2--secondary">
-        Explore our most popular tours
-      </h2>
-      <p className="slide__text">
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of
-        using Lorem Ipsum is that it has a more-or-less normal distribution of
-        letters, as opposed to using 'Content here, content here', making it
-        look like readable English.
-      </p>
+    <div id={id} className={`slide slide--${idx}`} style={style}>
+      <h2 className="slide__heading heading-2--secondary">{title}</h2>
+      <p className="slide__text">{text}</p>
       <UIButton modifier="success">
         Learn More <span>&#10142;</span>
       </UIButton>
@@ -24,12 +29,50 @@ const Slide = ({ idx, id }) => {
   );
 };
 
+const SlideNavigation = ({ nextSlide, prevSlide, currentSlide }) => {
+  return (
+    <div className="slide-navigation">
+      <div
+        className={`slide-navigation__prev ${
+          currentSlide === 0 ? 'slide-navigation--current-slide' : ''
+        }`}
+        onClick={prevSlide}
+      ></div>
+      <div
+        className={`slide-navigation__next ${
+          currentSlide === 1 ? 'slide-navigation--current-slide' : ''
+        }`}
+        onClick={nextSlide}
+      ></div>
+    </div>
+  );
+};
+
 const SlideContainer = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = useCallback(() => setCurrentSlide(1), [setCurrentSlide]);
+
+  const prevSlide = useCallback(() => setCurrentSlide(0), [setCurrentSlide]);
+
   return (
     <section className="section-slides">
+      <SlideNavigation
+        currentSlide={currentSlide}
+        nextSlide={nextSlide}
+        prevSlide={prevSlide}
+      />
       <div className="slide-container">
-        <Slide idx={1} id="slide-1" />
-        <Slide idx={2} id="slide-2" />
+        {SLIDE_DATA.map((slide, idx) => (
+          <Slide
+            id={`slide-${idx}`}
+            idx={idx}
+            key={idx}
+            text={slide.text}
+            title={slide.title}
+            style={{ opacity: `${currentSlide === idx ? 1 : 0}` }}
+          />
+        ))}
       </div>
     </section>
   );

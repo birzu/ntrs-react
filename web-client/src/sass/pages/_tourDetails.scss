@@ -9,11 +9,11 @@
 }
 
 .section-tour-details {
-  grid-column: lpad-start / rpad-end;
+  grid-column: lpad-end / rpad-start;
 }
 
 .section-tour-reviews {
-  grid-column: lpad-start / rpad-end;
+  grid-column: lpad-end / rpad-start;
 }
 
 .section-tour-mapbox {

@@ -3,29 +3,29 @@
 .section-slides {
   height: 40vh;
   margin: 3rem 0 0 0;
+  margin-left: 2rem;
   margin-top: 3rem;
+  position: relative;
 }
 
 .slide-container {
-  display: flex;
   width: 100%;
   height: 100%;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  display: block;
+  position: relative;
 }
 
 .slide {
-  flex: 0 0 100%;
   height: 100%;
-  scroll-snap-align: start;
+  width: 100%;
   padding: 2.4rem 5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 
   &__text {
     display: block;
@@ -47,7 +47,7 @@
     text-shadow: 1px 1px 2px rgba(#000, 0.1);
   }
 
-  &--1 {
+  &--0 {
     background-image: linear-gradient(
         135deg,
         rgba($color-primary-dark, 0.55),
@@ -58,7 +58,7 @@
     background-position: 0 40%;
   }
 
-  &--2 {
+  &--1 {
     background-image: linear-gradient(
         135deg,
         rgba($color-primary-dark, 0.55),
@@ -67,5 +67,41 @@
       url(../../assets/sea-exlorer_2.jpg);
     background-size: cover;
     background-position: 0 80%;
+  }
+}
+
+.slide-navigation {
+  display: flex;
+  position: absolute;
+  bottom: 2rem;
+  right: 4rem;
+  z-index: 20;
+
+  &--current-slide {
+    position: relative;
+
+    &::after {
+      width: 1rem;
+      height: 1rem;
+      position: absolute;
+      content: '';
+      display: block;
+      border-radius: 50%;
+      background-color: $color-foreground;
+      top: 0.3rem;
+      right: 0.3rem;
+    }
+  }
+  &__prev {
+    margin-right: 1rem;
+  }
+
+  &__prev,
+  &__next {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid $color-foreground;
+    border-radius: 50%;
   }
 }

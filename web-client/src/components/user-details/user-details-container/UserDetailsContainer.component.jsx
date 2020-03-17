@@ -17,6 +17,7 @@ const UserDetailsContainer = () => {
         return (
           <Fragment>
             <EditDetails />
+            <div className="user-details__content-divider"></div>
             <EditPassword />
           </Fragment>
         );
@@ -44,68 +45,64 @@ const UserDetailsContainer = () => {
 
   return (
     <section className="section-user-details">
-      <aside className="section-user-details__side">
-        <ul className="section-user-details__nav-list">
-          <li className="section-user-details__nav-list-item">
-            <p
-              onClick={e => {
-                e.stopPropagation();
-                setCurrentContent('profile');
-              }}
-              className={`section-user-details__nav-link ${
-                currentContent === 'profile'
-                  ? 'section-user-details__nav-link--active'
-                  : ''
-              }`}
-            >
-              <SvgIconSelector
-                cls="section-user-details__ic"
-                icName="settings"
-              />
-              Edit Profile
-            </p>
-            <span></span>
-          </li>
-          <li className="section-user-details__nav-list-item">
-            <p
-              onClick={e => {
-                e.stopPropagation();
-                setCurrentContent('bookings');
-              }}
-              className={`section-user-details__nav-link ${
-                currentContent === 'bookings'
-                  ? 'section-user-details__nav-link--active'
-                  : ''
-              }`}
-            >
-              <SvgIconSelector
-                cls="section-user-details__ic"
-                icName="briefcase"
-              />
-              My Bookings
-            </p>
-            <span></span>
-          </li>
-          <li className="section-user-details__nav-list-item">
-            <p
-              onClick={e => {
-                e.stopPropagation();
-                setCurrentContent('reviews');
-              }}
-              className={`section-user-details__nav-link  ${
-                currentContent === 'reviews'
-                  ? 'section-user-details__nav-link--active'
-                  : ''
-              }`}
-            >
-              <SvgIconSelector cls="section-user-details__ic" icName="star" />
-              My Reviews
-            </p>
-            <span></span>
-          </li>
-        </ul>
-      </aside>
-      <div className="section-user-details__content">{renderContent()}</div>
+      <div className="user-details">
+        <aside className="user-details__side">
+          <ul className="user-details__nav-list">
+            <li className="user-details__nav-list-item">
+              <p
+                onClick={e => {
+                  e.stopPropagation();
+                  setCurrentContent('profile');
+                }}
+                className={`user-details__nav-link ${
+                  currentContent === 'profile'
+                    ? 'user-details__nav-link--active'
+                    : ''
+                }`}
+              >
+                <SvgIconSelector cls="user-details__ic" icName="settings" />
+                Edit Profile
+              </p>
+              <span></span>
+            </li>
+            <li className="user-details__nav-list-item">
+              <p
+                onClick={e => {
+                  e.stopPropagation();
+                  setCurrentContent('bookings');
+                }}
+                className={`user-details__nav-link ${
+                  currentContent === 'bookings'
+                    ? 'user-details__nav-link--active'
+                    : ''
+                }`}
+              >
+                <SvgIconSelector cls="user-details__ic" icName="briefcase" />
+                My Bookings
+              </p>
+              <span></span>
+            </li>
+            <li className="user-details__nav-list-item">
+              <p
+                onClick={e => {
+                  e.stopPropagation();
+                  setCurrentContent('reviews');
+                }}
+                className={`user-details__nav-link  ${
+                  currentContent === 'reviews'
+                    ? 'user-details__nav-link--active'
+                    : ''
+                }`}
+              >
+                <SvgIconSelector cls="user-details__ic" icName="star" />
+                My Reviews
+              </p>
+              <span></span>
+            </li>
+          </ul>
+        </aside>
+        <div className="user-details__content">{renderContent()}</div>
+      </div>
     </section>
   );
 };
