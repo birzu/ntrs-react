@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useTransition, animated, config } from 'react-spring';
+import { useTransition, animated } from 'react-spring';
 
 import UIButton from '../core-ui/button/UIButton';
 
@@ -53,7 +53,6 @@ const SlideNavigation = ({ nextSlide, prevSlide, currentSlide }) => {
 
 const SlideContainer = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [dt, set] = useState(0);
 
   const fade = useTransition(SLIDE_DATA[slideIndex], item => item.key, {
     from: { opacity: 1, transform: 'translateX(10%)' },
@@ -66,7 +65,7 @@ const SlideContainer = () => {
   const prevSlide = useCallback(() => setSlideIndex(0), []);
 
   useEffect(
-    () => void setInterval(() => setSlideIndex(i => (i + 1) % 2), 3500),
+    () => void setInterval(() => setSlideIndex(i => (i + 1) % 2), 3800),
     []
   );
 

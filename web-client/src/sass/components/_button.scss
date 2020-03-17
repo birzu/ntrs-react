@@ -146,10 +146,10 @@
     width: 17rem;
     padding: 1.7rem 1.8rem;
     color: darken($color: $color-foreground, $amount: 2%);
-    background-color: darken($color: $color-primary, $amount: 10%);
+    background-color: darken($color: $color-primary, $amount: 16%);
 
     &__inner {
-      background-color: darken($color: $color-primary, $amount: 15%);
+      background-color: darken($color: $color-primary, $amount: 20%);
     }
   }
 
