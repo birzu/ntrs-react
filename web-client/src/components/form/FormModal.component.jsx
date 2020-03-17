@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { animated } from 'react-spring';
 
 import {
   showModal,
@@ -14,16 +15,22 @@ import RegisterForm from '../form/RegisterForm.component';
 
 import './FormModal.styles.scss';
 import Logo from '../../assets/logo-green-2x.png';
-import { getDefaultNormalizer } from '@testing-library/react';
 
 const mapDispatchToProps = dispatch => ({
   showModal: () => dispatch(showModal()),
   hideModal: () => dispatch(hideModal()),
   setModalName: modalName => dispatch(setCurrentModal(modalName))
 });
-const FormModal = ({ signin, register, ...props }) => {
+const FormModal = ({ signin, register, style, ...props }) => {
+  useEffect(() => {
+    console.log('mount');
+    return () => {
+      console.log('unmount');
+    };
+  });
+
   return (
-    <div className="form-modal">
+    <animated.div className="form-modal" style={style}>
       <div className="form-modal__side">
         <img src={Logo} alt="logo" className="form-modal__logo-img"></img>
         <h3 className="form-modal__heading form-modal__heading--2 ">
@@ -38,7 +45,7 @@ const FormModal = ({ signin, register, ...props }) => {
       <div className="form-modal__content">
         {register ? <RegisterForm {...props} /> : <SignInForm {...props} />}
       </div>
-    </div>
+    </animated.div>
   );
 };
 

@@ -23,7 +23,7 @@ const TourContainer = () => {
           <div
             id="select"
             className="section-tours__select-wrapper"
-            tabIndex="1"
+            tabIndex="0"
           >
             <input
               type="radio"

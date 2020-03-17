@@ -97,8 +97,12 @@ const EditDetails = () => {
             className="edit-details-form__input edit-details-form__input--username"
             name="username"
             type="text"
+            id="edit-details-form-input-username"
           />
-          <label className="edit-details-form__label edit-details-form__label--username">
+          <label
+            htmlFor="edit-details-form-input-username"
+            className="edit-details-form__label edit-details-form__label--username"
+          >
             Username
           </label>
           <div className="edit-details-form__error">
