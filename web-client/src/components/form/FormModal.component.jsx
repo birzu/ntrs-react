@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useTransition, animated } from 'react-spring';
 import { createStructuredSelector } from 'reselect';
 
+import RegisterFormCtxProvider from '../form/RegisterForm.provider';
 import {
   showModal,
   setCurrentModal,
@@ -76,7 +77,13 @@ const FormModal = ({
           </UIButton>
         </div>
         <div className="form-modal__content">
-          {register ? <RegisterForm {...props} /> : <SignInForm {...props} />}
+          {register ? (
+            <RegisterFormCtxProvider>
+              <RegisterForm {...props} />
+            </RegisterFormCtxProvider>
+          ) : (
+            <SignInForm {...props} />
+          )}
         </div>
       </animated.div>
     ) : null;
