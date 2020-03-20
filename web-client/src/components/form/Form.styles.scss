@@ -44,14 +44,39 @@
   }
 
   &__group {
-    &:not(:last-child) {
-      margin-bottom: 4.4rem;
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    &:not(:last-of-type) {
+      margin-top: 1.5rem;
+      margin-bottom: 6rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 5rem;
     }
 
     width: 92%;
   }
 
+  &__label {
+    order: 1;
+    position: absolute;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $color-foreground-dark;
+    transition: all 0.3s ease-in-out;
+    transform: translateY(-8rem) translateX(0.2rem);
+  }
+
+  &__error {
+    margin-top: 0.7rem;
+    height: 1.8rem;
+    align-self: flex-end;
+  }
+
   &__input {
+    order: 2;
     width: 100%;
     display: block;
     padding: 1.4rem 2rem;
@@ -67,7 +92,7 @@
     &::placeholder {
       font-family: inherit;
       font-size: 1.5rem;
-      color: $color-grey-dark-7;
+      color: $color-grey-dark-8;
     }
 
     &:focus {
@@ -82,6 +107,80 @@
     &:focus:valid {
       border-bottom: 2px solid $color-primary;
     }
+  }
+
+  &__input:placeholder-shown ~ &__label {
+    opacity: 0;
+    transform: translateX(0.1rem) translateY(-3.7rem);
+  }
+
+  &__btns {
+    width: 100%;
+    padding: 0 5rem;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__btn-submit {
+    cursor: pointer;
+    display: block;
+    width: 70%;
+    border: none;
+    outline: none;
+    padding: 1.2rem 1.8rem;
+    background-color: darken($color: $color-primary, $amount: 15%);
+    border-radius: 0.5rem;
+    color: $color-foreground;
+    font-family: inherit;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+
+    &:hover,
+    &:focus {
+      background-color: darken($color: $color-primary, $amount: 20%);
+    }
+  }
+}
+
+.register-form {
+  &__group {
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.signin-form {
+  &__group {
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
+  }
+  &__link-forgot-passwd {
+    &:link,
+    &:visited {
+      margin-top: 1.2rem;
+      display: block;
+      align-self: center;
+      font-family: inherit;
+      font-size: 1.6rem;
+      text-decoration: none;
+      color: $color-grey-dark-5;
+      will-change: color;
+      transition: all 0.2s ease;
+    }
+
+    &:hover,
+    &:focus {
+      color: $color-primary;
+    }
+  }
+
+  &__btn-submit {
+    width: 50%;
   }
 }
 

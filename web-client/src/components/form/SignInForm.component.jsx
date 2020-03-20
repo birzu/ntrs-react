@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
 
 import FormGroup from '../form-group/FormGroup.component';
@@ -46,14 +47,14 @@ const SignInForm = ({ onDismiss }) => {
             required: { value: true, message: 'Password is required' }
           })}
         />
-        <UIButton modifier="submit-bg">Log in</UIButton>
+        <input
+          type="submit"
+          value="Log in"
+          className="signin-form__btn-submit"
+        />
       </form>
 
-      <div className="to-register-wrapper">
-        <div className="to-register__text">
-          Don't have an account ?<div className="to-register__btn">Sign up</div>
-        </div>
-      </div>
+      <Link className="signin-form__link-forgot-passwd">Forgot password ?</Link>
     </div>
   );
 };

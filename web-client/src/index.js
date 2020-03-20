@@ -8,13 +8,16 @@ import store from './redux/store';
 import App from './App';
 
 import './sass/main.scss';
+import RegisterFormCtxProvider from './components/form/RegisterForm.provider';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
+  <RegisterFormCtxProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </RegisterFormCtxProvider>,
   document.getElementById('root')
 );
 

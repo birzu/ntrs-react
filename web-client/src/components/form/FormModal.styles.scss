@@ -27,31 +27,35 @@
 
   &__logo-img {
     align-self: center;
-    margin-bottom: 6.8rem;
+    margin-bottom: 2.5rem;
     width: 10rem;
   }
 
   &__heading {
-    color: $color-grey-dark-9;
+    color: lighten($color-grey-dark-9, 10%);
     font-size: 2.2rem;
     font-weight: 400;
 
     &--1 {
+      align-self: center;
       display: block;
       background-image: linear-gradient(
         135deg,
         rgba($color-primary-light, 1),
-        rgba($color-primary-dark, 1)
+        rgba($color-primary-dark, 1) 85%
       );
+      text-shadow: 1px 2px 2px rgba(#000, 0.05);
       color: transparent;
       background-clip: text;
       margin-bottom: 2rem;
-      font-size: 2.5rem;
+      font-size: 2.6rem;
     }
 
     &--2 {
+      align-self: flex-start;
+      font-size: 1.6rem;
       font-weight: 400;
-      padding: 0 10%;
+      padding: 0 1.5rem;
     }
   }
 }

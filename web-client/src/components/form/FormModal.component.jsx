@@ -16,7 +16,7 @@ import SignInForm from '../form/SignInForm.component';
 import RegisterForm from '../form/RegisterForm.component';
 
 import './FormModal.styles.scss';
-import Logo from '../../assets/logo-green-2x.png';
+import Logo from '../../assets/logo-white.png';
 
 const mapStateToProps = createStructuredSelector({
   modalHidden: selectModalHidden
@@ -27,7 +27,15 @@ const mapDispatchToProps = dispatch => ({
   hideModal: () => dispatch(hideModal()),
   setModalName: modalName => dispatch(setCurrentModal(modalName))
 });
-const FormModal = ({ signin, register, modalHidden, style, ...props }) => {
+const FormModal = ({
+  signin,
+  register,
+  modalHidden,
+  showModal,
+  setModalName,
+  style,
+  ...props
+}) => {
   const fadeUp = useTransition(!modalHidden, null, {
     from: { opacity: 1, transform: 'translate3d(0, 20%, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0, 0, 0)' },
@@ -35,18 +43,36 @@ const FormModal = ({ signin, register, modalHidden, style, ...props }) => {
     config: { mass: 1, tension: 210, friction: 15 }
   });
 
+  const toSignin = e => {
+    e.stopPropagation();
+    setModalName('signin');
+    showModal();
+  };
+  const toRegister = e => {
+    e.stopPropagation();
+    setModalName('register');
+    showModal();
+  };
+
   return fadeUp.map(({ item, key, props: anim }) => {
     return item ? (
       <animated.div className="form-modal" style={anim} key={key}>
         <div className="form-modal__side">
           <img src={Logo} alt="logo" className="form-modal__logo-img"></img>
+          <h2 className="form-modal__heading form-modal__heading--1">
+            {register ? 'Welcome to Natours !' : 'Welcome back !'}
+          </h2>
           <h3 className="form-modal__heading form-modal__heading--2 ">
             {signin
-              ? `Don't have a natours account ?`
-              : 'Already have an account.'}
+              ? `Don't have a natours account ? Sign up using your email and password.`
+              : 'Already have an account. Log in using your email and password.'}
           </h3>
-          <UIButton utilCls="u-mt-lg" modifier="submit-bg">
-            {signin ? 'sign up now' : 'log in to your account'}
+          <UIButton
+            utilCls="u-mt-sm"
+            modifier="submit-bg"
+            onClick={signin ? toRegister : toSignin}
+          >
+            {signin ? 'sign up now' : 'log in'}
           </UIButton>
         </div>
         <div className="form-modal__content">
