@@ -64,10 +64,10 @@ const SlideContainer = () => {
   const nextSlide = useCallback(() => setSlideIndex(1), []);
   const prevSlide = useCallback(() => setSlideIndex(0), []);
 
-  useEffect(
-    () => void setInterval(() => setSlideIndex(i => (i + 1) % 2), 3800),
-    []
-  );
+  useEffect(() => {
+    const loop = setInterval(() => setSlideIndex(i => (i + 1) % 2), 3800);
+    return () => clearInterval(loop);
+  }, []);
 
   return (
     <section className="section-slides">

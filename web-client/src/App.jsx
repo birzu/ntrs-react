@@ -15,6 +15,21 @@ const App = () => {
         <Route exact path="/tours" component={ToursPage} />
         <Route path="/tours/:tourId" component={TourDetailsPage} />
         <Route exact path="/me/user-profile" component={UserProfilePage} />
+        {
+          // fallback route for 404
+        }
+        <Route
+          path="*"
+          render={({ location }) => (
+            <div
+              style={{
+                fontSize: '3rem',
+                color: '#777',
+                gridColumn: 'lpad-start / rpad-end'
+              }}
+            >{`${location.pathname} not found`}</div>
+          )}
+        />
       </Switch>
     </UIGrid>
   );

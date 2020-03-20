@@ -31,7 +31,7 @@ const TourContainer = () => {
               value={sortOptions['price']}
               name="select-box"
               className="section-tours__select"
-              checked
+              defaultChecked
             />
             <label htmlFor="select-box" className="section-tours__select-label">
               {sortOption}
@@ -79,8 +79,8 @@ const TourContainer = () => {
 
       <div className="section-tours__body">
         <div className="tour-container">
-          {new Array(10).fill(1).map(card => (
-            <div className="tour-container__card">
+          {new Array(10).fill(1).map((_, idx) => (
+            <div className="tour-container__card" key={idx}>
               <TourCard rating={3.5} size="md" />
             </div>
           ))}

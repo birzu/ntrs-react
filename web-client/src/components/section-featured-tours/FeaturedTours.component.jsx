@@ -5,9 +5,9 @@ import TourCard from '../tour-card/TourCard.component';
 import './FeaturedTours.styles.scss';
 
 class FeaturedTours extends React.Component {
-  renderTourItem = props => (
-    <div className="featured-tours__tour-list-item">
-      <TourCard {...props} />
+  renderTourItem = ({ key, ...rest }) => (
+    <div className="featured-tours__tour-list-item" key={key}>
+      <TourCard {...rest} />
     </div>
   );
 
@@ -21,7 +21,9 @@ class FeaturedTours extends React.Component {
         </div>
 
         <div className="featured-tours__tour-list">
-          {[1, 2, 3].map(el => this.renderTourItem({ id: el, rating: 4.6 }))}
+          {[1, 2, 3].map((el, idx) =>
+            this.renderTourItem({ id: el, rating: 4.6, key: idx })
+          )}
         </div>
       </section>
     );

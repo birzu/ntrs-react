@@ -59,10 +59,14 @@ const HeaderNavigation = ({ setModalName, showModal }) => {
       </div>
       <ul className="header__nav-list header__nav-list--1">
         <li className="header__nav-list-item">
-          <Link className="ntrs-link header__nav-link">Home</Link>
+          <Link className="ntrs-link header__nav-link" to="/">
+            Home
+          </Link>
         </li>
         <li className="header__nav-list-item">
-          <Link className="ntrs-link header__nav-link">Tours</Link>
+          <Link className="ntrs-link header__nav-link" to="/tours">
+            Tours
+          </Link>
         </li>
       </ul>
       <div className="header__nav-list-divider"></div>
