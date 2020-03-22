@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import isEmail from 'validator/lib/isEmail';
 
 import FormGroup from '../form-group/FormGroup.component';
-import UIButton from '../core-ui/button/UIButton';
 
 import './Form.styles.scss';
 
@@ -18,10 +17,7 @@ const SignInForm = ({ onDismiss }) => {
       className="signin-form-modal-wrapper"
       onClick={e => e.stopPropagation()}
     >
-      <div
-        className="signin-form__modal-btn-dismiss"
-        onClick={() => onDismiss()}
-      >
+      <div className="signin-form__modal-btn-dismiss" onClick={onDismiss}>
         &#10005;
       </div>
 
@@ -54,7 +50,9 @@ const SignInForm = ({ onDismiss }) => {
         />
       </form>
 
-      <Link className="signin-form__link-forgot-passwd">Forgot password ?</Link>
+      <Link to="#" className="signin-form__link-forgot-passwd">
+        Forgot password ?
+      </Link>
     </div>
   );
 };

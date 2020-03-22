@@ -1,10 +1,8 @@
-import React, { Fragment, useState, useCallback, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import isEmail from 'validator/lib/isEmail';
 
-import RegisterFormCtxProvider, {
-  RegisterFormContext
-} from './RegisterForm.provider';
+import { RegisterFormContext } from '../../providers/RegisterForm.provider';
 
 import FormGroup from '../form-group/FormGroup.component';
 import FormInput from '../form-input/FormInput.component';
