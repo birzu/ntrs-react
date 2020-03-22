@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { showModal, setCurrentModal } from '../../redux/reducers/modal.reducer';
+import useFormModalNavigation from '../../hooks/useFormModalNavigation';
 
 import UIButton from '../core-ui/button/UIButton';
 
@@ -11,12 +10,8 @@ import Img3 from '../../assets/sea-exlorer_2.jpg';
 
 import './SectionAbout.styles.scss';
 
-const mapDispatchToProps = dispatch => ({
-  setModalName: modalName => dispatch(setCurrentModal(modalName)),
-  showModal: () => dispatch(showModal())
-});
-
 const SectionAbout = ({ setModalName, showModal }) => {
+  const { handleClickOnRegister } = useFormModalNavigation();
   return (
     <section className="section-about">
       <h2 className="section-about__heading heading-2 heading-2--primary u-mb-sm">
@@ -46,10 +41,7 @@ const SectionAbout = ({ setModalName, showModal }) => {
           <UIButton
             utilCls="u-mt-bg"
             modifier="secondary"
-            onClick={() => {
-              setModalName('signin');
-              showModal();
-            }}
+            onClick={handleClickOnRegister}
           >
             Sign up now <span>&#10142;</span>
           </UIButton>
@@ -82,4 +74,4 @@ const SectionAbout = ({ setModalName, showModal }) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(SectionAbout);
+export default SectionAbout;

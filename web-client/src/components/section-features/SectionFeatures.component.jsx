@@ -1,12 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React, { useContext } from 'react';
 
+import { ModalContext } from '../../providers/Modal.provider';
 import FeatureCard from '../feature-card/FeatureCard.component';
 import UIButton from '../core-ui/button/UIButton';
 
 import './SectionFeatures.styles.scss';
-import { setCurrentModal, showModal } from '../../redux/reducers/modal.reducer';
 
 const FEATURE_CARD_TEXTS = [
   'Variety of tours all across the world. You can choose your own experience based on your need.',
@@ -14,12 +12,8 @@ const FEATURE_CARD_TEXTS = [
   'We bring you close to nature. Take a break from your busy life an enjoy the beauty of nature.'
 ];
 
-const mapDispatchToProps = dispatch => ({
-  setModalName: modalName => dispatch(setCurrentModal(modalName)),
-  showModal: () => dispatch(showModal())
-});
-
-const SectionFeatures = ({ showModal, setModalName }) => {
+const SectionFeatures = () => {
+  const { showCtaModal } = useContext(ModalContext);
   return (
     <section className="section-features">
       <h2 className="heading-2 heading-2--primary section-features__heading u-mb-md">
@@ -49,11 +43,7 @@ const SectionFeatures = ({ showModal, setModalName }) => {
       <UIButton
         modifier="primary"
         utilCls="u-mt-bg u-grid-center"
-        onClick={e => {
-          e.stopPropagation();
-          setModalName('Cta');
-          showModal();
-        }}
+        onClick={showCtaModal}
       >
         Contact now
       </UIButton>
@@ -61,4 +51,4 @@ const SectionFeatures = ({ showModal, setModalName }) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(SectionFeatures);
+export default SectionFeatures;
