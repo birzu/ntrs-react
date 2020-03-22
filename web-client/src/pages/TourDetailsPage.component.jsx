@@ -18,10 +18,6 @@ const TourDetailsPage = () => {
       <LinkNavigation />
       <TourDetailsIntro />
       <TourQuickSummary />
-      {
-        // not rendering map box for now
-        // <TourMapBox />
-      }
       <TourDetails />
       <TourMapBox />
       <TourReviews />
