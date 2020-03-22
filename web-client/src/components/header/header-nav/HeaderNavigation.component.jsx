@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import {
-  setCurrentModal,
-  showModal
-} from '../../../redux/reducers/modal.reducer';
+import useFormModalNavigation from '../../../hooks/useFormModalNavigation';
+import useStickHeader from '../../../hooks/useStickyHeader';
 
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
-import logo from '../../../assets/logo-green-small-2x.png';
-
 import UIButton from '../../core-ui/button/UIButton';
 
+import logo from '../../../assets/logo-green-small-2x.png';
 import './HeaderNavigation.styles.scss';
 
-const mapDispatchToProps = dispatch => ({
-  setModalName: modalName => dispatch(setCurrentModal(modalName)),
-  showModal: () => dispatch(showModal())
-});
+const HeaderNavigation = () => {
+  const shouldStick = useStickHeader();
+  const {
+    handleClickOnRegister,
+    handleClickOnSignin
+  } = useFormModalNavigation();
 
-const HeaderNavigation = ({ setModalName, showModal }) => {
-  const [shouldStick, setShouldStick] = useState(false);
-  const handleScroll = () => {
-    setShouldStick(window.scrollY > 100);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
   return (
     <div
       style={{ display: 'flex' }}
@@ -72,24 +58,12 @@ const HeaderNavigation = ({ setModalName, showModal }) => {
       <div className="header__nav-list-divider"></div>
       <ul className="header__nav-list header__nav-list--2">
         <li className="header__nav-list-item">
-          <UIButton
-            modifier="login"
-            onClick={() => {
-              setModalName('signin');
-              showModal();
-            }}
-          >
+          <UIButton modifier="login" onClick={handleClickOnSignin}>
             Sign in
           </UIButton>
         </li>
         <li className="header__nav-list-item">
-          <UIButton
-            modifier="register"
-            onClick={() => {
-              setModalName('register');
-              showModal();
-            }}
-          >
+          <UIButton modifier="register" onClick={handleClickOnRegister}>
             register
           </UIButton>
         </li>
@@ -114,4 +88,4 @@ const HeaderNavigation = ({ setModalName, showModal }) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(HeaderNavigation);
+export default HeaderNavigation;
