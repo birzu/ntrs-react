@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import ModalCtxProvider from './providers/Modal.provider';
+import FormCtxProvider from './providers/FormCtx.provider';
 import store from './redux/store';
 
 import App from './App';
@@ -11,9 +13,13 @@ import './sass/main.scss';
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ModalCtxProvider>
+      <FormCtxProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </FormCtxProvider>
+    </ModalCtxProvider>
   </Provider>,
   document.getElementById('root')
 );
