@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useContext, Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import {
+  ModalContext,
+  useModalAnimation
+} from '../../providers/Modal.provider';
 
-const Modal = InnerContent => ({ hideModal, style, ...props }) => {
+const Modal = () => {
+  const { modalHidden, hideModal, modal } = useContext(ModalContext);
+  const fadeUp = useModalAnimation();
+  const Modal = modal.current;
+
   return ReactDOM.createPortal(
-    <div className="modal-wrapper" style={style}>
-      <InnerContent style={style} onDismiss={hideModal} {...props} />
-    </div>,
+    <Fragment>
+      {!modalHidden ? (
+        <div className="modal-wrapper" onClick={hideModal}>
+          {fadeUp.map(({ item, props: style, key }) =>
+            item ? (
+              <Modal animation={style} onDismiss={hideModal} key={key} />
+            ) : null
+          )}
+        </div>
+      ) : null}
+    </Fragment>,
     document.getElementById('reactPortal')
   );
 };
