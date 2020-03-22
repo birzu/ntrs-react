@@ -4,9 +4,6 @@ import SvgIconSelector from '../svg-icon-selector/SvgIconSelector.component';
 
 import './TourDetails.styles.scss';
 
-import Img1 from '../../assets/sports-lover-1.jpg';
-import Img2 from '../../assets/mountain-hiker_1.jpg';
-import Img3 from '../../assets/hero.jpg';
 import GuideImg from '../../assets/user-10.jpg';
 import GuideImg2 from '../../assets/user-12.jpg';
 

@@ -3,14 +3,12 @@ import { useForm } from 'react-hook-form';
 import isEmail from 'validator/lib/isEmail';
 
 import FormGroup from '../../form-group/FormGroup.component';
-import UIButton from '../../core-ui/button/UIButton';
 import SvgIconSelector from '../../svg-icon-selector/SvgIconSelector.component';
 
 import './ProfileForm.styles.scss';
 
 // temp
 import UserPhoto from '../../../assets/user-12.jpg';
-import FormInput from '../../form-input/FormInput.component';
 import FormError from '../../form-error/FormError.component';
 
 const EditDetails = () => {
