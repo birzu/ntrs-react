@@ -29,7 +29,9 @@ export const useModalAnimation = () => {
     config: { mass: 1, tension: 210, friction: 15 }
   });
 
-  return fadeUp;
+  return useMemo(() => {
+    return fadeUp;
+  }, [fadeUp]);
 };
 
 const ModalCtxProvider = ({ children }) => {
