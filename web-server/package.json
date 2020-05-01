@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon --inspect=0.0.0.0:9229 server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "",
@@ -47,9 +49,11 @@
     "speakeasy": "^2.0.0",
     "validator": "^12.2.0",
     "winston": "^3.2.1",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
+    "snyk": "^1.316.1"
   },
   "engines": {
     "node": "12.16.0"
-  }
+  },
+  "snyk": true
 }
